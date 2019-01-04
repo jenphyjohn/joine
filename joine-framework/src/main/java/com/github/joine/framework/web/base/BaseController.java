@@ -73,6 +73,16 @@ public class BaseController {
     }
 
     /**
+     * 响应返回结果
+     *
+     * @param result 结果
+     * @return 操作结果
+     */
+    protected AjaxResult toAjax(boolean result) {
+        return result ? success() : error();
+    }
+
+    /**
      * 返回成功
      */
     public AjaxResult success() {
