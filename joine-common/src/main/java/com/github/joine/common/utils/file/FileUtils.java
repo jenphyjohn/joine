@@ -13,6 +13,8 @@ public class FileUtils {
     /**
      * 输出指定文件的byte数组
      *
+     * @param filePath 文件路径
+     * @param os       输出流
      */
     public static void writeBytes(String filePath, OutputStream os) throws IOException {
         FileInputStream fis = null;
@@ -50,7 +52,7 @@ public class FileUtils {
     /**
      * 删除文件
      *
-     * @param filePath 文件
+     * @param filePath 文件路径
      */
     public static boolean deleteFile(String filePath) {
         boolean flag = false;
@@ -65,7 +67,6 @@ public class FileUtils {
 
     /**
      * 浏览器字符集兼容
-     *
      */
     public static String setFileDownloadHeader(HttpServletRequest request, String fileName) throws UnsupportedEncodingException {
         final String agent = request.getHeader("USER-AGENT");
