@@ -1,18 +1,5 @@
 package com.github.joine.framework.aspectj;
 
-import java.lang.reflect.Method;
-import java.util.Map;
-
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.enums.BusinessStatus;
 import com.github.joine.common.json.JSON;
@@ -23,6 +10,19 @@ import com.github.joine.framework.util.ServletUtils;
 import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.system.domain.SysOperLog;
 import com.github.joine.system.domain.SysUser;
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * 操作日志记录处理
@@ -110,6 +110,8 @@ public class LogAspect {
     /**
      * 获取注解中对方法的描述信息 用于Controller层注解
      *
+     * @param log     日志
+     * @param operLog 操作日志
      * @throws Exception
      */
     public void getControllerMethodDescription(Log log, SysOperLog operLog) throws Exception {

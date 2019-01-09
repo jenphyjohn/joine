@@ -10,7 +10,6 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.common.utils.bean.BeanUtils;
-import com.github.joine.framework.shiro.realm.UserRealm;
 import com.github.joine.system.domain.SysUser;
 
 /**
@@ -20,7 +19,7 @@ import com.github.joine.system.domain.SysUser;
  */
 public class ShiroUtils
 {
-    public static Subject getSubjct()
+    public static Subject getSubject()
     {
         return SecurityUtils.getSubject();
     }
@@ -32,13 +31,13 @@ public class ShiroUtils
 
     public static void logout()
     {
-        getSubjct().logout();
+        getSubject().logout();
     }
 
     public static SysUser getSysUser()
     {
         SysUser user = null;
-        Object obj = getSubjct().getPrincipal();
+        Object obj = getSubject().getPrincipal();
         if (StringUtils.isNotNull(obj))
         {
             user = new SysUser();
@@ -49,7 +48,7 @@ public class ShiroUtils
 
     public static void setSysUser(SysUser user)
     {
-        Subject subject = getSubjct();
+        Subject subject = getSubject();
         PrincipalCollection principalCollection = subject.getPrincipals();
         String realmName = principalCollection.getRealmNames().iterator().next();
         PrincipalCollection newPrincipalCollection = new SimplePrincipalCollection(user, realmName);
@@ -76,12 +75,12 @@ public class ShiroUtils
 
     public static String getIp()
     {
-        return getSubjct().getSession().getHost();
+        return getSubject().getSession().getHost();
     }
 
     public static String getSessionId()
     {
-        return String.valueOf(getSubjct().getSession().getId());
+        return String.valueOf(getSubject().getSession().getId());
     }
 
     /**

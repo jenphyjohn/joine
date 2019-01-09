@@ -1,32 +1,28 @@
 package com.github.joine.framework.shiro.web.filter.online;
 
-import java.io.IOException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-
-import com.github.joine.framework.shiro.session.OnlineSession;
-import com.github.joine.framework.shiro.session.OnlineSessionDAO;
-import com.github.joine.framework.util.ShiroUtils;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
-import org.apache.shiro.web.filter.AccessControlFilter;
-import org.apache.shiro.web.util.WebUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import com.github.joine.common.constant.ShiroConstants;
 import com.github.joine.common.enums.OnlineStatus;
 import com.github.joine.framework.shiro.session.OnlineSession;
 import com.github.joine.framework.shiro.session.OnlineSessionDAO;
 import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.system.domain.SysUser;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.filter.AccessControlFilter;
+import org.apache.shiro.web.util.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import java.io.IOException;
 
 /**
  * 自定义访问控制
- * 
+ *
  * @author JenphyJohn
  */
-public class OnlineSessionFilter extends AccessControlFilter
-{
+public class OnlineSessionFilter extends AccessControlFilter {
     /**
      * 强制退出后重定向的地址
      */
@@ -40,26 +36,20 @@ public class OnlineSessionFilter extends AccessControlFilter
      * 表示是否允许访问；mappedValue就是[urls]配置中拦截器参数部分，如果允许访问返回true，否则false；
      */
     @Override
-    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
-            throws Exception
-    {
+    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         Subject subject = getSubject(request, response);
-        if (subject == null || subject.getSession() == null)
-        {
+        if (subject == null || subject.getSession() == null) {
             return true;
         }
         Session session = onlineSessionDAO.readSession(subject.getSession().getId());
-        if (session != null && session instanceof OnlineSession)
-        {
+        if (session instanceof OnlineSession) {
             OnlineSession onlineSession = (OnlineSession) session;
             request.setAttribute(ShiroConstants.ONLINE_SESSION, onlineSession);
             // 把user对象设置进去
             boolean isGuest = onlineSession.getUserId() == null || onlineSession.getUserId() == 0L;
-            if (isGuest == true)
-            {
+            if (isGuest) {
                 SysUser user = ShiroUtils.getSysUser();
-                if (user != null)
-                {
+                if (user != null) {
                     onlineSession.setUserId(user.getUserId());
                     onlineSession.setLoginName(user.getLoginName());
                     onlineSession.setDeptName(user.getDept().getDeptName());
@@ -67,8 +57,7 @@ public class OnlineSessionFilter extends AccessControlFilter
                 }
             }
 
-            if (onlineSession.getStatus() == OnlineStatus.off_line)
-            {
+            if (onlineSession.getStatus() == OnlineStatus.off_line) {
                 return false;
             }
         }
@@ -79,21 +68,18 @@ public class OnlineSessionFilter extends AccessControlFilter
      * 表示当访问拒绝时是否已经处理了；如果返回true表示需要继续处理；如果返回false表示该拦截器实例已经处理了，将直接返回即可。
      */
     @Override
-    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception
-    {
+    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         Subject subject = getSubject(request, response);
-        if (subject != null)
-        {
+        if (subject != null) {
             subject.logout();
         }
         saveRequestAndRedirectToLogin(request, response);
-        return true;
+        return false;
     }
 
     // 跳转到登录页
     @Override
-    protected void redirectToLogin(ServletRequest request, ServletResponse response) throws IOException
-    {
+    protected void redirectToLogin(ServletRequest request, ServletResponse response) throws IOException {
         WebUtils.issueRedirect(request, response, loginUrl);
     }
 }
