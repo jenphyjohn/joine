@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--360浏览器优先以webkit内核解析-->
+    <title>Joine介绍</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+    <link href="../static/css/main/animate.min.css" th:href="@{/css/main/animate.min.css}" rel="stylesheet"/>
+    <link href="../static/css/main/style.min862f.css" th:href="@{/css/main/style.min862f.css}" rel="stylesheet"/>
+</head>
+
+<body class="gray-bg">
+    <div class="row  border-bottom white-bg dashboard-header">
+        <div class="col-sm-5">
+            <h2>Joine后台管理系统</h2>
+            <p>Joine后台管理系统可用于大多数Web应用程序，如<b>网站管理后台</b>，<b>网站会员中心</b>，<b>CMS</b>，<b>CRM</b>，<b>OA</b>等等，甚至可以在此基础上深度开发，做出更复杂的系统。前后台代码高度封装极易上手。</p>
+            <p>
+                <b>当前版本：</b><span>v[[${version}]]</span>
+            </p>
+            <p>
+                <span class="label label-info">&yen;免费开源</span>
+            </p>
+            <br>
+            <p>
+                <a class="btn btn-info btn-outline" href="https://github.com/jenphyjohn/joine" target="_blank">
+                    <i class="fa fa-cloud"> </i> 访问GitHub
+                </a>
+                <a class="btn btn-white btn-bitbucket" href="http://join-e.tech" target="_blank">
+                    <i class="fa fa-home"></i> 访问主页
+                </a>
+            </p>
+        </div>
+        <div class="col-sm-4">
+            <h4>技术选型：</h4>
+            <ol>
+                <li>核心框架：Spring Boot。</li>
+                <li>安全框架：Apache Shiro。</li>
+                <li>模板引擎：Thymeleaf。</li>
+                <li>持久层框架：MyBatis。</li>
+				<li>定时任务:Quartz。</li>
+                <li>数据库连接池：Druid。</li>
+                <li>工具类：Fastjson。</li>
+                <li>更多……</li>
+            </ol>
+        </div>
+
+    </div>
+    <div class="wrapper wrapper-content">
+        <div class="row">
+            <div class="col-sm-4">
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>联系信息</h5>
+
+                    </div>
+                    <div class="ibox-content">
+                        <p><i class="fa fa-send-o"></i> 官网：<a href="https://www.join-e.tech" target="_blank">https://www.join-e.tech</a>
+                        </p>
+                        <p><i class="fa fa-qq"></i> QQ群：573146539
+                        </p>
+						<p>
+							<img th:src="@{/img/qqgroup.png}" width="100%" alt="欢迎打开手机QQ扫码加群">
+						</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>
