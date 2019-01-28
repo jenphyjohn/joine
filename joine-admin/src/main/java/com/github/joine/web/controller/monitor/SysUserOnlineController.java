@@ -10,7 +10,7 @@ import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.framework.web.base.BaseController;
 import com.github.joine.framework.web.page.TableDataInfo;
 import com.github.joine.system.domain.SysUserOnline;
-import com.github.joine.system.service.impl.SysUserOnlineServiceImpl;
+import com.github.joine.system.service.ISysUserOnlineService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +29,7 @@ public class SysUserOnlineController extends BaseController {
     private String prefix = "monitor/online";
 
     @Autowired
-    private SysUserOnlineServiceImpl userOnlineService;
+    private ISysUserOnlineService userOnlineService;
 
     @Autowired
     private OnlineSessionDAO onlineSessionDAO;

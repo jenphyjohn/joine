@@ -4,6 +4,7 @@ import com.github.joine.common.annotation.Log;
 import com.github.joine.common.base.AjaxResult;
 import com.github.joine.common.config.Global;
 import com.github.joine.common.enums.BusinessType;
+import com.github.joine.common.utils.StringUtils;
 import com.github.joine.framework.shiro.service.SysPasswordService;
 import com.github.joine.framework.util.FileUploadUtils;
 import com.github.joine.framework.util.ShiroUtils;
@@ -11,7 +12,6 @@ import com.github.joine.framework.web.base.BaseController;
 import com.github.joine.system.domain.SysUser;
 import com.github.joine.system.service.ISysDictDataService;
 import com.github.joine.system.service.ISysUserService;
-import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,48 +58,54 @@ public class SysProfileController extends BaseController {
     @ResponseBody
     public boolean checkPassword(String password) {
         SysUser user = getSysUser();
-        String encrypt = new Md5Hash(user.getLoginName() + password + user.getSalt()).toHex().toString();
-        if (user.getPassword().equals(encrypt)) {
+        if (passwordService.matches(user, password)) {
             return true;
         }
         return false;
     }
 
-    @GetMapping("/resetPwd/{userId}")
-    public String resetPwd(@PathVariable("userId") Long userId, ModelMap modelMap) {
-        modelMap.put("user", userService.selectUserById(userId));
+    @GetMapping("/resetPwd")
+    public String resetPwd(ModelMap modelMap) {
+        SysUser user = getSysUser();
+        modelMap.put("user", userService.selectUserById(user.getUserId()));
         return prefix + "/resetPwd";
     }
 
     @Log(title = "重置密码", businessType = BusinessType.UPDATE)
     @PostMapping("/resetPwd")
     @ResponseBody
-    public AjaxResult resetPwd(SysUser user) {
-        user.setSalt(ShiroUtils.randomSalt());
-        user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
-        int rows = userService.resetUserPwd(user);
-        if (rows > 0) {
-            setSysUser(userService.selectUserById(user.getUserId()));
-            return success();
+    public AjaxResult resetPwd(String oldPassword, String newPassword) {
+        SysUser user = getSysUser();
+        if (StringUtils.isNotEmpty(newPassword) && passwordService.matches(user, oldPassword)) {
+            user.setSalt(ShiroUtils.randomSalt());
+            user.setPassword(passwordService.encryptPassword(user.getLoginName(), newPassword, user.getSalt()));
+            if (userService.resetUserPwd(user) > 0) {
+                setSysUser(userService.selectUserById(user.getUserId()));
+                return success();
+            }
+            return error();
+        } else {
+            return error("修改密码失败，旧密码错误");
         }
-        return error();
     }
 
     /**
      * 修改用户
      */
-    @GetMapping("/edit/{userId}")
-    public String edit(@PathVariable("userId") Long userId, ModelMap modelMap) {
-        modelMap.put("user", userService.selectUserById(userId));
+    @GetMapping("/edit")
+    public String edit(ModelMap modelMap) {
+        SysUser user = getSysUser();
+        modelMap.put("user", userService.selectUserById(user.getUserId()));
         return prefix + "/edit";
     }
 
     /**
      * 修改头像
      */
-    @GetMapping("/avatar/{userId}")
-    public String avatar(@PathVariable("userId") Long userId, ModelMap modelMap) {
-        modelMap.put("user", userService.selectUserById(userId));
+    @GetMapping("/avatar")
+    public String avatar(ModelMap modelMap) {
+        SysUser user = getSysUser();
+        modelMap.put("user", userService.selectUserById(user.getUserId()));
         return prefix + "/avatar";
     }
 
@@ -110,8 +116,13 @@ public class SysProfileController extends BaseController {
     @PostMapping("/update")
     @ResponseBody
     public AjaxResult update(SysUser user) {
-        if (userService.updateUserInfo(user) > 0) {
-            setSysUser(userService.selectUserById(user.getUserId()));
+        SysUser currentUser = getSysUser();
+        currentUser.setUserName(user.getUserName());
+        currentUser.setEmail(user.getEmail());
+        currentUser.setPhonenumber(user.getPhonenumber());
+        currentUser.setSex(user.getSex());
+        if (userService.updateUserInfo(currentUser) > 0) {
+            setSysUser(userService.selectUserById(currentUser.getUserId()));
             return success();
         }
         return error();
@@ -123,13 +134,14 @@ public class SysProfileController extends BaseController {
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
     @PostMapping("/updateAvatar")
     @ResponseBody
-    public AjaxResult updateAvatar(SysUser user, @RequestParam("avatarfile") MultipartFile file) {
+    public AjaxResult updateAvatar(@RequestParam("avatarfile") MultipartFile file) {
+        SysUser currentUser = getSysUser();
         try {
             if (!file.isEmpty()) {
                 String avatar = FileUploadUtils.upload(Global.getAvatarPath(), file);
-                user.setAvatar(avatar);
-                if (userService.updateUserInfo(user) > 0) {
-                    setSysUser(userService.selectUserById(user.getUserId()));
+                currentUser.setAvatar(avatar);
+                if (userService.updateUserInfo(currentUser) > 0) {
+                    setSysUser(userService.selectUserById(currentUser.getUserId()));
                     return success();
                 }
             }
