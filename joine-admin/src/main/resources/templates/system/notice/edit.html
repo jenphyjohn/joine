@@ -58,17 +58,17 @@
 				lang : 'zh-CN'
 		    });
 			var content = $("#noticeContent").val();
-		    $('#editor').code(content);
+            $('#editor').summernote('code', content);
 	    });
 	    
 		$("#form-notice-edit").validate({
 			rules:{
-				xxxx:{
+                noticeTitle:{
 					required:true,
-				},
+				}
 			},
 			submitHandler: function(form) {
-				var sHTML = $('.summernote').code();
+                var sHTML = $('.summernote').summernote('code');
 				$("#noticeContent").val(sHTML);
 				$.operate.save(prefix + "/edit", $('#form-notice-edit').serialize());
 			}
