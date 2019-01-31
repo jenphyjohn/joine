@@ -7,13 +7,12 @@ import java.lang.annotation.Target;
 
 /**
  * 自定义导出Excel数据注解
- * 
+ *
  * @author JenphyJohn
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface Excel
-{
+public @interface Excel {
     /**
      * 导出到Excel中的名字.
      */
@@ -37,7 +36,7 @@ public @interface Excel
     /**
      * 导出时在excel中每个列的宽 单位为字符
      */
-    double width() default 20;
+    double width() default 16;
 
     /**
      * 文字后缀,如% 90 变成90%
@@ -68,4 +67,22 @@ public @interface Excel
      * 另一个类中的属性名称,支持多级获取,以小数点隔开
      */
     String targetAttr() default "";
+
+    /**
+     * 字段类型（ 1：仅导出；2：仅导入）
+     */
+    Type type() default Type.EXPORT;
+
+    enum Type {
+        EXPORT(1), IMPORT(2);
+        private final int value;
+
+        Type(int value) {
+            this.value = value;
+        }
+
+        public int value() {
+            return this.value;
+        }
+    }
 }

@@ -8,6 +8,8 @@ import com.github.joine.common.utils.StringUtils;
 import com.github.joine.system.domain.*;
 import com.github.joine.system.mapper.*;
 import com.github.joine.system.service.ISysUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,9 @@ import java.util.List;
  */
 @Service
 public class SysUserServiceImpl implements ISysUserService {
+
+    private static final Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
+
     @Autowired
     private SysUserMapper userMapper;
 
@@ -189,16 +194,19 @@ public class SysUserServiceImpl implements ISysUserService {
      * @param user 用户对象
      */
     public void insertUserRole(SysUser user) {
-        // 新增用户与角色管理
-        List<SysUserRole> list = new ArrayList<SysUserRole>();
-        for (Long roleId : user.getRoleIds()) {
-            SysUserRole ur = new SysUserRole();
-            ur.setUserId(user.getUserId());
-            ur.setRoleId(roleId);
-            list.add(ur);
-        }
-        if (list.size() > 0) {
-            userRoleMapper.batchUserRole(list);
+        Long[] roles = user.getRoleIds();
+        if (StringUtils.isNotNull(roles)) {
+            // 新增用户与角色管理
+            List<SysUserRole> list = new ArrayList();
+            for (Long roleId : roles) {
+                SysUserRole ur = new SysUserRole();
+                ur.setUserId(user.getUserId());
+                ur.setRoleId(roleId);
+                list.add(ur);
+            }
+            if (list.size() > 0) {
+                userRoleMapper.batchUserRole(list);
+            }
         }
     }
 
@@ -208,16 +216,19 @@ public class SysUserServiceImpl implements ISysUserService {
      * @param user 用户对象
      */
     public void insertUserPost(SysUser user) {
-        // 新增用户与岗位管理
-        List<SysUserPost> list = new ArrayList<SysUserPost>();
-        for (Long postId : user.getPostIds()) {
-            SysUserPost up = new SysUserPost();
-            up.setUserId(user.getUserId());
-            up.setPostId(postId);
-            list.add(up);
-        }
-        if (list.size() > 0) {
-            userPostMapper.batchUserPost(list);
+        Long[] posts = user.getPostIds();
+        if (StringUtils.isNotNull(posts)) {
+            // 新增用户与岗位管理
+            List<SysUserPost> list = new ArrayList();
+            for (Long postId : posts) {
+                SysUserPost up = new SysUserPost();
+                up.setUserId(user.getUserId());
+                up.setPostId(postId);
+                list.add(up);
+            }
+            if (list.size() > 0) {
+                userPostMapper.batchUserPost(list);
+            }
         }
     }
 
@@ -304,5 +315,52 @@ public class SysUserServiceImpl implements ISysUserService {
             return idsStr.substring(0, idsStr.length() - 1);
         }
         return idsStr.toString();
+    }
+
+    /**
+     * 导入用户数据
+     *
+     * @param userList 用户数据列表
+     * @param isUpdateSupport 是否更新支持，如果已存在，则进行更新数据
+     * @return 结果
+     */
+    public String importUser(List<SysUser> userList, Boolean isUpdateSupport) {
+        if (StringUtils.isNull(userList) || userList.size() == 0) {
+            throw new BusinessException("导入用户数据不能为空！");
+        }
+        int successNum = 0;
+        int failureNum = 0;
+        StringBuilder successMsg = new StringBuilder();
+        StringBuilder failureMsg = new StringBuilder();
+        for (SysUser user : userList) {
+            try {
+                // 验证是否存在这个用户
+                SysUser u = userMapper.selectUserByLoginName(user.getLoginName());
+                if (StringUtils.isNull(u)) {
+                    this.insertUser(user);
+                    successNum++;
+                    successMsg.append("<br/>" + successNum + "、账号 " + user.getLoginName() + " 导入成功");
+                } else if (isUpdateSupport) {
+                    this.updateUser(user);
+                    successNum++;
+                    successMsg.append("<br/>" + successNum + "、账号 " + user.getLoginName() + " 更新成功");
+                } else {
+                    failureNum++;
+                    failureMsg.append("<br/>" + failureNum + "、账号 " + user.getLoginName() + " 已存在");
+                }
+            } catch (Exception e) {
+                failureNum++;
+                String msg = "<br/>" + failureNum + "、账号 " + user.getLoginName() + " 导入失败：";
+                failureMsg.append(msg + e.getMessage());
+                log.error(msg, e);
+            }
+        }
+        if (failureNum > 0) {
+            failureMsg.insert(0, "很抱歉，导入失败！共 " + failureNum + " 条数据格式不正确，错误如下：");
+            throw new BusinessException(failureMsg.toString());
+        } else {
+            successMsg.insert(0, "恭喜您，数据已全部导入成功！共 " + successNum + " 条，数据如下：");
+        }
+        return successMsg.toString();
     }
 }

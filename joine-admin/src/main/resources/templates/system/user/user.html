@@ -67,6 +67,9 @@
 				<a class="btn btn-info" onclick="$.table.exportExcel()" shiro:hasPermission="system:user:export">
 					<i class="fa fa-download"></i> 导出
 				</a>
+				<a class="btn btn-info" onclick="$.table.importExcel()" shiro:hasPermission="system:user:import">
+					<i class="fa fa-download"></i> 导入
+				</a>
 				<a class="btn btn-info" onclick="$.operate.add()" shiro:hasPermission="system:user:add">
 					<i class="fa fa-plus"></i> 新增
 				</a>
@@ -106,6 +109,8 @@
 		        updateUrl: prefix + "/edit/{id}",
 		        removeUrl: prefix + "/remove",
 		        exportUrl: prefix + "/export",
+                importUrl: prefix + "/importData",
+                importTemplateUrl: prefix + "/importTemplate",
 		        sortName: "createTime",
 		        sortOrder: "desc",
 		        modalName: "用户",
@@ -214,4 +219,16 @@
 		}
 	</script>
 </body>
+<form id="importForm" enctype="multipart/form-data" class="mt20 mb10" style="display: none;">
+	<div class="col-xs-offset-1">
+		<input type="file" id="file" name="file"/>
+		<div class="mt10 pt5">
+			<input type="checkbox" id="updateSupport" name="updateSupport" title="如果登录账户已经存在，更新这条数据。"> 是否更新已经存在的用户数据
+			&nbsp;	<a onclick="$.table.importTemplate()" class="btn btn-default btn-xs"><i class="fa fa-file-excel-o"></i> 下载模板</a>
+		</div>
+		<font color="red" class="pull-left mt10">
+			提示：仅允许导入“xls”或“xlsx”格式文件！
+		</font>
+	</div>
+</form>
 </html>

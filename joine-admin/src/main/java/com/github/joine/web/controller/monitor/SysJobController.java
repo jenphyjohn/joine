@@ -52,7 +52,7 @@ public class SysJobController extends BaseController {
     public AjaxResult export(SysJob job) {
         List<SysJob> list = jobService.selectJobList(job);
         ExcelUtil<SysJob> util = new ExcelUtil<SysJob>(SysJob.class);
-        return util.exportExcel(list, "job");
+        return util.exportExcel(list, "定时任务");
     }
 
     @Log(title = "定时任务", businessType = BusinessType.DELETE)
