@@ -1,6 +1,7 @@
 package com.github.joine.system.domain;
 
 import com.github.joine.common.annotation.Excel;
+import com.github.joine.common.annotation.Excel.Type;
 import com.github.joine.common.base.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -25,6 +26,7 @@ public class SysUser extends BaseEntity {
     /**
      * 部门ID
      */
+    @Excel(name = "部门编号", type = Type.IMPORT)
     private Long deptId;
 
     /**
@@ -91,19 +93,19 @@ public class SysUser extends BaseEntity {
     /**
      * 最后登陆IP
      */
-    @Excel(name = "最后登陆IP")
+    @Excel(name = "最后登陆IP", type = Type.EXPORT)
     private String loginIp;
 
     /**
      * 最后登陆时间
      */
-    @Excel(name = "最后登陆时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "最后登陆时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss", type = Type.EXPORT)
     private Date loginDate;
 
     /**
      * 部门对象
      */
-    @Excel(name = "部门名称", targetAttr = "deptName")
+    @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT)
     private SysDept dept;
 
     private List<SysRole> roles;

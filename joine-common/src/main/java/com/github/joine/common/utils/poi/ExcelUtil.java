@@ -1,10 +1,14 @@
-package com.github.joine.common.utils;
+package com.github.joine.common.utils.poi;
 
 import com.github.joine.common.annotation.Excel;
 import com.github.joine.common.annotation.Excel.Type;
 import com.github.joine.common.base.AjaxResult;
 import com.github.joine.common.config.Global;
 import com.github.joine.common.exception.BusinessException;
+import com.github.joine.common.support.Convert;
+import com.github.joine.common.utils.DateUtils;
+import com.github.joine.common.utils.ReflectUtils;
+import com.github.joine.common.utils.StringUtils;
 import org.apache.poi.hssf.usermodel.DVConstraint;
 import org.apache.poi.hssf.usermodel.HSSFDataValidation;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
@@ -104,6 +108,7 @@ public class ExcelUtil<T> {
      * @return 转换后集合
      */
     public List<T> importExcel(String sheetName, InputStream is) throws Exception {
+        this.type = Type.IMPORT;
         this.wb = new XSSFWorkbook(is);
         List<T> list = new ArrayList<T>();
         Sheet sheet = null;
@@ -130,8 +135,8 @@ public class ExcelUtil<T> {
             Map<Integer, Field> fieldsMap = new HashMap<Integer, Field>();
             for (int col = 0; col < allFields.length; col++) {
                 Field field = allFields[col];
-                // 将有注解的field存放到map中.
-                if (field.isAnnotationPresent(Excel.class)) {
+                Excel attr = field.getAnnotation(Excel.class);
+                if (attr != null && (attr.type() == Type.ALL || attr.type() == type)) {
                     // 设置类的私有字段属性可访问.
                     field.setAccessible(true);
                     fieldsMap.put(++serialNum, field);
@@ -152,20 +157,20 @@ public class ExcelUtil<T> {
                     // 取得类型,并根据对象类型设置值.
                     Class<?> fieldType = field.getType();
                     if (String.class == fieldType) {
-                        String s = String.valueOf(val.toString());
+                        String s = Convert.toStr(val);
                         if (StringUtils.endsWith(s, ".0")) {
                             val = StringUtils.substringBefore(s, ".0");
                         } else {
-                            val = String.valueOf(val.toString());
+                            val = Convert.toStr(val);
                         }
                     } else if ((Integer.TYPE == fieldType) || (Integer.class == fieldType)) {
-                        val = Double.valueOf(val.toString()).intValue();
+                        val = Convert.toInt(val);
                     } else if ((Long.TYPE == fieldType) || (Long.class == fieldType)) {
-                        val = Double.valueOf(val.toString()).longValue();
+                        val = Convert.toLong(val);
                     } else if ((Double.TYPE == fieldType) || (Double.class == fieldType)) {
-                        val = Double.valueOf(val.toString());
+                        val = Convert.toDouble(val);
                     } else if ((Float.TYPE == fieldType) || (Float.class == fieldType)) {
-                        val = Float.valueOf(val.toString());
+                        val = Convert.toFloat(val);
                     } else if (Date.class == fieldType) {
                         if (val instanceof String) {
                             val = DateUtils.parseDate(val);
@@ -175,15 +180,13 @@ public class ExcelUtil<T> {
                     }
                     if (StringUtils.isNotNull(fieldType)) {
                         Excel attr = field.getAnnotation(Excel.class);
+                        String propertyName = field.getName();
                         if (StringUtils.isNotEmpty(attr.targetAttr())) {
-
-                            ReflectUtils.invokeSetter(entity, field.getName() + "." + attr.targetAttr(), val);
+                            propertyName = field.getName() + "." + attr.targetAttr();
                         } else if (StringUtils.isNotEmpty(attr.readConverterExp())) {
-                            String value = reverseByExp(String.valueOf(val), attr.readConverterExp());
-                            ReflectUtils.invokeSetter(entity, field.getName() + "." + attr.targetAttr(), value);
-                        } else {
-                            ReflectUtils.invokeSetter(entity, field.getName(), val);
+                            val = reverseByExp(String.valueOf(val), attr.readConverterExp());
                         }
+                        ReflectUtils.invokeSetter(entity, propertyName, val);
                     }
                 }
                 list.add(entity);
@@ -532,7 +535,8 @@ public class ExcelUtil<T> {
         Field[] allFields = clazz.getDeclaredFields();
         // 得到所有field并存放到一个list中.
         for (Field field : allFields) {
-            if (field.isAnnotationPresent(Excel.class)) {
+            Excel attr = field.getAnnotation(Excel.class);
+            if (attr != null && (attr.type() == Type.ALL || attr.type() == type)) {
                 fields.add(field);
             }
         }

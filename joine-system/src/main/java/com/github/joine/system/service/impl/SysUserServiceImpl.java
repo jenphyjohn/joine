@@ -4,9 +4,11 @@ import com.github.joine.common.annotation.DataScope;
 import com.github.joine.common.constant.UserConstants;
 import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.support.Convert;
+import com.github.joine.common.utils.Md5Utils;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.system.domain.*;
 import com.github.joine.system.mapper.*;
+import com.github.joine.system.service.ISysConfigService;
 import com.github.joine.system.service.ISysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +42,9 @@ public class SysUserServiceImpl implements ISysUserService {
 
     @Autowired
     private SysUserRoleMapper userRoleMapper;
+
+    @Autowired
+    private ISysConfigService configService;
 
     /**
      * 根据条件分页查询用户对象
@@ -320,11 +325,12 @@ public class SysUserServiceImpl implements ISysUserService {
     /**
      * 导入用户数据
      *
-     * @param userList 用户数据列表
+     * @param userList        用户数据列表
      * @param isUpdateSupport 是否更新支持，如果已存在，则进行更新数据
+     * @param operName        操作用户
      * @return 结果
      */
-    public String importUser(List<SysUser> userList, Boolean isUpdateSupport) {
+    public String importUser(List<SysUser> userList, Boolean isUpdateSupport, String operName) {
         if (StringUtils.isNull(userList) || userList.size() == 0) {
             throw new BusinessException("导入用户数据不能为空！");
         }
@@ -332,15 +338,19 @@ public class SysUserServiceImpl implements ISysUserService {
         int failureNum = 0;
         StringBuilder successMsg = new StringBuilder();
         StringBuilder failureMsg = new StringBuilder();
+        String password = configService.selectConfigByKey("sys.user.initPassword");
         for (SysUser user : userList) {
             try {
                 // 验证是否存在这个用户
                 SysUser u = userMapper.selectUserByLoginName(user.getLoginName());
                 if (StringUtils.isNull(u)) {
+                    user.setPassword(Md5Utils.hash(user.getLoginName() + password));
+                    user.setCreateBy(operName);
                     this.insertUser(user);
                     successNum++;
                     successMsg.append("<br/>" + successNum + "、账号 " + user.getLoginName() + " 导入成功");
                 } else if (isUpdateSupport) {
+                    user.setUpdateBy(operName);
                     this.updateUser(user);
                     successNum++;
                     successMsg.append("<br/>" + successNum + "、账号 " + user.getLoginName() + " 更新成功");
