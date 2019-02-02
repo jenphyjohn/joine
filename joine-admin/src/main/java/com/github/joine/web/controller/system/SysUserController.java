@@ -3,14 +3,13 @@ package com.github.joine.web.controller.system;
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.base.AjaxResult;
 import com.github.joine.common.enums.BusinessType;
-import com.github.joine.common.utils.poi.ExcelUtil;
 import com.github.joine.common.utils.StringUtils;
+import com.github.joine.common.utils.poi.ExcelUtil;
 import com.github.joine.framework.shiro.service.SysPasswordService;
 import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.framework.web.base.BaseController;
 import com.github.joine.framework.web.page.TableDataInfo;
 import com.github.joine.system.domain.SysUser;
-import com.github.joine.system.service.ISysConfigService;
 import com.github.joine.system.service.ISysPostService;
 import com.github.joine.system.service.ISysRoleService;
 import com.github.joine.system.service.ISysUserService;
@@ -201,5 +200,16 @@ public class SysUserController extends BaseController {
     @ResponseBody
     public String checkEmailUnique(SysUser user) {
         return userService.checkEmailUnique(user);
+    }
+
+    /**
+     * 用户状态修改
+     */
+    @Log(title = "用户管理", businessType = BusinessType.UPDATE)
+    @RequiresPermissions("system:user:edit")
+    @PostMapping("/changeStatus")
+    @ResponseBody
+    public AjaxResult changeStatus(SysUser user) {
+        return toAjax(userService.changeStatus(user));
     }
 }

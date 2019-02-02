@@ -266,4 +266,15 @@ public class SysRoleServiceImpl implements ISysRoleService {
     public int countUserRoleByRoleId(Long roleId) {
         return userRoleMapper.countUserRoleByRoleId(roleId);
     }
+
+    /**
+     * 角色状态修改
+     *
+     * @param role 角色信息
+     * @return 结果
+     */
+    @Override
+    public int changeStatus(SysRole role) {
+        return roleMapper.updateRole(role);
+    }
 }
