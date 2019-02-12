@@ -340,6 +340,167 @@
     border-bottom-left-radius: 0
 }
 
+/** 琬琰主题 skin-wanyan **/
+.skin-wanyan .navbar {
+    background-color: #23c6c8;
+}
+
+.skin-wanyan .content-tabs {
+    border-bottom: solid 2px #e7eaec;
+}
+
+.skin-wanyan .navbar .nav > li > a {
+    color: #fff
+}
+
+.skin-wanyan .navbar .nav > li > a:hover,
+.skin-wanyan .navbar .nav > li > a:active,
+.skin-wanyan .navbar .nav > li > a:focus,
+.skin-wanyan .navbar .nav .open > a,
+.skin-wanyan .navbar .nav .open > a:hover,
+.skin-wanyan .navbar .nav .open > a:focus,
+.skin-wanyan .navbar .nav > .active > a {
+    background: rgba(0, 0, 0, 0.1);
+    color: #f6f6f6
+}
+
+.skin-wanyan .navbar .sidebar-toggle {
+    color: #fff
+}
+
+.skin-wanyan .navbar .sidebar-toggle:hover {
+    color: #f6f6f6;
+    background: rgba(0, 0, 0, 0.1)
+}
+
+.skin-wanyan .navbar .sidebar-toggle {
+    color: #fff
+}
+
+.skin-wanyan .navbar .sidebar-toggle:hover {
+    background-color: #00b9ba
+}
+
+@media ( max-width: 767px) {
+    .skin-wanyan .navbar .dropdown-menu li.divider {
+        background-color: rgba(255, 255, 255, 0.1)
+    }
+
+    .skin-wanyan .navbar .dropdown-menu li a {
+        color: #fff
+    }
+
+    .skin-wanyan .navbar .dropdown-menu li a:hover {
+        background: #00b9ba
+    }
+}
+
+.skin-wanyan .logo {
+    background-color: #23c6c8;
+    color: #fff;
+    border-bottom: 0 solid transparent
+}
+
+.skin-wanyan .logo:hover {
+    background-color: #00b9ba
+}
+
+.skin-wanyan li.user-header {
+    background-color: #23c6c8
+}
+
+.skin-wanyan .content-header {
+    background: transparent
+}
+
+.skin-wanyan .wrapper,
+.skin-wanyan .main-sidebar,
+.skin-wanyan .left-side {
+    background-color: #222d32
+}
+
+.skin-wanyan .user-panel > .info,
+.skin-wanyan .user-panel > .info > a {
+    color: #fff
+}
+
+.skin-wanyan .nav > li.header {
+    color: #4b646f;
+    background: #1a2226;
+}
+
+.skin-wanyan .nav > li.active {
+    color: #fff;
+    background: #293846;
+    border-left: 3px solid #23c6c8;
+}
+
+.skin-wanyan .nav > li.active:last-child {
+    border-left: none;
+}
+
+.skin-wanyan .nav > li > .treeview-menu {
+    margin: 0 1px;
+    background: #2c3b41
+}
+
+.skin-wanyan .sidebar a {
+    color: #b8c7ce
+}
+
+.skin-wanyan .sidebar a:hover {
+    text-decoration: none
+}
+
+.skin-wanyan .treeview-menu > li > a {
+    color: #8aa4af
+}
+
+.skin-wanyan .treeview-menu > li.active > a,
+.skin-wanyan .treeview-menu > li > a:hover {
+    color: #fff
+}
+
+.skin-wanyan .sidebar-form {
+    border-radius: 3px;
+    border: 1px solid #374850;
+    margin: 10px 10px
+}
+
+.skin-wanyan .sidebar-form input[type="text"],
+.skin-wanyan .sidebar-form .btn {
+    box-shadow: none;
+    background-color: #374850;
+    border: 1px solid transparent;
+    height: 35px
+}
+
+.skin-wanyan .sidebar-form input[type="text"] {
+    color: #666;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 2px
+}
+
+.skin-wanyan .sidebar-form input[type="text"]:focus,
+.skin-wanyan .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+    background-color: #fff;
+    color: #666
+}
+
+.skin-wanyan .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
+    border-left-color: #fff
+}
+
+.skin-wanyan .sidebar-form .btn {
+    color: #999;
+    border-top-left-radius: 0;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 0
+}
+
 /** 红色主题 skin-red **/
 .skin-red .navbar {
     background-color: #dd4b39

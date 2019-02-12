@@ -1,6 +1,7 @@
 package com.github.joine.framework.config;
 
 import com.github.joine.framework.util.ServletUtils;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Author: JenphyJohn
  * @Date: 2019/2/1 6:30 PM
  */
+@Component
 public class ServerConfig {
     /**
      * 获取完整的请求路径，包括：域名，端口，上下文访问路径

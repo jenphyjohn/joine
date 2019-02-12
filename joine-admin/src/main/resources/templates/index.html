@@ -47,14 +47,14 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="logo">
-                    <span class="logo-lg">RuoYi</span>
+                    <span class="logo-lg">Joine</span>
                 </li>
                 <li>
                     <div class="user-panel">
                         <a class="menuItem" title="个人中心" th:href="@{/system/user/profile}">
                             <div class="hide" th:text="个人中心"></div>
                             <div class="pull-left image">
-                                <img th:src="(${user.avatar} == '') ? @{/img/profile.jpg} : @{/profile/avatar/} + ${user.avatar}"
+                                <img th:src="(${user.avatar} == '') ? @{/img/profile.png} : @{/profile/avatar/} + ${user.avatar}"
                                      class="img-circle" alt="User Image">
                             </div>
                         </a>
@@ -116,7 +116,7 @@
                     <li><a title="全屏显示" id="fullScreen"><i class="fa fa-arrows-alt"></i> 全屏显示</a></li>
                     <li class="dropdown user-menu">
                         <a href="javascript:" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
-                            <img th:src="(${user.avatar} == '') ? @{/img/profile.jpg} : @{/profile/avatar/} + ${user.avatar}"
+                            <img th:src="(${user.avatar} == '') ? @{/img/profile.png} : @{/profile/avatar/} + ${user.avatar}"
                                  class="user-image">
                             <span class="hidden-xs">[[${user.userName}]]</span>
                         </a>
