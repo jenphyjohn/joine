@@ -17,12 +17,14 @@ import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFDataValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.*;
 
@@ -170,6 +172,8 @@ public class ExcelUtil<T> {
                         val = Convert.toDouble(val);
                     } else if ((Float.TYPE == fieldType) || (Float.class == fieldType)) {
                         val = Convert.toFloat(val);
+                    } else if (BigDecimal.class == fieldType) {
+                        val = Convert.toBigDecimal(val);
                     } else if (Date.class == fieldType) {
                         if (val instanceof String) {
                             val = DateUtils.parseDate(val);
@@ -405,13 +409,22 @@ public class ExcelUtil<T> {
      */
     public static Sheet setHSSFValidation(Sheet sheet, String[] textlist, int firstRow, int endRow, int firstCol,
                                           int endCol) {
+        DataValidationHelper helper = sheet.getDataValidationHelper();
         // 加载下拉列表内容
-        DVConstraint constraint = DVConstraint.createExplicitListConstraint(textlist);
+        DataValidationConstraint constraint = helper.createExplicitListConstraint(textlist);
         // 设置数据有效性加载在哪个单元格上,四个参数分别是：起始行、终止行、起始列、终止列
         CellRangeAddressList regions = new CellRangeAddressList(firstRow, endRow, firstCol, endCol);
         // 数据有效性对象
-        HSSFDataValidation dataValidationList = new HSSFDataValidation(regions, constraint);
-        sheet.addValidationData(dataValidationList);
+        DataValidation dataValidation = helper.createValidation(constraint, regions);
+        // 处理Excel兼容性问题
+        if (dataValidation instanceof XSSFDataValidation) {
+            dataValidation.setSuppressDropDownArrow(true);
+            dataValidation.setShowErrorBox(true);
+        } else {
+            dataValidation.setSuppressDropDownArrow(false);
+        }
+
+        sheet.addValidationData(dataValidation);
         return sheet;
     }
 
@@ -465,7 +478,7 @@ public class ExcelUtil<T> {
      * 编码文件名
      */
     public String encodingFilename(String filename) {
-        filename = UUID.randomUUID().toString() + "_" + filename + ".xlsx";
+        filename = UUID.randomUUID().toString() + "_" + filename + ".xlsx" ;
         return filename;
     }
 
@@ -530,13 +543,26 @@ public class ExcelUtil<T> {
      * 得到所有定义字段
      */
     private void createExcelField() {
-        this.fields = new ArrayList<Field>();
-        Field[] allFields = clazz.getDeclaredFields();
-        // 得到所有field并存放到一个list中.
-        for (Field field : allFields) {
+        this.fields = new ArrayList<>();
+        List<Field> tempFields = new ArrayList<>();
+        Class<?> tempClass = clazz;
+        tempFields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+        while (tempClass != null) {
+            tempClass = tempClass.getSuperclass();
+            if (tempClass != null)
+                tempFields.addAll(Arrays.asList(tempClass.getDeclaredFields()));
+        }
+        putToFields(tempFields);
+    }
+
+    /**
+     * 放到字段集合中
+     */
+    private void putToFields(List<Field> fields) {
+        for (Field field : fields) {
             Excel attr = field.getAnnotation(Excel.class);
             if (attr != null && (attr.type() == Type.ALL || attr.type() == type)) {
-                fields.add(field);
+                this.fields.add(field);
             }
         }
     }
@@ -575,7 +601,7 @@ public class ExcelUtil<T> {
         if (row == null) {
             return row;
         }
-        Object val = "";
+        Object val = "" ;
         try {
             Cell cell = row.getCell(column);
             if (cell != null) {

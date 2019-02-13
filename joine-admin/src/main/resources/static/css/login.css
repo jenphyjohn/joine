@@ -85,7 +85,7 @@ body.signin {
 }
 }
 /*
-��¼����check��ʽ
+登录界面check样式
 */ 
 .checkbox-custom {
     position: relative;
@@ -95,10 +95,10 @@ body.signin {
     display: inline-block;
 }
 /*
-����ʼ��checkbox����ʽ�ı�
+将初始的checkbox的样式改变
 */
 .checkbox-custom input[type="checkbox"] {
-    opacity: 0;/*����ʼ��checkbox��������*/
+    opacity: 0;/*将初始的checkbox隐藏起来*/
     position: absolute;
     cursor: pointer;
     z-index: 2;
@@ -107,7 +107,7 @@ body.signin {
     left: 3px;
 }
 /*
-����µ�checkbox��λ��
+设计新的checkbox，位置
 */
 .checkbox-custom label:before {
     content: '';
@@ -123,7 +123,7 @@ body.signin {
     background: #fff;
 }
 /*
-�����ʼ��checkbox�����µ�checkbox��������
+点击初始的checkbox，将新的checkbox关联起来
 */
 .checkbox-custom input[type="checkbox"]:checked +label:after {
     position: absolute;
