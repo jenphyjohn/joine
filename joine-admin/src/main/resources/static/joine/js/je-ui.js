@@ -16,9 +16,14 @@
                 $.table._params = $.common.isEmpty(options.queryParams) ? $.table.queryParams : options.queryParams;
                 _sortOrder = $.common.isEmpty(options.sortOrder) ? "asc" : options.sortOrder;
                 _sortName = $.common.isEmpty(options.sortName) ? "" : options.sortName;
+                _pageSize = $.common.isEmpty(options.pageSize) ? 10 : options.pageSize;
                 _striped = $.common.isEmpty(options.striped) ? false : options.striped;
                 _escape = $.common.isEmpty(options.escape) ? false : options.escape;
                 _showFooter = $.common.isEmpty(options.showFooter) ? false : options.showFooter;
+                _fixedColumns = $.common.isEmpty(options.fixedColumns) ? false : options.fixedColumns;
+                _fixedNumber = $.common.isEmpty(options.fixedNumber) ? 0 : options.fixedNumber;
+                _rightFixedColumns = $.common.isEmpty(options.rightFixedColumns) ? false : options.rightFixedColumns;
+                _rightFixedNumber = $.common.isEmpty(options.rightFixedNumber) ? 0 : options.rightFixedNumber;
                 $('#bootstrap-table').bootstrapTable({
                     url: options.url,                                   // 请求后台的URL（*）
                     contentType: "application/x-www-form-urlencoded",   // 编码类型
@@ -31,7 +36,7 @@
                     sortOrder: _sortOrder,                              // 排序方式  asc 或者 desc
                     pagination: $.common.visible(options.pagination),   // 是否显示分页（*）
                     pageNumber: 1,                                      // 初始化加载第一页，默认第一页
-                    pageSize: 10,                                       // 每页的记录行数（*） 
+                    pageSize: _pageSize,                                // 每页的记录行数（*） 
                     pageList: [10, 25, 50],                             // 可供选择的每页的行数（*）
                     escape: _escape,                                    // 转义HTML字符串
                     showFooter: _showFooter,                            // 是否显示表尾
@@ -44,9 +49,14 @@
                     showColumns: $.common.visible(options.showColumns), // 是否显示隐藏某列下拉框
                     showToggle: $.common.visible(options.showToggle),   // 是否显示详细视图和列表视图的切换按钮
                     showExport: $.common.visible(options.showExport),   // 是否支持导出文件
+                    fixedColumns: _fixedColumns,                        // 是否启用冻结列（左侧）
+                    fixedNumber: _fixedNumber,                          // 列冻结的个数（左侧）
+                    rightFixedColumns: _rightFixedColumns,              // 是否启用冻结列（右侧）
+                    rightFixedNumber: _rightFixedNumber,                // 列冻结的个数（右侧）
                     queryParams: $.table._params,                       // 传递参数（*）
                     columns: options.columns,                           // 显示列信息（*）
-                    responseHandler: $.table.responseHandler            // 回调函数
+                    responseHandler: $.table.responseHandler,           // 在加载服务器发送来的数据之前处理函数
+                    onLoadSuccess: $.table.onLoadSuccess,               // 当所有数据被加载时触发处理函数
                 });
             },
             // 查询条件
@@ -69,12 +79,27 @@
                     return {rows: [], total: 0};
                 }
             },
+            // 当所有数据被加载时触发
+            onLoadSuccess: function (data) {
+                $("[data-toggle='tooltip']").tooltip();
+            },
             // 序列号生成
             serialNumber: function (index) {
                 var table = $('#bootstrap-table').bootstrapTable('getOptions');
                 var pageSize = table.pageSize;
                 var pageNumber = table.pageNumber;
                 return pageSize * (pageNumber - 1) + index + 1;
+            },
+            // 列超出指定长度浮动提示
+            tooltip: function (value, length) {
+                var _length = $.common.isEmpty(length) ? 20 : length;
+                var _text = "";
+                if (value.length > _length) {
+                    _text = value.substr(0, _length) + "...";
+                } else {
+                    _text = value;
+                }
+                return '<a href="#" class="tooltip-show" data-toggle="tooltip" title="' + value + '">' + _text + '</a>';
             },
             // 搜索-默认第一个form
             search: function (formId) {
@@ -140,6 +165,7 @@
                             return false;
                         }
                         var index = layer.load(2, {shade: false});
+                        $.modal.disable();
                         var formData = new FormData();
                         formData.append("file", $('#file')[0].files[0]);
                         formData.append("updateSupport", $("input[name='updateSupport']").is(':checked'));
@@ -157,6 +183,7 @@
                                     $.table.refresh();
                                 } else {
                                     layer.close(index);
+                                    $.modal.enable();
                                     $.modal.alertError(result.msg);
                                 }
                             }
@@ -462,18 +489,28 @@
                     shade: 0.3,
                     title: title,
                     content: url,
+                    btn: ['确定', '关闭'],
                     // 弹层外区域关闭
-                    shadeClose: true
+                    shadeClose: true,
+                    yes: function (index, layero) {
+                        var iframeWin = layero.find('iframe')[0];
+                        iframeWin.contentWindow.submitHandler();
+                    },
+                    cancel: function (index) {
+                        return true;
+                    }
                 });
                 layer.full(index);
             },
             // 禁用按钮
             disable: function () {
-                $("a[class*=layui-layer-btn]", window.parent.document).addClass("layer-disabled");
+                var doc = window.top == window.parent ? window.document : window.parent.document;
+                $("a[class*=layui-layer-btn]", doc).addClass("layer-disabled");
             },
             // 启用按钮
             enable: function () {
-                $("a[class*=layui-layer-btn]", window.parent.document).removeClass("layer-disabled");
+                var doc = window.top == window.parent ? window.document : window.parent.document;
+                $("a[class*=layui-layer-btn]", doc).removeClass("layer-disabled");
             },
             // 打开遮罩层
             loading: function (message) {
@@ -526,7 +563,7 @@
                     _width = 'auto';
                     _height = 'auto';
                 }
-                layer.open({
+                top.layer.open({
                     type: 2,
                     area: [_width + 'px', _height + 'px'],
                     fix: false,
@@ -535,10 +572,11 @@
                     shade: 0.3,
                     title: $.table._option.modalName + "详细",
                     content: _url,
+                    zIndex: 9999999999,
                     btn: ['关闭'],
                     // 弹层外区域关闭
                     shadeClose: true,
-                    cancel: function () {
+                    cancel: function (index) {
                         return true;
                     }
                 });
@@ -670,6 +708,7 @@
                 } else {
                     $.modal.alertError(result.msg);
                 }
+                $.modal.closeLoading();
                 $.modal.enable();
             }
         },
