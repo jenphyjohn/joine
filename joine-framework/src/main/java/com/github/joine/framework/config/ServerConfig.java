@@ -1,6 +1,6 @@
 package com.github.joine.framework.config;
 
-import com.github.joine.framework.util.ServletUtils;
+import com.github.joine.common.utils.ServletUtils;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;

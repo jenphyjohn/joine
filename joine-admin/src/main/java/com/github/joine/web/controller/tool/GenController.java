@@ -4,7 +4,7 @@ import com.github.joine.common.annotation.Log;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.support.Convert;
 import com.github.joine.framework.web.base.BaseController;
-import com.github.joine.framework.web.page.TableDataInfo;
+import com.github.joine.common.page.TableDataInfo;
 import com.github.joine.generator.domain.TableInfo;
 import com.github.joine.generator.service.IGenService;
 import org.apache.commons.io.IOUtils;

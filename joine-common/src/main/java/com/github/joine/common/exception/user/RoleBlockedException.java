@@ -1,4 +1,4 @@
-package com.github.joine.framework.web.exception.user;
+package com.github.joine.common.exception.user;
 
 /**
  * 角色锁定异常类

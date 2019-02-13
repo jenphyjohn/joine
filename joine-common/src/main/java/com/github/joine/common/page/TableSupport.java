@@ -1,7 +1,7 @@
-package com.github.joine.framework.web.page;
+package com.github.joine.common.page;
 
 import com.github.joine.common.constant.Constants;
-import com.github.joine.framework.util.ServletUtils;
+import com.github.joine.common.utils.ServletUtils;
 
 /**
  * 表格数据处理

@@ -1,4 +1,4 @@
-package com.github.joine.framework.web.exception.user;
+package com.github.joine.common.exception.user;
 
 /**
  * 用户错误记数异常类

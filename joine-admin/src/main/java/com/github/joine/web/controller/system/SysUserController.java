@@ -8,7 +8,7 @@ import com.github.joine.common.utils.poi.ExcelUtil;
 import com.github.joine.framework.shiro.service.SysPasswordService;
 import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.framework.web.base.BaseController;
-import com.github.joine.framework.web.page.TableDataInfo;
+import com.github.joine.common.page.TableDataInfo;
 import com.github.joine.system.domain.SysUser;
 import com.github.joine.system.service.ISysPostService;
 import com.github.joine.system.service.ISysRoleService;

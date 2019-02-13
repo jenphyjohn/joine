@@ -5,7 +5,7 @@ import javax.servlet.ServletResponse;
 
 import com.github.joine.framework.manager.AsyncManager;
 import com.github.joine.framework.manager.factory.AsyncFactory;
-import com.github.joine.framework.util.MessageUtils;
+import com.github.joine.common.utils.MessageUtils;
 import com.github.joine.framework.util.ShiroUtils;
 import org.apache.shiro.session.SessionException;
 import org.apache.shiro.subject.Subject;
@@ -13,10 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.github.joine.common.constant.Constants;
 import com.github.joine.common.utils.StringUtils;
-import com.github.joine.framework.manager.AsyncManager;
-import com.github.joine.framework.manager.factory.AsyncFactory;
-import com.github.joine.framework.util.MessageUtils;
-import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.system.domain.SysUser;
 
 /**

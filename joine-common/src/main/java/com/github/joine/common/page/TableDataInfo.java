@@ -1,4 +1,4 @@
-package com.github.joine.framework.web.page;
+package com.github.joine.common.page;
 
 import java.io.Serializable;
 import java.util.List;

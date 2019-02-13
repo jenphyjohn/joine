@@ -5,7 +5,7 @@ import com.github.joine.common.base.AjaxResult;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.framework.web.base.BaseController;
-import com.github.joine.framework.web.page.TableDataInfo;
+import com.github.joine.common.page.TableDataInfo;
 import com.github.joine.system.domain.SysNotice;
 import com.github.joine.system.service.ISysNoticeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

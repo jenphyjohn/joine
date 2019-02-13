@@ -8,7 +8,7 @@ import com.github.joine.framework.shiro.session.OnlineSession;
 import com.github.joine.framework.shiro.session.OnlineSessionDAO;
 import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.framework.web.base.BaseController;
-import com.github.joine.framework.web.page.TableDataInfo;
+import com.github.joine.common.page.TableDataInfo;
 import com.github.joine.system.domain.SysUserOnline;
 import com.github.joine.system.service.ISysUserOnlineService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

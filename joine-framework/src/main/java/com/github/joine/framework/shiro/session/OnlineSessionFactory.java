@@ -7,7 +7,7 @@ import org.apache.shiro.session.mgt.SessionFactory;
 import org.apache.shiro.web.session.mgt.WebSessionContext;
 import org.springframework.stereotype.Component;
 import com.github.joine.common.utils.IpUtils;
-import com.github.joine.framework.util.ServletUtils;
+import com.github.joine.common.utils.ServletUtils;
 import eu.bitwalker.useragentutils.UserAgent;
 
 /**

@@ -1,6 +1,7 @@
 package com.github.joine.framework.util;
 
 import com.github.joine.common.constant.PermissionConstants;
+import com.github.joine.common.utils.MessageUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**

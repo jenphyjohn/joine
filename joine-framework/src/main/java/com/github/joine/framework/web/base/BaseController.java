@@ -1,21 +1,21 @@
 package com.github.joine.framework.web.base;
 
-import java.beans.PropertyEditorSupport;
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.github.joine.common.base.AjaxResult;
+import com.github.joine.common.page.PageDomain;
+import com.github.joine.common.page.TableDataInfo;
+import com.github.joine.common.page.TableSupport;
 import com.github.joine.common.utils.DateUtils;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.framework.util.ShiroUtils;
-import com.github.joine.framework.web.page.PageDomain;
-import com.github.joine.framework.web.page.TableDataInfo;
-import com.github.joine.framework.web.page.TableSupport;
 import com.github.joine.system.domain.SysUser;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+
+import java.beans.PropertyEditorSupport;
+import java.util.Date;
+import java.util.List;
 
 /**
  * web层通用数据处理

@@ -1,4 +1,4 @@
-package com.github.joine.framework.web.exception.user;
+package com.github.joine.common.exception.user;
 
 /**
  * 验证码错误异常类

@@ -5,7 +5,7 @@ import com.github.joine.common.base.AjaxResult;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.poi.ExcelUtil;
 import com.github.joine.framework.web.base.BaseController;
-import com.github.joine.framework.web.page.TableDataInfo;
+import com.github.joine.common.page.TableDataInfo;
 import com.github.joine.system.domain.SysOperLog;
 import com.github.joine.system.service.ISysOperLogService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
