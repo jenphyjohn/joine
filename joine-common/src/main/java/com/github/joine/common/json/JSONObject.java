@@ -681,7 +681,7 @@ public class JSONObject extends LinkedHashMap<String, Object>
     /**
      * 最后数组回调。
      * 
-     * @author Mike
+     * @author JenphyJohn
      *
      * @param <T> 回调返回数据类型。
      */

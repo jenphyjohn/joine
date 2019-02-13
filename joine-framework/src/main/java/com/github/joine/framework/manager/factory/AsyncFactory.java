@@ -9,7 +9,7 @@ import com.github.joine.framework.shiro.session.OnlineSession;
 import com.github.joine.framework.util.LogUtils;
 import com.github.joine.framework.util.ServletUtils;
 import com.github.joine.framework.util.ShiroUtils;
-import com.github.joine.framework.util.SpringUtils;
+import com.github.joine.common.utils.spring.SpringUtils;
 import com.github.joine.system.domain.SysLogininfor;
 import com.github.joine.system.domain.SysOperLog;
 import com.github.joine.system.domain.SysUserOnline;

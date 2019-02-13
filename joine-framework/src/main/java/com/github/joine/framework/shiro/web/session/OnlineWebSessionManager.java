@@ -2,7 +2,7 @@ package com.github.joine.framework.shiro.web.session;
 
 import com.github.joine.common.constant.ShiroConstants;
 import com.github.joine.framework.shiro.session.OnlineSession;
-import com.github.joine.framework.util.SpringUtils;
+import com.github.joine.common.utils.spring.SpringUtils;
 import com.github.joine.system.domain.SysUserOnline;
 import com.github.joine.system.service.ISysUserOnlineService;
 import org.apache.commons.lang3.time.DateUtils;

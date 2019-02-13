@@ -108,11 +108,10 @@ public class GenUtils {
      * 表名转换成Java类名
      */
     public static String tableToJava(String tableName) {
-        if (Constants.AUTO_REOMVE_PRE.equals(Global.getAutoRemovePre())) {
-            tableName = tableName.substring(tableName.indexOf("_") + 1);
-        }
-        if (StringUtils.isNotEmpty(Global.getTablePrefix())) {
-            tableName = tableName.replace(Global.getTablePrefix(), "");
+        String autoRemovePre = Global.getAutoRemovePre();
+        String tablePrefix = Global.getTablePrefix();
+        if (Constants.AUTO_REOMVE_PRE.equals(autoRemovePre) && StringUtils.isNotEmpty(tablePrefix)) {
+            tableName = tableName.replaceFirst(tablePrefix, "");
         }
         return StringUtils.convertToCamelCase(tableName);
     }

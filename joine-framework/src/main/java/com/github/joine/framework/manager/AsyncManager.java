@@ -1,6 +1,7 @@
 package com.github.joine.framework.manager;
 
 import com.github.joine.common.utils.Threads;
+import com.github.joine.common.utils.spring.SpringUtils;
 
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -20,7 +21,7 @@ public class AsyncManager {
     /**
      * 异步操作任务调度线程池
      */
-    private ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(5);
+    private ScheduledThreadPoolExecutor executor = SpringUtils.getBean("scheduledExecutorService");
 
     /**
      * 单例模式

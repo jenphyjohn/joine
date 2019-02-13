@@ -1,5 +1,6 @@
 package com.github.joine.framework.util;
 
+import com.github.joine.common.utils.spring.SpringUtils;
 import org.springframework.context.MessageSource;
 
 /**
