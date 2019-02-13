@@ -396,13 +396,13 @@
 }
 
 .skin-wanyan .logo {
-    background-color: #23c6c8;
+    background-color: #00b9ba;
     color: #fff;
     border-bottom: 0 solid transparent
 }
 
 .skin-wanyan .logo:hover {
-    background-color: #00b9ba
+    background-color: #00aeaf
 }
 
 .skin-wanyan li.user-header {
