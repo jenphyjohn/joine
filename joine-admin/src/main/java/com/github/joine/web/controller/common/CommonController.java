@@ -2,9 +2,9 @@ package com.github.joine.web.controller.common;
 
 import com.github.joine.common.base.AjaxResult;
 import com.github.joine.common.config.Global;
+import com.github.joine.common.utils.file.FileUploadUtils;
 import com.github.joine.common.utils.file.FileUtils;
 import com.github.joine.framework.config.ServerConfig;
-import com.github.joine.common.utils.file.FileUploadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
