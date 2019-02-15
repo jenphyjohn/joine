@@ -1,20 +1,20 @@
 package com.github.joine.web.controller.system;
 
-        import com.github.joine.common.base.AjaxResult;
-        import com.github.joine.common.utils.StringUtils;
-        import com.github.joine.common.utils.ServletUtils;
-        import com.github.joine.framework.web.base.BaseController;
-        import org.apache.shiro.SecurityUtils;
-        import org.apache.shiro.authc.AuthenticationException;
-        import org.apache.shiro.authc.UsernamePasswordToken;
-        import org.apache.shiro.subject.Subject;
-        import org.springframework.stereotype.Controller;
-        import org.springframework.web.bind.annotation.GetMapping;
-        import org.springframework.web.bind.annotation.PostMapping;
-        import org.springframework.web.bind.annotation.ResponseBody;
+import com.github.joine.common.base.AjaxResult;
+import com.github.joine.common.utils.ServletUtils;
+import com.github.joine.common.utils.StringUtils;
+import com.github.joine.framework.web.base.BaseController;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-        import javax.servlet.http.HttpServletRequest;
-        import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 登录验证
