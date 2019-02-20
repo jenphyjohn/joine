@@ -2,11 +2,10 @@ package com.github.joine.common.constant;
 
 /**
  * 通用常量信息
- * 
+ *
  * @author JenphyJohn
  */
-public class Constants
-{
+public class Constants {
     /**
      * UTF-8 字符集
      */
