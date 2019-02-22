@@ -100,12 +100,13 @@
             tooltip: function (value, length) {
                 var _length = $.common.isEmpty(length) ? 20 : length;
                 var _text = "";
-                if ($.common.isNotEmpty(value) && value.length > _length) {
-                    _text = value.substr(0, _length) + "...";
+                var _value = $.common.nullToStr(value);
+                if (_value.length > _length) {
+                    _text = _value.substr(0, _length) + "...";
                 } else {
-                    _text = $.common.nullToStr(value);
+                    _text = _value;
                 }
-                return '<a href="#" class="tooltip-show" data-toggle="tooltip" title="' + value + '">' + _text + '</a>';
+                return '<a href="#" class="tooltip-show" data-toggle="tooltip" title="' + _value + '">' + _text + '</a>';
             },
             // 搜索-默认第一个form
             search: function (formId) {
@@ -406,19 +407,21 @@
                 if ($.common.isEmpty(title)) {
                     title = false;
                 }
-                ;
                 if ($.common.isEmpty(url)) {
                     url = "/404.html";
                 }
-                ;
                 if ($.common.isEmpty(width)) {
                     width = 800;
                 }
-                ;
                 if ($.common.isEmpty(height)) {
                     height = ($(window).height() - 50);
                 }
-                ;
+                if ($.common.isEmpty(callback)) {
+                    callback = function (index, layero) {
+                        var iframeWin = layero.find('iframe')[0];
+                        iframeWin.contentWindow.submitHandler();
+                    }
+                }
                 top.layer.open({
                     type: 2,
                     area: [width + 'px', height + 'px'],
@@ -431,10 +434,7 @@
                     btn: ['确定', '关闭'],
                     // 弹层外区域关闭
                     shadeClose: true,
-                    yes: function (index, layero) {
-                        var iframeWin = layero.find('iframe')[0];
-                        iframeWin.contentWindow.submitHandler();
-                    },
+                    yes: callback,
                     cancel: function (index) {
                         return true;
                     }
@@ -569,7 +569,7 @@
                     _width = 'auto';
                     _height = 'auto';
                 }
-                top.layer.open({
+                layer.open({
                     type: 2,
                     area: [_width + 'px', _height + 'px'],
                     fix: false,
@@ -578,7 +578,6 @@
                     shade: 0.3,
                     title: $.table._option.modalName + "详细",
                     content: _url,
-                    zIndex: 9999999999,
                     btn: ['关闭'],
                     // 弹层外区域关闭
                     shadeClose: true,
@@ -920,6 +919,13 @@
             // 判断一个字符串是否为非空串
             isNotEmpty: function (value) {
                 return !$.common.isEmpty(value);
+            },
+            // 空对象转字符串
+            nullToStr: function (value) {
+                if ($.common.isEmpty(value)) {
+                    return "-";
+                }
+                return value;
             },
             // 是否显示数据 为空默认为显示
             visible: function (value) {
