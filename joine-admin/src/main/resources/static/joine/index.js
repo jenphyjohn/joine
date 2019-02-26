@@ -245,6 +245,7 @@ $(function () {
     function closeTab() {
         var closeTabId = $(this).parents('.menuTab').data('id');
         var currentWidth = $(this).parents('.menuTab').width();
+        var panelUrl = $(this).parents('.menuTab').data('panel');
 
         // 当前元素处于活动状态
         if ($(this).parents('.menuTab').hasClass('active')) {
@@ -303,6 +304,16 @@ $(function () {
                         return false;
                     }
                 });
+
+                if($.common.isNotEmpty(panelUrl)){
+                    $('.menuTab[data-id="' + panelUrl + '"]').addClass('active').siblings('.menuTab').removeClass('active');
+                    $('.mainContent .Joine_iframe').each(function() {
+                           if ($(this).data('id') == panelUrl) {
+                               $(this).show().siblings('.Joine_iframe').hide();
+                               return false;
+                           }
+                    });
+                }
             }
         }
         // 当前元素不处于活动状态
