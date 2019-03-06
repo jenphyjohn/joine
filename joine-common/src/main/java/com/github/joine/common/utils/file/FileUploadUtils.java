@@ -34,7 +34,7 @@ public class FileUploadUtils {
     /**
      * 默认文件类型jpg
      */
-    public static final String IMAGE_JPG_EXTENSION = ".jpg" ;
+    public static final String IMAGE_JPG_EXTENSION = ".jpg";
 
     private static int counter = 0;
 
