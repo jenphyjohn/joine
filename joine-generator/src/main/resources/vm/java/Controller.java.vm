@@ -26,8 +26,8 @@ import com.github.joine.common.utils.poi.ExcelUtil;
  */
 @Controller
 @RequestMapping("/${moduleName}/${classname}")
-public class ${className}Controller extends BaseController
-{
+public class ${className}Controller extends BaseController {
+
     private String prefix = "${moduleName}/${classname}";
 	
 	@Autowired
