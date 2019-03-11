@@ -21,19 +21,19 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">用户名称：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="userName" id="userName" th:field="*{userName}">
+					<input class="form-control" type="text" name="userName" id="userName" th:field="*{userName}" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">邮箱：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="email" th:field="*{email}">
+					<input class="form-control" type="text" name="email" th:field="*{email}" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">手机：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="phonenumber" id="phonenumber" th:field="*{phonenumber}">
+					<input class="form-control" type="text" name="phonenumber" id="phonenumber" th:field="*{phonenumber}" required>
 				</div>
 			</div>
 			<div class="form-group">
@@ -56,11 +56,7 @@
 	<script>
 		$("#form-user-edit").validate({
 			rules:{
-				userName:{
-					required:true,
-				},
 				email:{
-					required:true,
 		            email:true,
 		            remote: {
 		                url: ctx + "system/user/checkEmailUnique",
@@ -80,7 +76,6 @@
 		            }
 				},
 				phonenumber:{
-					required:true,
 					isPhone:true,
 		            remote: {
 		                url: ctx + "system/user/checkPhoneUnique",
@@ -98,7 +93,7 @@
 		                	return $.validate.unique(data);
 		                }
 		            }
-				},
+				}
 			},
 			messages: {
 				"email": {
@@ -107,7 +102,8 @@
 				"phonenumber":{
 		        	remote: "手机号码已经存在"
 				}
-		    }
+		    },
+            focusCleanup: true
 		});
 		
 		function submitHandler() {
