@@ -1,6 +1,7 @@
 package com.github.joine.common.page;
 
 import com.github.joine.common.utils.StringUtils;
+import com.github.joine.common.utils.sql.SqlUtil;
 
 /**
  * 分页数据
@@ -30,7 +31,7 @@ public class PageDomain {
 
     public String getOrderBy() {
         if (StringUtils.isEmpty(orderByColumn)) {
-            return "" ;
+            return "";
         }
         return StringUtils.toUnderScoreCase(orderByColumn) + " " + isAsc;
     }
@@ -56,7 +57,7 @@ public class PageDomain {
     }
 
     public void setOrderByColumn(String orderByColumn) {
-        this.orderByColumn = orderByColumn;
+        this.orderByColumn = SqlUtil.escapeSql(orderByColumn);
     }
 
     public String getIsAsc() {
@@ -64,6 +65,6 @@ public class PageDomain {
     }
 
     public void setIsAsc(String isAsc) {
-        this.isAsc = isAsc;
+        this.isAsc = SqlUtil.escapeSql(isAsc);
     }
 }

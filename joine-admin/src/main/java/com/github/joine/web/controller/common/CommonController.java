@@ -2,6 +2,7 @@ package com.github.joine.web.controller.common;
 
 import com.github.joine.common.base.AjaxResult;
 import com.github.joine.common.config.Global;
+import com.github.joine.common.utils.StringUtils;
 import com.github.joine.common.utils.file.FileUploadUtils;
 import com.github.joine.common.utils.file.FileUtils;
 import com.github.joine.framework.config.ServerConfig;
@@ -42,8 +43,11 @@ public class CommonController {
      */
     @GetMapping("common/download")
     public void fileDownload(String fileName, Boolean delete, HttpServletResponse response, HttpServletRequest request) {
-        String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
         try {
+            if (!FileUtils.isValidFilename(fileName)) {
+                throw new Exception(StringUtils.format(" 文件名称({})非法，不允许下载。 ", fileName));
+            }
+            String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
             String filePath = Global.getDownloadPath() + fileName;
             response.setCharacterEncoding("utf-8");
             response.setContentType("multipart/form-data");
