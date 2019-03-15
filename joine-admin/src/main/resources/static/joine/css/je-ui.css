@@ -424,7 +424,7 @@ label {
     background: transparent;
     outline: none;
     height: 30px;
-    width: 280px;
+    width: 200px;
     padding-left: 5px;
 }
 
@@ -443,15 +443,24 @@ label {
     background: transparent;
     outline: none;
     height: 30px;
-    width: 280px;
+    width: 200px;
 }
 
 .select-list .select-time input {
-    width: 133px;
+    width: 93px;
 }
 
 .select-time label, .select-time span, .select-time input {
     float: left;
+}
+
+@media (max-width:767px) {
+    .select-time label,.select-time span,.select-time input {
+        float: none;
+    }
+    .select-list .select-time input {
+        width: 200px;
+    }
 }
 
 .select-time label {

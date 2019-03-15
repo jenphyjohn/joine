@@ -1,7 +1,7 @@
 /**
  * bootstrapTreeTable
  *
- * @author swifly
+ * @author JenphyJohn
  */
 (function($) {
     "use strict";

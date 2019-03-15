@@ -41,6 +41,8 @@ spring:
             statViewServlet:
                 enabled: true
                 url-pattern: /monitor/druid/*
+                # 白名单，不填则允许所有访问
+                allow:
             filter:
                 stat:
                     # 慢SQL记录

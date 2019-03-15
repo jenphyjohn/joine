@@ -6,6 +6,7 @@ import com.github.joine.common.page.TableDataInfo;
 import com.github.joine.common.page.TableSupport;
 import com.github.joine.common.utils.DateUtils;
 import com.github.joine.common.utils.StringUtils;
+import com.github.joine.common.utils.sql.SqlUtil;
 import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.system.domain.SysUser;
 import com.github.pagehelper.PageHelper;
@@ -45,7 +46,7 @@ public class BaseController {
         Integer pageNum = pageDomain.getPageNum();
         Integer pageSize = pageDomain.getPageSize();
         if (StringUtils.isNotNull(pageNum) && StringUtils.isNotNull(pageSize)) {
-            String orderBy = pageDomain.getOrderBy();
+            String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
             PageHelper.startPage(pageNum, pageSize, orderBy);
         }
     }
