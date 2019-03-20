@@ -1,6 +1,7 @@
 package com.github.joine.system.service.impl;
 
 import com.github.joine.common.annotation.DataScope;
+import com.github.joine.common.base.Ztree;
 import com.github.joine.common.constant.UserConstants;
 import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.utils.StringUtils;
@@ -12,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 部门管理 服务实现
@@ -46,11 +45,10 @@ public class SysDeptServiceImpl implements ISysDeptService {
      */
     @Override
     @DataScope(tableAlias = "d")
-    public List<Map<String, Object>> selectDeptTree(SysDept dept) {
-        List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
+    public List<Ztree> selectDeptTree(SysDept dept) {
         List<SysDept> deptList = deptMapper.selectDeptList(dept);
-        trees = getTrees(deptList, false, null);
-        return trees;
+        List<Ztree> ztrees = initZtree(deptList);
+        return ztrees;
     }
 
     /**
@@ -60,46 +58,54 @@ public class SysDeptServiceImpl implements ISysDeptService {
      * @return 部门列表（数据权限）
      */
     @Override
-    public List<Map<String, Object>> roleDeptTreeData(SysRole role) {
+    public List<Ztree> roleDeptTreeData(SysRole role) {
         Long roleId = role.getRoleId();
-        List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
+        List<Ztree> ztrees = new ArrayList<Ztree>();
         List<SysDept> deptList = selectDeptList(new SysDept());
         if (StringUtils.isNotNull(roleId)) {
             List<String> roleDeptList = deptMapper.selectRoleDeptTree(roleId);
-            trees = getTrees(deptList, true, roleDeptList);
+            ztrees = initZtree(deptList, roleDeptList);
         } else {
-            trees = getTrees(deptList, false, null);
+            ztrees = initZtree(deptList);
         }
-        return trees;
+        return ztrees;
+    }
+
+    /**
+     * 对象转部门树
+     *
+     * @param deptList 部门列表
+     * @return 树结构列表
+     */
+    public List<Ztree> initZtree(List<SysDept> deptList) {
+        return initZtree(deptList, null);
     }
 
     /**
      * 对象转部门树
      *
      * @param deptList     部门列表
-     * @param isCheck      是否需要选中
      * @param roleDeptList 角色已存在菜单列表
-     * @return
+     * @return 树结构列表
      */
-    public List<Map<String, Object>> getTrees(List<SysDept> deptList, boolean isCheck, List<String> roleDeptList) {
+    public List<Ztree> initZtree(List<SysDept> deptList, List<String> roleDeptList) {
 
-        List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
+        List<Ztree> ztrees = new ArrayList<Ztree>();
+        boolean isCheck = StringUtils.isNotNull(roleDeptList);
         for (SysDept dept : deptList) {
             if (UserConstants.DEPT_NORMAL.equals(dept.getStatus())) {
-                Map<String, Object> deptMap = new HashMap<String, Object>();
-                deptMap.put("id", dept.getDeptId());
-                deptMap.put("pId", dept.getParentId());
-                deptMap.put("name", dept.getDeptName());
-                deptMap.put("title", dept.getDeptName());
+                Ztree ztree = new Ztree();
+                ztree.setId(dept.getDeptId());
+                ztree.setpId(dept.getParentId());
+                ztree.setName(dept.getDeptName());
+                ztree.setTitle(dept.getDeptName());
                 if (isCheck) {
-                    deptMap.put("checked", roleDeptList.contains(dept.getDeptId() + dept.getDeptName()));
-                } else {
-                    deptMap.put("checked", false);
+                    ztree.setChecked(roleDeptList.contains(dept.getDeptId() + dept.getDeptName()));
                 }
-                trees.add(deptMap);
+                ztrees.add(ztree);
             }
         }
-        return trees;
+        return ztrees;
     }
 
     /**
@@ -149,7 +155,7 @@ public class SysDeptServiceImpl implements ISysDeptService {
         SysDept info = deptMapper.selectDeptById(dept.getParentId());
         // 如果父节点不为"正常"状态,则不允许新增子节点
         if (!UserConstants.DEPT_NORMAL.equals(info.getStatus())) {
-            throw new BusinessException("部门停用, 不允许新增!");
+            throw new BusinessException("部门停用，不允许新增");
         }
         dept.setAncestors(info.getAncestors() + "," + dept.getParentId());
         return deptMapper.insertDept(dept);

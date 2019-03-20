@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
- * 自定义异常处理器
+ * 全局异常处理器
  *
  * @author JenphyJohn
  */
 @RestControllerAdvice
-public class DefaultExceptionHandler {
-    private static final Logger log = LoggerFactory.getLogger(DefaultExceptionHandler.class);
+public class GlobalExceptionHandler {
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
      * 权限校验失败

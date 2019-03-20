@@ -2,6 +2,7 @@ package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.base.AjaxResult;
+import com.github.joine.common.base.Ztree;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.framework.util.ShiroUtils;
@@ -16,7 +17,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 部门信息
@@ -131,9 +131,9 @@ public class SysDeptController extends BaseController {
      */
     @GetMapping("/treeData")
     @ResponseBody
-    public List<Map<String, Object>> treeData() {
-        List<Map<String, Object>> tree = deptService.selectDeptTree(new SysDept());
-        return tree;
+    public List<Ztree> treeData() {
+        List<Ztree> ztrees = deptService.selectDeptTree(new SysDept());
+        return ztrees;
     }
 
     /**
@@ -141,8 +141,8 @@ public class SysDeptController extends BaseController {
      */
     @GetMapping("/roleDeptTreeData")
     @ResponseBody
-    public List<Map<String, Object>> deptTreeData(SysRole role) {
-        List<Map<String, Object>> tree = deptService.roleDeptTreeData(role);
-        return tree;
+    public List<Ztree> deptTreeData(SysRole role) {
+        List<Ztree> ztrees = deptService.roleDeptTreeData(role);
+        return ztrees;
     }
 }

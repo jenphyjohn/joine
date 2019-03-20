@@ -2,6 +2,7 @@ package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.base.AjaxResult;
+import com.github.joine.common.base.Ztree;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.framework.web.base.BaseController;
@@ -136,9 +137,9 @@ public class SysMenuController extends BaseController {
      */
     @GetMapping("/roleMenuTreeData")
     @ResponseBody
-    public List<Map<String, Object>> roleMenuTreeData(SysRole role) {
-        List<Map<String, Object>> tree = menuService.roleMenuTreeData(role);
-        return tree;
+    public List<Ztree> roleMenuTreeData(SysRole role) {
+        List<Ztree> ztrees = menuService.roleMenuTreeData(role);
+        return ztrees;
     }
 
     /**
@@ -146,9 +147,9 @@ public class SysMenuController extends BaseController {
      */
     @GetMapping("/menuTreeData")
     @ResponseBody
-    public List<Map<String, Object>> menuTreeData(SysRole role) {
-        List<Map<String, Object>> tree = menuService.menuTreeData();
-        return tree;
+    public List<Ztree> menuTreeData(SysRole role) {
+        List<Ztree> ztrees = menuService.menuTreeData();
+        return ztrees;
     }
 
     /**

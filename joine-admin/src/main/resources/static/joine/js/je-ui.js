@@ -26,6 +26,7 @@
                     showFooter: false,
                     search: false,
                     showSearch: true,
+                    showPageGo: false,
                     showRefresh: true,
                     showColumns: true,
                     showToggle: true,
@@ -60,6 +61,7 @@
                     sidePagination: options.sidePagination,             // server启用服务端分页client客户端分页
                     search: options.search,                             // 是否显示搜索框功能
                     showSearch: options.showSearch,                     // 是否显示检索信息
+                    showPageGo: options.showPageGo,               		// 是否显示跳转页
                     showRefresh: options.showRefresh,                   // 是否显示刷新按钮
                     showColumns: options.showColumns,                   // 是否显示隐藏某列下拉框
                     showToggle: options.showToggle,                     // 是否显示详细视图和列表视图的切换按钮
@@ -103,11 +105,16 @@
                 // 浮动提示框特效
                 $("[data-toggle='tooltip']").tooltip();
                 // 触发行点击事件
-                $("#" + $.table._option.id).on("check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table", function () {
+                $("#" + $.table._option.id).on("check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table load-success.bs.table", function () {
                     var ids = $("#" + $.table._option.id).bootstrapTable("getSelections");
                     $('#' + $.table._option.toolbar + ' .btn-del').toggleClass('disabled', !ids.length);
                     $('#' + $.table._option.toolbar + ' .btn-edit').toggleClass('disabled', ids.length!=1);
                 });
+            },
+            // 表格销毁
+            destroy: function (tableId) {
+                var currentId = $.common.isEmpty(tableId) ? $.table._option.id : tableId;
+                $("#" + currentId).bootstrapTable('destroy');
             },
             // 序列号生成
             serialNumber: function (index) {
@@ -832,6 +839,7 @@
                     var $contentWindow = $('.Joine_iframe[data-id="' + currentId + '"]', topWindow)[0].contentWindow;
                     $.modal.close();
                     $contentWindow.$.modal.msgSuccess(result.msg);
+                    $contentWindow.$(".layui-layer-padding").removeAttr("style");
                     if ($contentWindow.$.table._option.type == table_type.bootstrapTable) {
                         $contentWindow.$.table.refresh();
                     } else if ($contentWindow.$.table._option.type == table_type.bootstrapTreeTable) {
@@ -864,49 +872,51 @@
             _option: {},
             _lastValue: {},
             // 初始化树结构
-            init: function (options) {
+            init: function(options) {
+                var defaults = {
+                    id: "tree",                    // 属性ID
+                    expandLevel: 0,                // 展开等级节点
+                    view: {
+                        selectedMulti: false,      // 设置是否允许同时选中多个节点
+                        nameIsHTML: true           // 设置 name 属性是否支持 HTML 脚本
+                    },
+                    check: {
+                        enable: false,             // 置 zTree 的节点上是否显示 checkbox / radio
+                        nocheckInherit: true,      // 设置子节点是否自动继承
+                    },
+                    data: {
+                        key: {
+                            title: "title"         // 节点数据保存节点提示信息的属性名称
+                        },
+                        simpleData: {
+                            enable: true           // true / false 分别表示 使用 / 不使用 简单数据模式
+                        }
+                    },
+                };
+                var options = $.extend(defaults, options);
                 $.tree._option = options;
-                // 属性ID
-                var _id = $.common.isEmpty(options.id) ? "tree" : options.id;
-                // 展开等级节点
-                var _expandLevel = $.common.isEmpty(options.expandLevel) ? 0 : options.expandLevel;
                 // 树结构初始化加载
                 var setting = {
+                    callback: {
+                        onClick: options.onClick,                      // 用于捕获节点被点击的事件回调函数
+                        onCheck: options.onCheck,                      // 用于捕获 checkbox / radio 被勾选 或 取消勾选的事件回调函数
+                        onDblClick: options.onDblClick                 // 用于捕获鼠标双击之后的事件回调函数
+                    },
                     check: options.check,
-                    view: {selectedMulti: false, nameIsHTML: true},
-                    data: {key: {title: "title"}, simpleData: {enable: true}},
-                    callback: {onClick: options.onClick}
+                    view: options.view,
+                    data: options.data
                 };
-                $.get(options.url, function (data) {
-                    var treeName = $("#treeName").val();
+                $.get(options.url, function(data) {
                     var treeId = $("#treeId").val();
-                    tree = $.fn.zTree.init($("#" + _id), setting, data);
+                    tree = $.fn.zTree.init($("#" + options.id), setting, data);
                     $._tree = tree;
-                    // 展开第一级节点
-                    var nodes = tree.getNodesByParam("level", 0);
+                    var nodes = tree.getNodesByParam("level", options.expandLevel - 1);
                     for (var i = 0; i < nodes.length; i++) {
-                        if (_expandLevel > 0) {
-                            tree.expandNode(nodes[i], true, false, false);
-                        }
-                        $.tree.selectByIdName(treeId, treeName, nodes[i]);
+                        tree.expandNode(nodes[i], true, false, false);
                     }
-                    // 展开第二级节点
-                    nodes = tree.getNodesByParam("level", 1);
-                    for (var i = 0; i < nodes.length; i++) {
-                        if (_expandLevel > 1) {
-                            tree.expandNode(nodes[i], true, false, false);
-                        }
-                        $.tree.selectByIdName(treeId, treeName, nodes[i]);
-                    }
-                    // 展开第三级节点
-                    nodes = tree.getNodesByParam("level", 2);
-                    for (var i = 0; i < nodes.length; i++) {
-                        if (_expandLevel > 2) {
-                            tree.expandNode(nodes[i], true, false, false);
-                        }
-                        $.tree.selectByIdName(treeId, treeName, nodes[i]);
-                    }
-                }, null, null, "正在加载，请稍后...");
+                    var node = tree.getNodesByParam("id", treeId, null)[0];
+                    $.tree.selectByIdName(treeId, node);
+                });
             },
             // 搜索节点
             searchNode: function () {
@@ -928,11 +938,9 @@
                 $.tree.updateNodes($._tree.getNodesByParamFuzzy("name", value));
             },
             // 根据Id和Name选中指定节点
-            selectByIdName: function (treeId, treeName, node) {
-                if ($.common.isNotEmpty(treeName) && $.common.isNotEmpty(treeId)) {
-                    if (treeId == node.id && treeName == node.name) {
-                        $._tree.selectNode(node, true);
-                    }
+            selectByIdName: function (treeId, node) {
+                if ($.common.isNotEmpty(treeId) && treeId == node.id) {
+                    $._tree.selectNode(node, true);
                 }
             },
             // 显示所有节点
