@@ -1,7 +1,7 @@
 package com.github.joine.quartz.service.impl;
 
 import com.github.joine.common.constant.ScheduleConstants;
-import com.github.joine.common.support.Convert;
+import com.github.joine.common.core.text.Convert;
 import com.github.joine.quartz.domain.SysJob;
 import com.github.joine.quartz.mapper.SysJobMapper;
 import com.github.joine.quartz.service.ISysJobService;

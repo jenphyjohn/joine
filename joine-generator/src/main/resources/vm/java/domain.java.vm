@@ -1,12 +1,8 @@
 package ${package}.domain;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import com.github.joine.common.base.BaseEntity;
 #foreach ($column in $columns)
 #if($column.attrType == 'Date')
-import java.util.Date;
-#break
+    #break
 #end
 #end
 

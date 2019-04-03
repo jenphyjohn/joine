@@ -6,10 +6,8 @@ import com.github.joine.system.mapper.SysNoticeMapper;
 import com.github.joine.system.service.ISysNoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.github.joine.common.support.Convert;
+import com.github.joine.common.core.text.Convert;
 import com.github.joine.system.domain.SysNotice;
-import com.github.joine.system.mapper.SysNoticeMapper;
-import com.github.joine.system.service.ISysNoticeService;
 
 /**
  * 公告 服务层实现

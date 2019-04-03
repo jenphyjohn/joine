@@ -1,4 +1,4 @@
-package com.github.joine.framework.config;
+package com.github.joine.common.config.thread;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.context.annotation.Bean;

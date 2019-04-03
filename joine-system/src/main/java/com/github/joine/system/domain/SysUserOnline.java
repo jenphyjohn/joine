@@ -3,7 +3,7 @@ package com.github.joine.system.domain;
 import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import com.github.joine.common.base.BaseEntity;
+import com.github.joine.common.core.domain.BaseEntity;
 import com.github.joine.common.enums.OnlineStatus;
 
 /**

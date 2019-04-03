@@ -3,8 +3,7 @@ package com.github.joine.system.domain;
 import com.github.joine.common.annotation.Excel;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import com.github.joine.common.annotation.Excel;
-import com.github.joine.common.base.BaseEntity;
+import com.github.joine.common.core.domain.BaseEntity;
 
 /**
  * 字典类型表 sys_dict_type

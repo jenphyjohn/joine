@@ -7,11 +7,9 @@ import com.github.joine.system.service.ISysConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.github.joine.common.constant.UserConstants;
-import com.github.joine.common.support.Convert;
+import com.github.joine.common.core.text.Convert;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.system.domain.SysConfig;
-import com.github.joine.system.mapper.SysConfigMapper;
-import com.github.joine.system.service.ISysConfigService;
 
 /**
  * 参数配置 服务层实现

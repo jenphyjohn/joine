@@ -1,9 +1,9 @@
 package com.github.joine.generator.util;
 
-import com.github.joine.common.config.Global;
 import com.github.joine.common.constant.Constants;
 import com.github.joine.common.utils.DateUtils;
 import com.github.joine.common.utils.StringUtils;
+import com.github.joine.generator.config.GenConfig;
 import com.github.joine.generator.domain.ColumnInfo;
 import com.github.joine.generator.domain.TableInfo;
 import org.apache.velocity.VelocityContext;
@@ -27,12 +27,12 @@ public class GenUtils {
     /**
      * mybatis空间路径
      */
-    private static final String MYBATIS_PATH = "main/resources/mapper" ;
+    private static final String MYBATIS_PATH = "main/resources/mapper";
 
     /**
      * html空间路径
      */
-    private static final String TEMPLATES_PATH = "main/resources/templates" ;
+    private static final String TEMPLATES_PATH = "main/resources/templates";
 
     /**
      * 类型转换
@@ -69,7 +69,7 @@ public class GenUtils {
     public static VelocityContext getVelocityContext(TableInfo table) {
         // java对象数据传递到模板文件vm
         VelocityContext velocityContext = new VelocityContext();
-        String packageName = Global.getPackageName();
+        String packageName = GenConfig.getPackageName();
         velocityContext.put("tableName", table.getTableName());
         velocityContext.put("tableComment", replaceKeyword(table.getTableComment()));
         velocityContext.put("primaryKey", table.getPrimaryKey());
@@ -79,7 +79,7 @@ public class GenUtils {
         velocityContext.put("columns", table.getColumns());
         velocityContext.put("basePackage", getBasePackage(packageName));
         velocityContext.put("package", packageName);
-        velocityContext.put("author", Global.getAuthor());
+        velocityContext.put("author", GenConfig.getAuthor());
         velocityContext.put("datetime", DateUtils.getDate());
         return velocityContext;
     }
@@ -108,8 +108,8 @@ public class GenUtils {
      * 表名转换成Java类名
      */
     public static String tableToJava(String tableName) {
-        String autoRemovePre = Global.getAutoRemovePre();
-        String tablePrefix = Global.getTablePrefix();
+        String autoRemovePre = GenConfig.getAutoRemovePre();
+        String tablePrefix = GenConfig.getTablePrefix();
         if (Constants.AUTO_REOMVE_PRE.equals(autoRemovePre) && StringUtils.isNotEmpty(tablePrefix)) {
             tableName = tableName.replaceFirst(tablePrefix, "");
         }
@@ -129,40 +129,40 @@ public class GenUtils {
         String htmlPath = TEMPLATES_PATH + "/" + moduleName + "/" + classname;
 
         if (template.contains("domain.java.vm")) {
-            return javaPath + "domain" + "/" + className + ".java" ;
+            return javaPath + "domain" + "/" + className + ".java";
         }
 
         if (template.contains("Mapper.java.vm")) {
-            return javaPath + "mapper" + "/" + className + "Mapper.java" ;
+            return javaPath + "mapper" + "/" + className + "Mapper.java";
         }
 
         if (template.contains("Service.java.vm")) {
-            return javaPath + "service" + "/" + "I" + className + "Service.java" ;
+            return javaPath + "service" + "/" + "I" + className + "Service.java";
         }
 
         if (template.contains("ServiceImpl.java.vm")) {
-            return javaPath + "service" + "/impl/" + className + "ServiceImpl.java" ;
+            return javaPath + "service" + "/impl/" + className + "ServiceImpl.java";
         }
 
         if (template.contains("Controller.java.vm")) {
-            return javaPath + "controller" + "/" + className + "Controller.java" ;
+            return javaPath + "controller" + "/" + className + "Controller.java";
         }
 
         if (template.contains("Mapper.xml.vm")) {
-            return mybatisPath + "Mapper.xml" ;
+            return mybatisPath + "Mapper.xml";
         }
 
         if (template.contains("list.html.vm")) {
-            return htmlPath + "/" + classname + ".html" ;
+            return htmlPath + "/" + classname + ".html";
         }
         if (template.contains("add.html.vm")) {
-            return htmlPath + "/" + "add.html" ;
+            return htmlPath + "/" + "add.html";
         }
         if (template.contains("edit.html.vm")) {
-            return htmlPath + "/" + "edit.html" ;
+            return htmlPath + "/" + "edit.html";
         }
         if (template.contains("sql.vm")) {
-            return classname + "Menu.sql" ;
+            return classname + "Menu.sql";
         }
         return null;
     }
@@ -187,7 +187,7 @@ public class GenUtils {
     }
 
     public static String getProjectPath() {
-        String packageName = Global.getPackageName();
+        String packageName = GenConfig.getPackageName();
         StringBuffer projectPath = new StringBuffer();
         projectPath.append("main/java/");
         projectPath.append(packageName.replace(".", "/"));

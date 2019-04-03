@@ -1,6 +1,6 @@
 package com.github.joine.system.service;
 
-import com.github.joine.common.base.Ztree;
+import com.github.joine.common.core.domain.Ztree;
 import com.github.joine.system.domain.SysMenu;
 import com.github.joine.system.domain.SysRole;
 import com.github.joine.system.domain.SysUser;

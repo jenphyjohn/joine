@@ -4,7 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import java.util.Date;
 import com.github.joine.common.annotation.Excel;
-import com.github.joine.common.base.BaseEntity;
+import com.github.joine.common.core.domain.BaseEntity;
 
 /**
  * 系统访问记录表 sys_logininfor

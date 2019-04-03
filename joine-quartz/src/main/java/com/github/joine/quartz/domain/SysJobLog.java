@@ -3,8 +3,7 @@ package com.github.joine.quartz.domain;
 import com.github.joine.common.annotation.Excel;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import com.github.joine.common.annotation.Excel;
-import com.github.joine.common.base.BaseEntity;
+import com.github.joine.common.core.domain.BaseEntity;
 
 /**
  * 定时任务调度日志表 sys_job_log

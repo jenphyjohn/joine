@@ -1,6 +1,6 @@
 package com.github.joine.web.controller.tool;
 
-import com.github.joine.framework.web.base.BaseController;
+import com.github.joine.common.core.controller.BaseController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

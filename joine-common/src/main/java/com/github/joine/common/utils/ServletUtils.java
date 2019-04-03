@@ -1,6 +1,6 @@
 package com.github.joine.common.utils;
 
-import com.github.joine.common.support.Convert;
+import com.github.joine.common.core.text.Convert;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

@@ -1,6 +1,6 @@
 package com.github.joine.common.utils;
 
-import com.github.joine.common.support.StrFormatter;
+import com.github.joine.common.core.text.StrFormatter;
 
 import java.util.Collection;
 import java.util.Map;

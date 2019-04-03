@@ -1,4 +1,4 @@
-package com.github.joine.common.support;
+package com.github.joine.common.core.text;
 
 import com.github.joine.common.utils.StringUtils;
 

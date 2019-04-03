@@ -1,7 +1,8 @@
 package com.github.joine.web.controller.system;
 
 import com.github.joine.common.config.Global;
-import com.github.joine.framework.web.base.BaseController;
+import com.github.joine.common.core.controller.BaseController;
+import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.system.domain.SysMenu;
 import com.github.joine.system.domain.SysUser;
 import com.github.joine.system.service.ISysMenuService;
@@ -26,7 +27,7 @@ public class SysIndexController extends BaseController {
     @GetMapping("/index")
     public String index(ModelMap modelMap) {
         // 取身份信息
-        SysUser user = getSysUser();
+        SysUser user = ShiroUtils.getSysUser();
         // 根据用户id取出菜单
         List<SysMenu> menus = menuService.selectMenusByUser(user);
         modelMap.put("menus", menus);

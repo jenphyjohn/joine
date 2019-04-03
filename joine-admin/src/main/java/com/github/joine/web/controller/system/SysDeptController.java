@@ -1,12 +1,12 @@
 package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
-import com.github.joine.common.base.AjaxResult;
-import com.github.joine.common.base.Ztree;
+import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.Ztree;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.framework.util.ShiroUtils;
-import com.github.joine.framework.web.base.BaseController;
+import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.system.domain.SysDept;
 import com.github.joine.system.domain.SysRole;
 import com.github.joine.system.service.ISysDeptService;

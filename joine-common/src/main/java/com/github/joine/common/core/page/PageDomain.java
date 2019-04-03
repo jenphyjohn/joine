@@ -1,4 +1,4 @@
-package com.github.joine.common.page;
+package com.github.joine.common.core.page;
 
 import com.github.joine.common.utils.StringUtils;
 

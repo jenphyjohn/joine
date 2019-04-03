@@ -1,6 +1,6 @@
 package com.github.joine.web.controller.system;
 
-import com.github.joine.framework.web.base.BaseController;
+import com.github.joine.common.core.controller.BaseController;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import org.springframework.stereotype.Controller;

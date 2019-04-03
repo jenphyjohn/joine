@@ -7,10 +7,7 @@ import com.github.joine.system.mapper.SysDictDataMapper;
 import com.github.joine.system.service.ISysDictDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.github.joine.common.support.Convert;
-import com.github.joine.system.domain.SysDictData;
-import com.github.joine.system.mapper.SysDictDataMapper;
-import com.github.joine.system.service.ISysDictDataService;
+import com.github.joine.common.core.text.Convert;
 
 /**
  * 字典 业务层处理

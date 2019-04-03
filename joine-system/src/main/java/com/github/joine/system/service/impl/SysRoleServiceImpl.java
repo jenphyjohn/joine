@@ -3,7 +3,7 @@ package com.github.joine.system.service.impl;
 import com.github.joine.common.annotation.DataScope;
 import com.github.joine.common.constant.UserConstants;
 import com.github.joine.common.exception.BusinessException;
-import com.github.joine.common.support.Convert;
+import com.github.joine.common.core.text.Convert;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.system.domain.SysRole;
 import com.github.joine.system.domain.SysRoleDept;

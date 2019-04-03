@@ -3,6 +3,7 @@ package com.github.joine.framework.datasource;
 import java.util.Map;
 import javax.sql.DataSource;
 
+import com.github.joine.common.config.datasource.DynamicDataSourceContextHolder;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 /**

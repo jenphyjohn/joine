@@ -1,7 +1,7 @@
 package com.github.joine.framework.aspectj;
 
 import com.github.joine.common.annotation.DataScope;
-import com.github.joine.common.base.BaseEntity;
+import com.github.joine.common.core.domain.BaseEntity;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.system.domain.SysRole;

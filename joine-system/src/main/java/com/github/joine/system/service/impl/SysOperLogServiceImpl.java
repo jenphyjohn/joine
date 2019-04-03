@@ -7,10 +7,7 @@ import com.github.joine.system.mapper.SysOperLogMapper;
 import com.github.joine.system.service.ISysOperLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.github.joine.common.support.Convert;
-import com.github.joine.system.domain.SysOperLog;
-import com.github.joine.system.mapper.SysOperLogMapper;
-import com.github.joine.system.service.ISysOperLogService;
+import com.github.joine.common.core.text.Convert;
 
 /**
  * 操作日志 服务层处理

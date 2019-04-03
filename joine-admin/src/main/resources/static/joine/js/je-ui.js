@@ -108,7 +108,7 @@
                 $("#" + $.table._option.id).on("check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table load-success.bs.table", function () {
                     var ids = $("#" + $.table._option.id).bootstrapTable("getSelections");
                     $('#' + $.table._option.toolbar + ' .btn-del').toggleClass('disabled', !ids.length);
-                    $('#' + $.table._option.toolbar + ' .btn-edit').toggleClass('disabled', ids.length!=1);
+                    $('#' + $.table._option.toolbar + ' .btn-edit').toggleClass('disabled', ids.length != 1);
                 });
             },
             // 表格销毁
@@ -142,7 +142,7 @@
                 actions.push('<button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">');
                 actions.push('<i class="fa fa-cog"></i>&nbsp;<span class="fa fa-chevron-down"></span></button>');
                 actions.push('<ul class="dropdown-menu">');
-                actions.push(value.replace(/<a/g,"<li><a").replace(/<\/a>/g,"</a></li>"));
+                actions.push(value.replace(/<a/g, "<li><a").replace(/<\/a>/g, "</a></li>"));
                 actions.push('</ul>');
                 actions.push('</div>');
                 return actions.join('');
@@ -259,7 +259,7 @@
             selectDictLabel: function (datas, value) {
                 var actions = [];
                 $.each(datas, function (index, dict) {
-                    if (dict.dictValue == value) {
+                    if (dict.dictValue == '' + value) {
                         actions.push("<span class='badge badge-" + dict.listClass + "'>" + dict.dictLabel + "</span>");
                         return false;
                     }
@@ -651,13 +651,13 @@
                 });
             },
             // 删除信息
-            remove: function(id) {
-                $.modal.confirm("确定删除该条" + $.table._option.modalName + "信息吗？", function() {
+            remove: function (id) {
+                $.modal.confirm("确定删除该条" + $.table._option.modalName + "信息吗？", function () {
                     var url = $.common.isEmpty(id) ? $.table._option.removeUrl : $.table._option.removeUrl.replace("{id}", id);
-                    if($.table._option.type == table_type.bootstrapTreeTable) {
+                    if ($.table._option.type == table_type.bootstrapTreeTable) {
                         $.operate.get(url);
                     } else {
-                        var data = { "ids": id };
+                        var data = {"ids": id};
                         $.operate.submit(url, "post", "json", data);
                     }
                 });
@@ -684,7 +684,7 @@
                 });
             },
             // 添加信息
-            add: function(id) {
+            add: function (id) {
                 $.modal.open("添加" + $.table._option.modalName, $.operate.addUrl(id));
             },
             // 添加信息，以tab页展现
@@ -692,18 +692,18 @@
                 $.modal.openTab("添加" + $.table._option.modalName, $.operate.addUrl(id));
             },
             // 添加信息 全屏
-            addFull: function(id) {
+            addFull: function (id) {
                 var url = $.common.isEmpty(id) ? $.table._option.createUrl : $.table._option.createUrl.replace("{id}", id);
                 $.modal.openFull("添加" + $.table._option.modalName, url);
             },
             // 添加访问地址
-            addUrl: function(id) {
+            addUrl: function (id) {
                 var url = $.common.isEmpty(id) ? $.table._option.createUrl : $.table._option.createUrl.replace("{id}", id);
                 return url;
             },
             // 修改信息
-            edit: function(id) {
-                if($.common.isEmpty(id) && $.table._option.type == table_type.bootstrapTreeTable) {
+            edit: function (id) {
+                if ($.common.isEmpty(id) && $.table._option.type == table_type.bootstrapTreeTable) {
                     var row = $('#' + $.table._option.id).bootstrapTreeTable('getSelections')[0];
                     if ($.common.isEmpty(row)) {
                         $.modal.alertWarning("请至少选择一条记录");
@@ -716,7 +716,7 @@
                 }
             },
             // 修改信息，以tab页展现
-            editTab: function(id) {
+            editTab: function (id) {
                 $.modal.openTab("修改" + $.table._option.modalName, $.operate.editUrl(id));
             },
             // 修改信息 全屏
@@ -731,7 +731,7 @@
                 $.modal.openFull("修改" + $.table._option.modalName, url);
             },
             // 修改访问地址
-            editUrl: function(id) {
+            editUrl: function (id) {
                 var url = "/404.html";
                 if ($.common.isNotEmpty(id)) {
                     url = $.table._option.updateUrl.replace("{id}", id);
@@ -763,7 +763,7 @@
                 $.ajax(config)
             },
             // 保存选项卡信息
-            saveTab: function(url, data) {
+            saveTab: function (url, data) {
                 var config = {
                     url: url,
                     type: "post",
@@ -772,7 +772,7 @@
                     beforeSend: function () {
                         $.modal.loading("正在处理中，请稍后...");
                     },
-                    success: function(result) {
+                    success: function (result) {
                         $.operate.successTabCallback(result);
                     }
                 };
@@ -832,7 +832,7 @@
                 $.modal.enable();
             },
             // 选项卡成功回调执行事件（父窗体静默更新）
-            successTabCallback: function(result) {
+            successTabCallback: function (result) {
                 if (result.code == web_status.SUCCESS) {
                     var topWindow = $(window.parent.document);
                     var currentId = $('.page-tabs-content', topWindow).find('.active').attr('data-panel');
@@ -872,7 +872,7 @@
             _option: {},
             _lastValue: {},
             // 初始化树结构
-            init: function(options) {
+            init: function (options) {
                 var defaults = {
                     id: "tree",                    // 属性ID
                     expandLevel: 0,                // 展开等级节点
@@ -906,7 +906,7 @@
                     view: options.view,
                     data: options.data
                 };
-                $.get(options.url, function(data) {
+                $.get(options.url, function (data) {
                     var treeId = $("#treeId").val();
                     tree = $.fn.zTree.init($("#" + options.id), setting, data);
                     $._tree = tree;

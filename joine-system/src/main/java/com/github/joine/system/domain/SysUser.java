@@ -2,7 +2,7 @@ package com.github.joine.system.domain;
 
 import com.github.joine.common.annotation.Excel;
 import com.github.joine.common.annotation.Excel.Type;
-import com.github.joine.common.base.BaseEntity;
+import com.github.joine.common.core.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 

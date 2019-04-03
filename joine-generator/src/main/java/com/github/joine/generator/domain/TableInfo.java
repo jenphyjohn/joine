@@ -1,6 +1,6 @@
 package com.github.joine.generator.domain;
 
-import com.github.joine.common.base.BaseEntity;
+import com.github.joine.common.core.domain.BaseEntity;
 import com.github.joine.common.utils.StringUtils;
 
 import java.util.List;

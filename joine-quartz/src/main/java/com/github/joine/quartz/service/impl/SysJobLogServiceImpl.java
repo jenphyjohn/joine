@@ -2,16 +2,12 @@ package com.github.joine.quartz.service.impl;
 
 import java.util.List;
 
-import com.github.joine.common.support.Convert;
+import com.github.joine.common.core.text.Convert;
 import com.github.joine.quartz.domain.SysJobLog;
 import com.github.joine.quartz.mapper.SysJobLogMapper;
 import com.github.joine.quartz.service.ISysJobLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.github.joine.common.support.Convert;
-import com.github.joine.quartz.domain.SysJobLog;
-import com.github.joine.quartz.mapper.SysJobLogMapper;
-import com.github.joine.quartz.service.ISysJobLogService;
 
 /**
  * 定时任务调度日志信息 服务层

@@ -1,6 +1,7 @@
-package com.github.joine.common.page;
+package com.github.joine.common.core.page;
 
 import com.github.joine.common.constant.Constants;
+import com.github.joine.common.core.page.PageDomain;
 import com.github.joine.common.utils.ServletUtils;
 
 /**

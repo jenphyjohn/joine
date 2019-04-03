@@ -17,6 +17,11 @@
 
 
     <dependencies>
+        <!-- SpringBoot集成thymeleaf模板 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
 
         <!-- spring-boot-devtools -->
 		<dependency>
@@ -29,23 +34,31 @@
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
-			<version>${swagger.version}</version>
 		</dependency>
 		
 		<!-- swagger2-UI-->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
-			<version>${swagger.version}</version>
 		</dependency>
 
 		<!-- 核心模块-->
         <dependency>
             <groupId>com.github.joine</groupId>
             <artifactId>joine-framework</artifactId>
-            <version>${joine.version}</version>
         </dependency>
         
+        <!-- 定时任务-->
+        <dependency>
+            <groupId>com.github.joine</groupId>
+            <artifactId>joine-quartz</artifactId>
+        </dependency>
+
+        <!-- 代码生成-->
+        <dependency>
+            <groupId>com.github.joine</groupId>
+            <artifactId>joine-generator</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

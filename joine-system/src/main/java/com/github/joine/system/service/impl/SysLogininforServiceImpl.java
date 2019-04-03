@@ -7,10 +7,7 @@ import com.github.joine.system.mapper.SysLogininforMapper;
 import com.github.joine.system.service.ISysLogininforService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.github.joine.common.support.Convert;
-import com.github.joine.system.domain.SysLogininfor;
-import com.github.joine.system.mapper.SysLogininforMapper;
-import com.github.joine.system.service.ISysLogininforService;
+import com.github.joine.common.core.text.Convert;
 
 /**
  * 系统访问日志情况信息 服务层处理

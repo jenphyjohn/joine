@@ -1,4 +1,4 @@
-package com.github.joine.framework.datasource;
+package com.github.joine.common.config.datasource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

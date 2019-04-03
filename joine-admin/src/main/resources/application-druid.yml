@@ -38,6 +38,8 @@ spring:
             testWhileIdle: true
             testOnBorrow: false
             testOnReturn: false
+            webStatFilter:
+                enabled: true
             statViewServlet:
                 enabled: true
                 url-pattern: /monitor/druid/*
@@ -45,6 +47,7 @@ spring:
                 allow:
             filter:
                 stat:
+                    enabled: true
                     # 慢SQL记录
                     log-slow-sql: true
                     slow-sql-millis: 1000

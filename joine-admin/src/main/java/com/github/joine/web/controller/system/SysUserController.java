@@ -1,14 +1,14 @@
 package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
-import com.github.joine.common.base.AjaxResult;
+import com.github.joine.common.core.controller.BaseController;
+import com.github.joine.common.core.domain.AjaxResult;
 import com.github.joine.common.enums.BusinessType;
-import com.github.joine.common.page.TableDataInfo;
+import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.common.utils.poi.ExcelUtil;
 import com.github.joine.framework.shiro.service.SysPasswordService;
 import com.github.joine.framework.util.ShiroUtils;
-import com.github.joine.framework.web.base.BaseController;
 import com.github.joine.system.domain.SysUser;
 import com.github.joine.system.service.ISysPostService;
 import com.github.joine.system.service.ISysRoleService;
@@ -77,7 +77,7 @@ public class SysUserController extends BaseController {
     public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception {
         ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
         List<SysUser> userList = util.importExcel(file.getInputStream());
-        String operName = getSysUser().getLoginName();
+        String operName = ShiroUtils.getSysUser().getLoginName();
         String message = userService.importUser(userList, updateSupport, operName);
         return AjaxResult.success(message);
     }

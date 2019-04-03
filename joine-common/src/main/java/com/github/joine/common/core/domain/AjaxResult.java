@@ -1,4 +1,4 @@
-package com.github.joine.common.base;
+package com.github.joine.common.core.domain;
 
 import java.util.HashMap;
 

@@ -7,6 +7,11 @@ package com.github.joine.common.constant;
  */
 public class UserConstants {
     /**
+     * 平台系统用户唯一标志
+     */
+    public static final String SYS_USER = "SYS_USER";
+
+    /**
      * 正常状态
      */
     public static final String NORMAL = "0";

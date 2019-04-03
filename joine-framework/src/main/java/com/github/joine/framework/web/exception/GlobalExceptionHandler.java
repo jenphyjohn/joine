@@ -1,6 +1,6 @@
 package com.github.joine.framework.web.exception;
 
-import com.github.joine.common.base.AjaxResult;
+import com.github.joine.common.core.domain.AjaxResult;
 import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.exception.DemoModeException;
 import com.github.joine.framework.util.PermissionUtils;

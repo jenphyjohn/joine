@@ -1,9 +1,9 @@
 package com.github.joine.web.controller.system;
 
-import com.github.joine.common.base.AjaxResult;
+import com.github.joine.common.core.domain.AjaxResult;
 import com.github.joine.common.utils.ServletUtils;
 import com.github.joine.common.utils.StringUtils;
-import com.github.joine.framework.web.base.BaseController;
+import com.github.joine.common.core.controller.BaseController;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;

@@ -16,11 +16,16 @@
 	</description>
 	
     <dependencies>
+        <!--Mysql驱动包-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
 		<!-- 通用工具-->
         <dependency>
             <groupId>com.github.joine</groupId>
             <artifactId>joine-common</artifactId>
-            <version>${joine.version}</version>
         </dependency>
     </dependencies>
 	

@@ -1,12 +1,11 @@
-package com.github.joine.web.controller.monitor;
+package com.github.joine.quartz.controller;
 
 import com.github.joine.common.annotation.Log;
-import com.github.joine.common.base.AjaxResult;
+import com.github.joine.common.core.controller.BaseController;
+import com.github.joine.common.core.domain.AjaxResult;
 import com.github.joine.common.enums.BusinessType;
-import com.github.joine.common.page.TableDataInfo;
+import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.utils.poi.ExcelUtil;
-import com.github.joine.framework.util.ShiroUtils;
-import com.github.joine.framework.web.base.BaseController;
 import com.github.joine.quartz.domain.SysJob;
 import com.github.joine.quartz.service.ISysJobService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -79,13 +78,14 @@ public class SysJobController extends BaseController {
 
     /**
      * 任务调度状态修改
+     *
+     * @throws Exception
      */
     @Log(title = "定时任务", businessType = BusinessType.UPDATE)
     @RequiresPermissions("monitor:job:changeStatus")
     @PostMapping("/changeStatus")
     @ResponseBody
     public AjaxResult changeStatus(SysJob job) {
-        job.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(jobService.changeStatus(job));
     }
 
@@ -110,13 +110,14 @@ public class SysJobController extends BaseController {
 
     /**
      * 新增保存调度
+     *
+     * @throws Exception
      */
     @Log(title = "定时任务", businessType = BusinessType.INSERT)
     @RequiresPermissions("monitor:job:add")
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysJob job) {
-        job.setCreateBy(ShiroUtils.getLoginName());
+    public AjaxResult addSave(SysJob job) throws Exception {
         return toAjax(jobService.insertJobCron(job));
     }
 
@@ -131,13 +132,14 @@ public class SysJobController extends BaseController {
 
     /**
      * 修改保存调度
+     *
+     * @throws Exception
      */
     @Log(title = "定时任务", businessType = BusinessType.UPDATE)
     @RequiresPermissions("monitor:job:edit")
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysJob job) {
-        job.setUpdateBy(ShiroUtils.getLoginName());
+    public AjaxResult editSave(SysJob job) throws Exception {
         return toAjax(jobService.updateJobCron(job));
     }
 

@@ -3,6 +3,7 @@ package com.github.joine.generator.service.impl;
 import com.github.joine.common.config.Global;
 import com.github.joine.common.constant.Constants;
 import com.github.joine.common.utils.StringUtils;
+import com.github.joine.generator.config.GenConfig;
 import com.github.joine.generator.domain.ColumnInfo;
 import com.github.joine.generator.domain.TableInfo;
 import com.github.joine.generator.mapper.GenMapper;
@@ -105,7 +106,7 @@ public class GenServiceImpl implements IGenService {
 
         VelocityInitializer.initVelocity();
 
-        String packageName = Global.getPackageName();
+        String packageName = GenConfig.getPackageName();
         String moduleName = GenUtils.getModuleName(packageName);
 
         VelocityContext context = GenUtils.getVelocityContext(table);

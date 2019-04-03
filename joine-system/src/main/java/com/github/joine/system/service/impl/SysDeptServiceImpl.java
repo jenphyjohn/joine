@@ -1,7 +1,7 @@
 package com.github.joine.system.service.impl;
 
 import com.github.joine.common.annotation.DataScope;
-import com.github.joine.common.base.Ztree;
+import com.github.joine.common.core.domain.Ztree;
 import com.github.joine.common.constant.UserConstants;
 import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.utils.StringUtils;

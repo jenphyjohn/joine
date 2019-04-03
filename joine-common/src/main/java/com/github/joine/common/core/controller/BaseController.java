@@ -1,14 +1,12 @@
-package com.github.joine.framework.web.base;
+package com.github.joine.common.core.controller;
 
-import com.github.joine.common.base.AjaxResult;
-import com.github.joine.common.page.PageDomain;
-import com.github.joine.common.page.TableDataInfo;
-import com.github.joine.common.page.TableSupport;
+import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.page.PageDomain;
+import com.github.joine.common.core.page.TableDataInfo;
+import com.github.joine.common.core.page.TableSupport;
 import com.github.joine.common.utils.DateUtils;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.common.utils.sql.SqlUtil;
-import com.github.joine.framework.util.ShiroUtils;
-import com.github.joine.system.domain.SysUser;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.web.bind.WebDataBinder;
@@ -125,19 +123,4 @@ public class BaseController {
         return StringUtils.format("redirect:{}", url);
     }
 
-    public SysUser getSysUser() {
-        return ShiroUtils.getSysUser();
-    }
-
-    public void setSysUser(SysUser user) {
-        ShiroUtils.setSysUser(user);
-    }
-
-    public Long getUserId() {
-        return getSysUser().getUserId();
-    }
-
-    public String getLoginName() {
-        return getSysUser().getLoginName();
-    }
 }
