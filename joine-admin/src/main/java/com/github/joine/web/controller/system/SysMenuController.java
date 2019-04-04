@@ -2,6 +2,7 @@ package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.AjaxResult.Type;
 import com.github.joine.common.core.domain.Ztree;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.framework.util.ShiroUtils;
@@ -53,10 +54,10 @@ public class SysMenuController extends BaseController {
     @ResponseBody
     public AjaxResult remove(@PathVariable("menuId") Long menuId) {
         if (menuService.selectCountMenuByParentId(menuId) > 0) {
-            return error(1, "存在子菜单,不允许删除");
+            return AjaxResult.warn("菜单已分配,不允许删除");
         }
         if (menuService.selectCountRoleMenuByMenuId(menuId) > 0) {
-            return error(1, "菜单已分配,不允许删除");
+            return AjaxResult.warn("菜单已分配,不允许删除");
         }
         ShiroUtils.clearCachedAuthorizationInfo();
         return toAjax(menuService.deleteMenuById(menuId));
@@ -67,7 +68,7 @@ public class SysMenuController extends BaseController {
      */
     @GetMapping("/add/{parentId}")
     public String add(@PathVariable("parentId") Long parentId, ModelMap modelMap) {
-        SysMenu menu = null;
+        SysMenu menu;
         if (0L != parentId) {
             menu = menuService.selectMenuById(parentId);
         } else {

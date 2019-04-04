@@ -34,6 +34,9 @@ public class SysUser extends BaseEntity {
      */
     private Long parentId;
 
+    /** 角色ID */
+    private Long roleId;
+
     /**
      * 登录名称
      */
@@ -150,6 +153,14 @@ public class SysUser extends BaseEntity {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     public String getLoginName() {

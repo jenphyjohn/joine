@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org">
-<meta charset="utf-8">
-<head th:include="include :: header"></head>
-<link th:href="@{/joine/css/je-ui.css}" rel="stylesheet"/>
-<link th:href="@{/ajax/libs/datapicker/bootstrap-datetimepicker.min.css}" rel="stylesheet"/>
+<html lang="zh">
+<head>
+    <th:block th:include="include :: header('表单构建器')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
 <style>
     .droppable-active {
         background-color: #ffe !important
@@ -174,7 +174,7 @@
                         <div class="col-md-6 droppable sortable" style="display: none;">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-warning" data-clipboard-text="testing" id="copy-to-clipboard">
+                    <button type="submit" class="btn btn-info" data-clipboard-text="testing" id="copy-to-clipboard">
                         复制代码
                     </button>
                 </div>
@@ -182,12 +182,11 @@
         </div>
     </div>
 </div>
-<div th:include="include :: footer"></div>
+<th:block th:include="include :: footer" />
 <script th:src="@{/js/jquery-ui-1.10.4.min.js}"></script>
-<script th:src="@{/ajax/libs/iCheck/icheck.min.js}"></script>
-<script th:src="@{/ajax/libs//datapicker/bootstrap-datetimepicker.min.js}"></script>
+<th:block th:include="include :: datetimepicker-js" />
 <script th:src="@{/ajax/libs/beautifyhtml/beautifyhtml.js}"></script>
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         setup_draggable();
         $("#n-columns").on("change", function () {

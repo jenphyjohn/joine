@@ -1,18 +1,20 @@
 package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
+import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.common.core.domain.AjaxResult;
-import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.core.page.TableDataInfo;
+import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.poi.ExcelUtil;
 import com.github.joine.framework.util.ShiroUtils;
-import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.system.domain.SysRole;
+import com.github.joine.system.domain.SysUser;
+import com.github.joine.system.domain.SysUserRole;
 import com.github.joine.system.service.ISysRoleService;
+import com.github.joine.system.service.ISysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +32,9 @@ public class SysRoleController extends BaseController {
 
     @Autowired
     private ISysRoleService roleService;
+
+    @Autowired
+    private ISysUserService userService;
 
     @RequiresPermissions("system:role:view")
     @GetMapping()
@@ -101,24 +106,23 @@ public class SysRoleController extends BaseController {
     }
 
     /**
-     * 新增数据权限
+     * 角色分配数据权限
      */
-    @GetMapping("/rule/{roleId}")
-    public String rule(@PathVariable("roleId") Long roleId, ModelMap modelMap) {
+    @GetMapping("/authDataScope/{roleId}")
+    public String authDataScope(@PathVariable("roleId") Long roleId, ModelMap modelMap) {
         modelMap.put("role", roleService.selectRoleById(roleId));
-        return prefix + "/rule";
+        return prefix + "/dataScope";
     }
 
     /**
-     * 修改保存数据权限
+     * 保存角色分配数据权限
      */
     @RequiresPermissions("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
-    @PostMapping("/rule")
+    @PostMapping("/authDataScope")
     @ResponseBody
-    public AjaxResult ruleSave(SysRole role) {
-        role.setUpdateBy(ShiroUtils.getLoginName());
-        return toAjax(roleService.updateRule(role));
+    public AjaxResult authDataScopeSave(SysRole role) {
+        return toAjax(roleService.authDataScope(role));
     }
 
     @RequiresPermissions("system:role:remove")
@@ -168,5 +172,78 @@ public class SysRoleController extends BaseController {
     @ResponseBody
     public AjaxResult changeStatus(SysRole role) {
         return toAjax(roleService.changeStatus(role));
+    }
+
+    /**
+     * 分配用户
+     */
+    @RequiresPermissions("system:role:edit")
+    @GetMapping("/authUser/{roleId}")
+    public String authUser(@PathVariable("roleId") Long roleId, ModelMap mmap) {
+        mmap.put("role", roleService.selectRoleById(roleId));
+        return prefix + "/authUser";
+    }
+
+    /**
+     * 查询已分配用户角色列表
+     */
+    @RequiresPermissions("system:role:list")
+    @PostMapping("/authUser/allocatedList")
+    @ResponseBody
+    public TableDataInfo allocatedList(SysUser user) {
+        startPage();
+        List<SysUser> list = userService.selectAllocatedList(user);
+        return getDataTable(list);
+    }
+
+    /**
+     * 取消授权
+     */
+    @Log(title = "角色管理", businessType = BusinessType.GRANT)
+    @PostMapping("/authUser/cancel")
+    @ResponseBody
+    public AjaxResult cancelAuthUser(SysUserRole userRole) {
+        return toAjax(roleService.deleteAuthUser(userRole));
+    }
+
+    /**
+     * 批量取消授权
+     */
+    @Log(title = "角色管理", businessType = BusinessType.GRANT)
+    @PostMapping("/authUser/cancelAll")
+    @ResponseBody
+    public AjaxResult cancelAuthUserAll(Long roleId, String userIds) {
+        return toAjax(roleService.deleteAuthUsers(roleId, userIds));
+    }
+
+    /**
+     * 选择用户
+     */
+    @GetMapping("/authUser/selectUser/{roleId}")
+    public String selectUser(@PathVariable("roleId") Long roleId, ModelMap mmap) {
+        mmap.put("role", roleService.selectRoleById(roleId));
+        return prefix + "/selectUser";
+    }
+
+    /**
+     * 查询未分配用户角色列表
+     */
+    @RequiresPermissions("system:role:list")
+    @PostMapping("/authUser/unallocatedList")
+    @ResponseBody
+    public TableDataInfo unallocatedList(SysUser user) {
+        startPage();
+        List<SysUser> list = userService.selectUnallocatedList(user);
+        return getDataTable(list);
+    }
+
+    /**
+     * 批量选择用户授权
+     */
+    @Log(title = "角色管理", businessType = BusinessType.GRANT)
+    @PostMapping("/authUser/selectAll")
+    @ResponseBody
+    public AjaxResult selectAuthUserAll(Long roleId, String userIds) {
+        return toAjax(roleService.insertAuthUsers(roleId, userIds));
     }
 }

@@ -1,12 +1,12 @@
 package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
+import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.common.core.domain.AjaxResult;
 import com.github.joine.common.core.domain.Ztree;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.framework.util.ShiroUtils;
-import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.system.domain.SysDept;
 import com.github.joine.system.domain.SysRole;
 import com.github.joine.system.service.ISysDeptService;
@@ -100,10 +100,10 @@ public class SysDeptController extends BaseController {
     @ResponseBody
     public AjaxResult remove(@PathVariable("deptId") Long deptId) {
         if (deptService.selectDeptCount(deptId) > 0) {
-            return error(1, "存在下级部门,不允许删除");
+            return AjaxResult.warn("存在下级部门,不允许删除");
         }
         if (deptService.checkDeptExistUser(deptId)) {
-            return error(1, "部门存在用户,不允许删除");
+            return AjaxResult.warn("部门存在用户,不允许删除");
         }
         return toAjax(deptService.deleteDeptById(deptId));
     }

@@ -1,6 +1,7 @@
 package com.github.joine.common.core.controller;
 
 import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.AjaxResult.Type;
 import com.github.joine.common.core.page.PageDomain;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.core.page.TableSupport;
@@ -112,8 +113,8 @@ public class BaseController {
     /**
      * 返回错误码消息
      */
-    public AjaxResult error(int code, String message) {
-        return AjaxResult.error(code, message);
+    public AjaxResult error(Type type, String message) {
+        return new AjaxResult(type, message);
     }
 
     /**

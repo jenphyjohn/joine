@@ -4,8 +4,8 @@ import com.github.joine.common.annotation.DataScope;
 import com.github.joine.common.constant.UserConstants;
 import com.github.joine.common.core.text.Convert;
 import com.github.joine.common.exception.BusinessException;
-import com.github.joine.common.utils.security.Md5Utils;
 import com.github.joine.common.utils.StringUtils;
+import com.github.joine.common.utils.security.Md5Utils;
 import com.github.joine.system.domain.*;
 import com.github.joine.system.mapper.*;
 import com.github.joine.system.service.ISysConfigService;
@@ -48,7 +48,7 @@ public class SysUserServiceImpl implements ISysUserService {
     private ISysConfigService configService;
 
     /**
-     * 根据条件分页查询用户对象
+     * 根据条件分页查询用户列表
      *
      * @param user 用户信息
      * @return 用户信息集合信息
@@ -57,6 +57,28 @@ public class SysUserServiceImpl implements ISysUserService {
     @DataScope(tableAlias = "u")
     public List<SysUser> selectUserList(SysUser user) {
         return userMapper.selectUserList(user);
+    }
+
+    /**
+     * 根据条件分页查询已分配用户角色列表
+     *
+     * @param user 用户信息
+     * @return 用户信息集合信息
+     */
+    @DataScope(tableAlias = "u")
+    public List<SysUser> selectAllocatedList(SysUser user) {
+        return userMapper.selectAllocatedList(user);
+    }
+
+    /**
+     * 根据条件分页查询未分配用户角色列表
+     *
+     * @param user 用户信息
+     * @return 用户信息集合信息
+     */
+    @DataScope(tableAlias = "u")
+    public List<SysUser> selectUnallocatedList(SysUser user) {
+        return userMapper.selectUnallocatedList(user);
     }
 
     /**

@@ -10,7 +10,6 @@ import com.github.joine.common.utils.file.FileUploadUtils;
 import com.github.joine.framework.shiro.service.SysPasswordService;
 import com.github.joine.framework.util.ShiroUtils;
 import com.github.joine.system.domain.SysUser;
-import com.github.joine.system.service.ISysDictDataService;
 import com.github.joine.system.service.ISysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,16 +37,12 @@ public class SysProfileController extends BaseController {
     @Autowired
     private SysPasswordService passwordService;
 
-    @Autowired
-    private ISysDictDataService dictDataService;
-
     /**
      * 个人信息
      */
     @GetMapping()
     public String profile(ModelMap modelMap) {
         SysUser user = ShiroUtils.getSysUser();
-        user.setSex(dictDataService.selectDictLabel("sys_user_sex", user.getSex()));
         modelMap.put("user", user);
         modelMap.put("roleGroup", userService.selectUserRoleGroup(user.getUserId()));
         modelMap.put("postGroup", userService.selectUserPostGroup(user.getUserId()));
