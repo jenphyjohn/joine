@@ -1,8 +1,8 @@
 package com.github.joine.system.service.impl;
 
 import com.github.joine.common.constant.UserConstants;
-import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.core.text.Convert;
+import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.system.domain.SysDictType;
 import com.github.joine.system.mapper.SysDictDataMapper;
@@ -10,6 +10,7 @@ import com.github.joine.system.mapper.SysDictTypeMapper;
 import com.github.joine.system.service.ISysDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -106,6 +107,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      * @return 结果
      */
     @Override
+    @Transactional
     public int updateDictType(SysDictType dictType) {
         SysDictType oldDict = dictTypeMapper.selectDictTypeById(dictType.getDictId());
         dictDataMapper.updateDictDataType(oldDict.getDictType(), dictType.getDictType());

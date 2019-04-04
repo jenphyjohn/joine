@@ -2,8 +2,8 @@ package com.github.joine.system.service.impl;
 
 import com.github.joine.common.annotation.DataScope;
 import com.github.joine.common.constant.UserConstants;
-import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.core.text.Convert;
+import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.utils.Md5Utils;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.system.domain.*;
@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,6 +142,7 @@ public class SysUserServiceImpl implements ISysUserService {
      * @return 结果
      */
     @Override
+    @Transactional
     public int insertUser(SysUser user) {
         // 新增用户信息
         int rows = userMapper.insertUser(user);
@@ -158,6 +160,7 @@ public class SysUserServiceImpl implements ISysUserService {
      * @return 结果
      */
     @Override
+    @Transactional
     public int updateUser(SysUser user) {
         Long userId = user.getUserId();
         // 删除用户与角色关联

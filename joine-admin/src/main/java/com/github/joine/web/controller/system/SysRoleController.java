@@ -70,7 +70,6 @@ public class SysRoleController extends BaseController {
     @RequiresPermissions("system:role:add")
     @Log(title = "角色管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
-    @Transactional(rollbackFor = Exception.class)
     @ResponseBody
     public AjaxResult addSave(SysRole role) {
         role.setCreateBy(ShiroUtils.getLoginName());
@@ -94,7 +93,6 @@ public class SysRoleController extends BaseController {
     @RequiresPermissions("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
-    @Transactional(rollbackFor = Exception.class)
     @ResponseBody
     public AjaxResult editSave(SysRole role) {
         role.setUpdateBy(ShiroUtils.getLoginName());
@@ -117,7 +115,6 @@ public class SysRoleController extends BaseController {
     @RequiresPermissions("system:role:edit")
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
     @PostMapping("/rule")
-    @Transactional(rollbackFor = Exception.class)
     @ResponseBody
     public AjaxResult ruleSave(SysRole role) {
         role.setUpdateBy(ShiroUtils.getLoginName());

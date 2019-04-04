@@ -2,8 +2,8 @@ package com.github.joine.system.service.impl;
 
 import com.github.joine.common.annotation.DataScope;
 import com.github.joine.common.constant.UserConstants;
-import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.core.text.Convert;
+import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.system.domain.SysRole;
 import com.github.joine.system.domain.SysRoleDept;
@@ -15,6 +15,7 @@ import com.github.joine.system.mapper.SysUserRoleMapper;
 import com.github.joine.system.service.ISysRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -145,6 +146,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      * @return 结果
      */
     @Override
+    @Transactional
     public int insertRole(SysRole role) {
         // 新增角色信息
         roleMapper.insertRole(role);
@@ -158,6 +160,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      * @return 结果
      */
     @Override
+    @Transactional
     public int updateRole(SysRole role) {
         // 修改角色信息
         roleMapper.updateRole(role);
@@ -173,6 +176,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      * @return 结果
      */
     @Override
+    @Transactional
     public int updateRule(SysRole role) {
         // 修改角色信息
         roleMapper.updateRole(role);
