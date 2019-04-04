@@ -3,15 +3,14 @@ package com.github.joine.common.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * @Author: JenphyJohn
  * @Date: 2019/1/4 2:38 PM
  */
 public class Threads {
-    private static final Logger logger = LoggerFactory.getLogger("sys-user");
+    private static final Logger logger = LoggerFactory.getLogger(Threads.class);
 
     /**
      * sleep等待,单位为毫秒
@@ -45,6 +44,26 @@ public class Threads {
                 pool.shutdownNow();
                 Thread.currentThread().interrupt();
             }
+        }
+    }
+
+    public static void printException(Runnable r, Throwable t) {
+        if (t == null && r instanceof Future<?>) {
+            try {
+                Future<?> future = (Future<?>) r;
+                if (future.isDone()) {
+                    future.get();
+                }
+            } catch (CancellationException ce) {
+                t = ce;
+            } catch (ExecutionException ee) {
+                t = ee.getCause();
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        if (t != null) {
+            logger.error(t.getMessage(), t);
         }
     }
 }
