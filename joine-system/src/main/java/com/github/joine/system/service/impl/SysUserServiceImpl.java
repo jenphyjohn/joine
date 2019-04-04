@@ -4,7 +4,7 @@ import com.github.joine.common.annotation.DataScope;
 import com.github.joine.common.constant.UserConstants;
 import com.github.joine.common.core.text.Convert;
 import com.github.joine.common.exception.BusinessException;
-import com.github.joine.common.utils.Md5Utils;
+import com.github.joine.common.utils.security.Md5Utils;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.system.domain.*;
 import com.github.joine.system.mapper.*;

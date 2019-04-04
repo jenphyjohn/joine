@@ -4,7 +4,7 @@ import com.github.joine.common.config.Global;
 import com.github.joine.common.exception.file.FileNameLengthLimitExceededException;
 import com.github.joine.common.exception.file.FileSizeLimitExceededException;
 import com.github.joine.common.utils.DateUtils;
-import com.github.joine.common.utils.Md5Utils;
+import com.github.joine.common.utils.security.Md5Utils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;

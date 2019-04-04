@@ -253,7 +253,7 @@
         }).sortable()
     };
     var get_modal = function (content) {
-        var modal = $('<div class="modal" style="overflow: auto;" tabindex="-1">	<div class="modal-dialog"><div class="modal-content"><div class="modal-header"><a type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</a><h4 class="modal-title">编辑HTML</h4></div><div class="modal-body ui-front">	<textarea class="form-control" 	style="min-height: 200px; margin-bottom: 10px;font-family: Monaco, Fixed">' + content + '</textarea><button class="btn btn-success">更新HTML</button></div>				</div></div></div>').appendTo(document.body);
+        var modal = $('<div class="modal" style="overflow: auto;" tabindex="-1">	<div class="modal-dialog"><div class="modal-content"><div class="modal-header"><a type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</a><h4 class="modal-title">编辑HTML</h4></div><div class="modal-body ui-front"><textarea class="form-control" textarea-show-src" style="min-height: 200px; margin-bottom: 10px;font-family: Monaco, Fixed"></textarea><button class="btn btn-success">更新HTML</button></div></div></div></div>').appendTo(document.body);var doms = document.getElementsByClassName("textarea-show-src");for (var i = 0; i < doms.length; i++) {doms.item(i).innerHTML = content;}
         return modal
     };
     $(document).on("click", ".edit-link", function (ev) {

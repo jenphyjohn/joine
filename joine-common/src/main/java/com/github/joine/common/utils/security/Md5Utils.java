@@ -1,4 +1,4 @@
-package com.github.joine.common.utils;
+package com.github.joine.common.utils.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -46,7 +46,8 @@
 		var prefix = ctx + "system/post";
 		
 		$("#form-post-edit").validate({
-			rules:{
+            onkeyup: false,
+            rules:{
 				postName:{
 					remote: {
 		                url: ctx + "system/post/checkPostNameUnique",

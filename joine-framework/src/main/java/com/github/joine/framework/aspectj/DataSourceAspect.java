@@ -40,14 +40,14 @@ public class DataSourceAspect {
         DataSource dataSource = method.getAnnotation(DataSource.class);
 
         if (StringUtils.isNotNull(dataSource)) {
-            DynamicDataSourceContextHolder.setDateSoureType(dataSource.value().name());
+            DynamicDataSourceContextHolder.setDateSourceType(dataSource.value().name());
         }
 
         try {
             return point.proceed();
         } finally {
             // 销毁数据源 在执行方法之后
-            DynamicDataSourceContextHolder.clearDateSoureType();
+            DynamicDataSourceContextHolder.clearDateSourceType();
         }
     }
 }

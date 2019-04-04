@@ -4,7 +4,7 @@ import com.github.joine.common.core.domain.AjaxResult;
 import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.exception.DemoModeException;
 import com.github.joine.common.utils.ServletUtils;
-import com.github.joine.framework.util.PermissionUtils;
+import com.github.joine.common.utils.security.PermissionUtils;
 import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

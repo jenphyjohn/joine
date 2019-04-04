@@ -141,7 +141,8 @@
 	    var prefix = ctx + "system/user";
 	
         $("#form-user-add").validate({
-        	rules:{
+        	onkeyup: false,
+            rules:{
         		loginName:{
         			minlength: 2,
         			maxlength: 20,

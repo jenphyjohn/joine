@@ -48,6 +48,7 @@
 	    $("#form-config-edit").validate({
 	        rules: {
 	            configKey: {
+                    onkeyup: false,
 	                remote: {
 	                    url: prefix + "/checkConfigKeyUnique",
 	                    type: "post",

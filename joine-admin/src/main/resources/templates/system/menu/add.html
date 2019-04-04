@@ -74,7 +74,8 @@
         var prefix = ctx + "system/menu";
         
         $("#form-menu-add").validate({
-        	rules:{
+            onkeyup: false,
+            rules:{
         		menuName:{
         			remote: {
                         url: prefix + "/checkMenuNameUnique",

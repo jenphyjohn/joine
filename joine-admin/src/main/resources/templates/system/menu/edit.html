@@ -80,7 +80,8 @@
         });
 
         $("#form-menu-edit").validate({
-        	rules:{
+        	onkeyup: false,
+			rules:{
         		menuName:{
         			remote: {
                         url: prefix + "/checkMenuNameUnique",
