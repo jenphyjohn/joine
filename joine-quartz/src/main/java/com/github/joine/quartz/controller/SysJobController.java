@@ -3,12 +3,14 @@ package com.github.joine.quartz.controller;
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.common.core.domain.AjaxResult;
-import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.core.page.TableDataInfo;
+import com.github.joine.common.enums.BusinessType;
+import com.github.joine.common.exception.job.TaskException;
 import com.github.joine.common.utils.poi.ExcelUtil;
 import com.github.joine.quartz.domain.SysJob;
 import com.github.joine.quartz.service.ISysJobService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -58,14 +60,9 @@ public class SysJobController extends BaseController {
     @RequiresPermissions("monitor:job:remove")
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids) {
-        try {
-            jobService.deleteJobByIds(ids);
-            return success();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return error(e.getMessage());
-        }
+    public AjaxResult remove(String ids) throws SchedulerException {
+        jobService.deleteJobByIds(ids);
+        return success();
     }
 
     @RequiresPermissions("monitor:job:detail")
@@ -78,14 +75,12 @@ public class SysJobController extends BaseController {
 
     /**
      * 任务调度状态修改
-     *
-     * @throws Exception
      */
     @Log(title = "定时任务", businessType = BusinessType.UPDATE)
     @RequiresPermissions("monitor:job:changeStatus")
     @PostMapping("/changeStatus")
     @ResponseBody
-    public AjaxResult changeStatus(SysJob job) {
+    public AjaxResult changeStatus(SysJob job) throws SchedulerException {
         return toAjax(jobService.changeStatus(job));
     }
 
@@ -96,8 +91,9 @@ public class SysJobController extends BaseController {
     @RequiresPermissions("monitor:job:changeStatus")
     @PostMapping("/run")
     @ResponseBody
-    public AjaxResult run(SysJob job) {
-        return toAjax(jobService.run(job));
+    public AjaxResult run(SysJob job) throws SchedulerException {
+        jobService.run(job);
+        return success();
     }
 
     /**
@@ -110,14 +106,12 @@ public class SysJobController extends BaseController {
 
     /**
      * 新增保存调度
-     *
-     * @throws Exception
      */
     @Log(title = "定时任务", businessType = BusinessType.INSERT)
     @RequiresPermissions("monitor:job:add")
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysJob job) throws Exception {
+    public AjaxResult addSave(SysJob job) throws SchedulerException, TaskException {
         return toAjax(jobService.insertJobCron(job));
     }
 

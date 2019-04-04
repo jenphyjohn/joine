@@ -6,9 +6,9 @@ package com.github.joine.common.constant;
  * @author JenphyJohn
  */
 public interface ScheduleConstants {
-    String TASK_CLASS_NAME = "__TASK_CLASS_NAME__";
+    String TASK_CLASS_NAME = "TASK_CLASS_NAME";
 
-    String TASK_PROPERTIES = "__TASK_PROPERTIES__";
+    String TASK_PROPERTIES = "TASK_PROPERTIES";
 
     /**
      * 默认

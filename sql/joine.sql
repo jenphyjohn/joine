@@ -406,7 +406,7 @@ create table sys_oper_log (
   oper_url 		    varchar(255) 	default '' 				   comment '请求URL',
   oper_ip 			varchar(50) 	default '' 				   comment '主机地址',
   oper_location     varchar(255)    default ''                 comment '操作地点',
-  oper_param 		varchar(255) 	default '' 				   comment '请求参数',
+  oper_param 		varchar(2000) 	default '' 				   comment '请求参数',
   status 			int(1) 		    default 0				   comment '操作状态（0正常 1异常）',
   error_msg 		varchar(2000) 	default '' 				   comment '错误消息',
   oper_time 		datetime                                   comment '操作时间',
@@ -568,6 +568,7 @@ create table sys_job (
   method_params       varchar(50)   default null               comment '方法参数',
   cron_expression     varchar(255)  default ''                 comment 'cron执行表达式',
   misfire_policy      varchar(20)   default '3'                comment '计划执行错误策略（1立即执行 2执行一次 3放弃执行）',
+  concurrent          char(1)       default '1'                comment '是否并发执行（0允许 1禁止）',
   status              char(1)       default '0'                comment '状态（0正常 1暂停）',
   create_by           varchar(64)   default ''                 comment '创建者',
   create_time         datetime                                 comment '创建时间',
@@ -577,8 +578,8 @@ create table sys_job (
   primary key (job_id, job_name, job_group)
 ) engine=innodb auto_increment=100 default charset=utf8 comment = '定时任务调度表';
 
-insert into sys_job values(1, 'ryTask', '系统默认（无参）', 'ryNoParams',  '',   '0/10 * * * * ?', '3', '1', 'admin', '2018-12-17 14-14-00', 'joine', '2018-12-17 14-14-00', '');
-insert into sys_job values(2, 'ryTask', '系统默认（有参）', 'ryParams',    'joine', '0/20 * * * * ?', '3', '1', 'admin', '2018-12-17 14-14-00', 'joine', '2018-12-17 14-14-00', '');
+insert into sys_job values(1, 'ryTask', '系统默认（无参）', 'ryNoParams',  '',   '0/10 * * * * ?', '3', '1', '1', 'admin', '2018-12-17 14-14-00', 'joine', '2018-12-17 14-14-00', '');
+insert into sys_job values(2, 'ryTask', '系统默认（有参）', 'ryParams',    'joine', '0/20 * * * * ?', '3', '1', '1', 'admin', '2018-12-17 14-14-00', 'joine', '2018-12-17 14-14-00', '');
 
 
 -- ----------------------------

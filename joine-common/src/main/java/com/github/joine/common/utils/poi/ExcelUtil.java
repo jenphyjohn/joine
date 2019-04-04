@@ -2,13 +2,13 @@ package com.github.joine.common.utils.poi;
 
 import com.github.joine.common.annotation.Excel;
 import com.github.joine.common.annotation.Excel.Type;
-import com.github.joine.common.core.domain.AjaxResult;
 import com.github.joine.common.config.Global;
-import com.github.joine.common.exception.BusinessException;
+import com.github.joine.common.core.domain.AjaxResult;
 import com.github.joine.common.core.text.Convert;
+import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.utils.DateUtils;
-import com.github.joine.common.utils.reflect.ReflectUtils;
 import com.github.joine.common.utils.StringUtils;
+import com.github.joine.common.utils.reflect.ReflectUtils;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
@@ -543,8 +543,9 @@ public class ExcelUtil<T> {
         tempFields.addAll(Arrays.asList(clazz.getDeclaredFields()));
         while (tempClass != null) {
             tempClass = tempClass.getSuperclass();
-            if (tempClass != null)
+            if (tempClass != null) {
                 tempFields.addAll(Arrays.asList(tempClass.getDeclaredFields()));
+            }
         }
         putToFields(tempFields);
     }

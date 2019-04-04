@@ -22,7 +22,7 @@ public class Global {
     /**
      * 当前对象实例
      */
-    private static Global global = null;
+    private static Global global;
 
     /**
      * 保存全局属性值
@@ -33,15 +33,11 @@ public class Global {
     }
 
     /**
-     * 静态工厂方法 获取当前对象实例 多线程安全单例模式(使用双重同步锁)
+     * 静态工厂方法
      */
-
     public static synchronized Global getInstance() {
         if (global == null) {
-            synchronized (Global.class) {
-                if (global == null)
-                    global = new Global();
-            }
+            global = new Global();
         }
         return global;
     }
@@ -52,7 +48,7 @@ public class Global {
     public static String getConfig(String key) {
         String value = map.get(key);
         if (value == null) {
-            Map<?, ?> yamlMap = null;
+            Map<?, ?> yamlMap;
             try {
                 yamlMap = YamlUtil.loadYaml(NAME);
                 value = String.valueOf(YamlUtil.getProperty(yamlMap, key));
