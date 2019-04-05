@@ -1,11 +1,11 @@
 package com.github.joine.web.controller.monitor;
 
 import com.github.joine.common.annotation.Log;
-import com.github.joine.common.core.domain.AjaxResult;
-import com.github.joine.common.enums.BusinessType;
-import com.github.joine.common.core.page.TableDataInfo;
-import com.github.joine.common.utils.poi.ExcelUtil;
 import com.github.joine.common.core.controller.BaseController;
+import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.page.TableDataInfo;
+import com.github.joine.common.enums.BusinessType;
+import com.github.joine.common.utils.poi.ExcelUtil;
 import com.github.joine.system.domain.SysLogininfor;
 import com.github.joine.system.service.ISysLogininforService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -52,7 +52,7 @@ public class SysLogininforController extends BaseController {
     @ResponseBody
     public AjaxResult export(SysLogininfor logininfor) {
         List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
-        ExcelUtil<SysLogininfor> util = new ExcelUtil<SysLogininfor>(SysLogininfor.class);
+        ExcelUtil<SysLogininfor> util = new ExcelUtil(SysLogininfor.class);
         return util.exportExcel(list, "登陆日志");
     }
 
