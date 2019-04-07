@@ -60,7 +60,7 @@ public class SysDeptServiceImpl implements ISysDeptService {
     @Override
     public List<Ztree> roleDeptTreeData(SysRole role) {
         Long roleId = role.getRoleId();
-        List<Ztree> ztrees = new ArrayList<Ztree>();
+        List<Ztree> ztrees;
         List<SysDept> deptList = selectDeptList(new SysDept());
         if (StringUtils.isNotNull(roleId)) {
             List<String> roleDeptList = deptMapper.selectRoleDeptTree(roleId);
@@ -90,7 +90,7 @@ public class SysDeptServiceImpl implements ISysDeptService {
      */
     public List<Ztree> initZtree(List<SysDept> deptList, List<String> roleDeptList) {
 
-        List<Ztree> ztrees = new ArrayList<Ztree>();
+        List<Ztree> ztrees = new ArrayList();
         boolean isCheck = StringUtils.isNotNull(roleDeptList);
         for (SysDept dept : deptList) {
             if (UserConstants.DEPT_NORMAL.equals(dept.getStatus())) {

@@ -3,21 +3,19 @@ package com.github.joine.quartz.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+
 import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
  * 定时任务配置
- * 
- * @author JenphyJohn
  *
+ * @author JenphyJohn
  */
 @Configuration
-public class ScheduleConfig
-{
+public class ScheduleConfig {
     @Bean
-    public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource)
-    {
+    public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource) {
         SchedulerFactoryBean factory = new SchedulerFactoryBean();
         factory.setDataSource(dataSource);
 

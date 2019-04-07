@@ -28,7 +28,7 @@ public class XssFilter implements Filter {
     public boolean enabled = false;
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         String tempExcludes = filterConfig.getInitParameter("excludes");
         String tempEnabled = filterConfig.getInitParameter("enabled");
         if (StringUtils.isNotEmpty(tempExcludes)) {

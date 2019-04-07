@@ -27,7 +27,7 @@ public class Global {
     /**
      * 保存全局属性值
      */
-    private static Map<String, String> map = new HashMap<String, String>();
+    private static Map<String, String> map = new HashMap();
 
     private Global() {
     }

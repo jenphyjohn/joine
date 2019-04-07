@@ -46,7 +46,7 @@ public class SysCaptchaController extends BaseController {
             response.setContentType("image/jpeg");
 
             String type = request.getParameter("type");
-            String capStr = null;
+            String capStr;
             String code = null;
             BufferedImage bi = null;
             if ("math".equals(type)) {

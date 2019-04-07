@@ -1,12 +1,12 @@
 package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
+import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.common.core.domain.AjaxResult;
-import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.core.page.TableDataInfo;
+import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.poi.ExcelUtil;
 import com.github.joine.framework.util.ShiroUtils;
-import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.system.domain.SysPost;
 import com.github.joine.system.service.ISysPostService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -51,7 +51,7 @@ public class SysPostController extends BaseController {
     @ResponseBody
     public AjaxResult export(SysPost post) {
         List<SysPost> list = postService.selectPostList(post);
-        ExcelUtil<SysPost> util = new ExcelUtil<SysPost>(SysPost.class);
+        ExcelUtil<SysPost> util = new ExcelUtil(SysPost.class);
         return util.exportExcel(list, "岗位数据");
     }
 

@@ -4,7 +4,7 @@ import com.github.joine.common.json.JSON;
 import com.github.joine.common.utils.StringUtils;
 
 /**
- * ry数据库表列信息
+ * je 数据库表列信息
  *
  * @author JenphyJohn
  */

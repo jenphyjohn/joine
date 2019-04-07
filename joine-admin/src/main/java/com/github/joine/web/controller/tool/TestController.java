@@ -1,7 +1,7 @@
 package com.github.joine.web.controller.tool;
 
-import com.github.joine.common.core.domain.AjaxResult;
 import com.github.joine.common.core.controller.BaseController;
+import com.github.joine.common.core.domain.AjaxResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

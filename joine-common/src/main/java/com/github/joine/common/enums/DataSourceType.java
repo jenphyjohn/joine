@@ -2,11 +2,10 @@ package com.github.joine.common.enums;
 
 /**
  * 数据源
- * 
+ *
  * @author JenphyJohn
  */
-public enum DataSourceType
-{
+public enum DataSourceType {
     /**
      * 主库
      */

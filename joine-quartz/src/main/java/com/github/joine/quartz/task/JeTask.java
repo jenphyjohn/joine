@@ -4,19 +4,16 @@ import org.springframework.stereotype.Component;
 
 /**
  * 定时任务调度测试
- * 
+ *
  * @author JenphyJohn
  */
-@Component("ryTask")
-public class RyTask
-{
-    public void ryParams(String params)
-    {
+@Component("jeTask")
+public class JeTask {
+    public void jeParams(String params) {
         System.out.println("执行有参方法：" + params);
     }
 
-    public void ryNoParams()
-    {
+    public void jeNoParams() {
         System.out.println("执行无参方法");
     }
 }

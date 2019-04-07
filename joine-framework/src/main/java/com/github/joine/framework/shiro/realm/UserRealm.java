@@ -73,7 +73,6 @@ public class UserRealm extends AuthorizingRealm {
         if (upToken.getPassword() != null) {
             password = new String(upToken.getPassword());
         }
-
         SysUser user;
         try {
             user = loginService.login(username, password);
