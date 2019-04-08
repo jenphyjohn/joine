@@ -27,8 +27,7 @@ public class ${className}ServiceImpl implements I${className}Service {
      * @return ${tableComment}信息
      */
     @Override
-	public ${className} select${className}ById(${primaryKey.attrType} ${primaryKey.attrname})
-	{
+	public ${className} select${className}ById(${primaryKey.attrType} ${primaryKey.attrname}) {
 	    return ${classname}Mapper.select${className}ById(${primaryKey.attrname});
 	}
 	
@@ -39,8 +38,7 @@ public class ${className}ServiceImpl implements I${className}Service {
      * @return ${tableComment}集合
      */
 	@Override
-	public List<${className}> select${className}List(${className} ${classname})
-	{
+	public List<${className}> select${className}List(${className} ${classname}) {
 	    return ${classname}Mapper.select${className}List(${classname});
 	}
 	
@@ -51,8 +49,7 @@ public class ${className}ServiceImpl implements I${className}Service {
      * @return 结果
      */
 	@Override
-	public int insert${className}(${className} ${classname})
-	{
+	public int insert${className}(${className} ${classname}) {
 	    return ${classname}Mapper.insert${className}(${classname});
 	}
 	
@@ -63,8 +60,7 @@ public class ${className}ServiceImpl implements I${className}Service {
      * @return 结果
      */
 	@Override
-	public int update${className}(${className} ${classname})
-	{
+	public int update${className}(${className} ${classname}) {
 	    return ${classname}Mapper.update${className}(${classname});
 	}
 
@@ -75,8 +71,7 @@ public class ${className}ServiceImpl implements I${className}Service {
      * @return 结果
      */
 	@Override
-	public int delete${className}ByIds(String ids)
-	{
+	public int delete${className}ByIds(String ids) {
 		return ${classname}Mapper.delete${className}ByIds(Convert.toStrArray(ids));
 	}
 	
