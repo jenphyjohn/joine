@@ -7,19 +7,17 @@ joine:
   # 版权年份
   copyrightYear: 2019
   # 文件上传路径
-  profile: /Users/jenphyjohn/Storage/joine_file/
-#  profile: /home/jenphyjohn/Storage/joine_file/
+  profile: /home/jenphyjohn/Storage/Joine/joine_file/
   # 获取ip地址开关
   addressEnabled: true
 
 # 开发环境配置
 server:
   # 服务端口
-#  port: 80
   port: 8080
   servlet:
     # 项目contextPath
-    context-path: /
+    context-path: /mana
   tomcat:
     # tomcat的URI编码
     uri-encoding: UTF-8

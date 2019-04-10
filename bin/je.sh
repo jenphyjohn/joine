@@ -19,20 +19,18 @@ then
     exit 1
 fi
 
-function start()
-{
+function start() {
     PID=`ps -ef |grep java|grep $AppName|grep -v grep|awk '{print $2}'`
 
 	if [ x"$PID" != x"" ]; then
 	    echo "$AppName is running..."
 	else
-		nohup java -jar  $JVM_OPTS target/$AppName > /dev/null 2>&1 &
+		nohup java -jar  $JVM_OPTS $AppName > /dev/null 2>&1 &
 		echo "Start $AppName success..."
 	fi
 }
 
-function stop()
-{
+function stop() {
     echo "Stop $AppName"
 	
 	PID=""
@@ -55,15 +53,13 @@ function stop()
 	fi
 }
 
-function restart()
-{
+function restart() {
     stop
     sleep 2
     start
 }
 
-function status()
-{
+function status() {
     PID=`ps -ef |grep java|grep $AppName|grep -v grep|wc -l`
     if [ $PID != 0 ];then
         echo "$AppName is running..."

@@ -61,7 +61,54 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <!-- 开发环境 -->
+            <id>dev</id>
+            <properties>
+                <profiles.active>dev</profiles.active>
+            </properties>
+            <activation>
+                <!-- 设置默认激活这个配置 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <!-- 测试环境 -->
+            <id>test</id>
+            <properties>
+                <profiles.active>test</profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <!-- 生产环境 -->
+            <id>pro</id>
+            <properties>
+                <profiles.active>pro</profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <!-- 资源根目录排除各环境的配置，使用单独的资源目录来指定 -->
+                <excludes>
+                    <exclude>profiles/**</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/profiles/${profiles.active}</directory>
+            </resource>
+            <resource>
+                <directory>lib</directory>
+                <targetPath>BOOT-INF/lib/</targetPath>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
