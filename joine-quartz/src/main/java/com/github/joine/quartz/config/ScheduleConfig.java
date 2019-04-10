@@ -43,7 +43,7 @@ public class ScheduleConfig {
 
         factory.setSchedulerName("JoineScheduler");
         // 延时启动
-        factory.setStartupDelay(1);
+        factory.setStartupDelay(3);
         factory.setApplicationContextSchedulerContextKey("applicationContextKey");
         // 可选，QuartzScheduler
         // 启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了

@@ -37,7 +37,7 @@ public class GenUtils {
     /**
      * 类型转换
      */
-    public static Map<String, String> javaTypeMap = new HashMap<String, String>();
+    public static Map<String, String> javaTypeMap = new HashMap();
 
     /**
      * 设置列信息
