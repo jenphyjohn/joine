@@ -70,25 +70,44 @@ $(function () {
     }
     // laydate time-input 时间控件绑定
     if ($(".time-input").length > 0) {
-        layui.use('laydate', function () {
+        layui.use('laydate', function() {
             var laydate = layui.laydate;
-            var times = $(".time-input");
-            // 控制控件外观
-            var type = times.attr("data-type") || 'date';
-            // 控制回显格式
-            var format = times.attr("data-format") || 'yyyy-MM-dd';
-            for (var i = 0; i < times.length; i++) {
-                var time = times[i];
-                laydate.render({
-                    elem: time,
-                    theme: 'molv',
-                    trigger: 'click',
-                    type: type,
-                    format: format,
-                    done: function (value, date) {
+            var startDate = laydate.render({
+                elem: '#startTime',
+                max: $('#endTime').val(),
+                theme: 'molv',
+                trigger: 'click',
+                done: function(value, date) {
+                    // 结束时间大于开始时间
+                    if (value !== '') {
+                        endDate.config.min.year = date.year;
+                        endDate.config.min.month = date.month - 1;
+                        endDate.config.min.date = date.date;
+                    } else {
+                        endDate.config.min.year = '';
+                        endDate.config.min.month = '';
+                        endDate.config.min.date = '';
                     }
-                });
-            }
+                }
+            });
+            var endDate = laydate.render({
+                elem: '#endTime',
+                min: $('#startTime').val(),
+                theme: 'molv',
+                trigger: 'click',
+                done: function(value, date) {
+                    // 开始时间小于结束时间
+                    if (value !== '') {
+                        startDate.config.max.year = date.year;
+                        startDate.config.max.month = date.month - 1;
+                        startDate.config.max.date = date.date;
+                    } else {
+                        startDate.config.max.year = '';
+                        startDate.config.max.month = '';
+                        startDate.config.max.date = '';
+                    }
+                }
+            });
         });
     }
     // tree 关键字搜索绑定
