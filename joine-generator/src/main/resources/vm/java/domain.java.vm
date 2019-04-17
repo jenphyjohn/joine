@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.github.joine.common.core.domain.BaseEntity;
 #foreach ($column in $columns)
     #if($column.attrType == 'Date' && ($column.attrname != 'createBy' && $column.attrname != 'createTime' && $column.attrname != 'updateBy' && $column.attrname != 'updateTime' && $column.attrname != 'remark'))
-    import java.util.Date;
+import java.util.Date;
     #break
     #end
 #end

@@ -6,7 +6,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 
 /**
@@ -59,16 +58,12 @@ public class JWTUtil {
      * @return 加密的token
      */
     public static String sign(String username, String secret) {
-        try {
-            Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
-            Algorithm algorithm = Algorithm.HMAC256(secret);
-            // 附带username信息
-            return JWT.create()
-                    .withClaim("username", username)
-                    .withExpiresAt(date)
-                    .sign(algorithm);
-        } catch (UnsupportedEncodingException e) {
-            return null;
-        }
+        Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+        Algorithm algorithm = Algorithm.HMAC256(secret);
+        // 附带username信息
+        return JWT.create()
+                .withClaim("username", username)
+                .withExpiresAt(date)
+                .sign(algorithm);
     }
 }

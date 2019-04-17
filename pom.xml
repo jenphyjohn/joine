@@ -31,6 +31,7 @@
 		<jsoup.version>1.11.3</jsoup.version>
 		<poi.version>3.17</poi.version>
 		<velocity.version>1.7</velocity.version>
+		<jwt.version>3.4.0</jwt.version>
 	</properties>
 
 	<!-- 依赖声明 -->
@@ -158,6 +159,13 @@
 				<version>${velocity.version}</version>
 			</dependency>
 
+			<!-- JWT -->
+			<dependency>
+				<groupId>com.auth0</groupId>
+				<artifactId>java-jwt</artifactId>
+				<version>${jwt.version}</version>
+			</dependency>
+
 			<!-- 定时任务-->
 			<dependency>
 				<groupId>com.github.joine</groupId>
@@ -186,6 +194,13 @@
 				<version>${joine.version}</version>
 			</dependency>
 
+			<!-- 业务模块-->
+			<dependency>
+				<groupId>com.github.joine</groupId>
+				<artifactId>joine-business</artifactId>
+				<version>${joine.version}</version>
+			</dependency>
+
 			<!-- 通用工具-->
 			<dependency>
 				<groupId>com.github.joine</groupId>
@@ -203,7 +218,8 @@
 		<module>joine-generator</module>
         <module>joine-common</module>
         <module>joine-restapi</module>
-    </modules>
+		<module>joine-business</module>
+	</modules>
     <packaging>pom</packaging>
 
 
