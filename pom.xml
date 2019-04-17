@@ -202,7 +202,7 @@
 		<module>joine-quartz</module>
 		<module>joine-generator</module>
         <module>joine-common</module>
-        <!--<module>joine-auth</module>-->
+        <module>joine-restapi</module>
     </modules>
     <packaging>pom</packaging>
 
