@@ -1,6 +1,6 @@
 package com.github.joine.framework.web.exception;
 
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.exception.DemoModeException;
 import com.github.joine.common.utils.ServletUtils;
@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     public Object handleAuthorizationException(HttpServletRequest request, AuthorizationException e) {
         log.error(e.getMessage(), e);
         if (ServletUtils.isAjaxRequest(request)) {
-            return AjaxResult.error(PermissionUtils.getMsg(e.getMessage()));
+            return ResponseResult.error(PermissionUtils.getMsg(e.getMessage()));
         } else {
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("/error/unauth");
@@ -43,43 +43,43 @@ public class GlobalExceptionHandler {
      * 请求方式不支持
      */
     @ExceptionHandler({HttpRequestMethodNotSupportedException.class})
-    public AjaxResult handleException(HttpRequestMethodNotSupportedException e) {
+    public ResponseResult handleException(HttpRequestMethodNotSupportedException e) {
         log.error(e.getMessage(), e);
-        return AjaxResult.error("不支持' " + e.getMethod() + "'请求");
+        return ResponseResult.error("不支持' " + e.getMethod() + "'请求");
     }
 
     /**
      * 拦截未知的运行时异常
      */
     @ExceptionHandler(RuntimeException.class)
-    public AjaxResult notFount(RuntimeException e) {
+    public ResponseResult notFount(RuntimeException e) {
         log.error("运行时异常:", e);
-        return AjaxResult.error("运行时异常:" + e.getMessage());
+        return ResponseResult.error("运行时异常:" + e.getMessage());
     }
 
     /**
      * 系统异常
      */
     @ExceptionHandler(Exception.class)
-    public AjaxResult handleException(Exception e) {
+    public ResponseResult handleException(Exception e) {
         log.error(e.getMessage(), e);
-        return AjaxResult.error("服务器错误，请联系管理员");
+        return ResponseResult.error("服务器错误，请联系管理员");
     }
 
     /**
      * 业务异常
      */
     @ExceptionHandler(BusinessException.class)
-    public AjaxResult handleException(BusinessException e) {
+    public ResponseResult handleException(BusinessException e) {
         log.error(e.getMessage(), e);
-        return AjaxResult.error(e.getMessage());
+        return ResponseResult.error(e.getMessage());
     }
 
     /**
      * 演示模式异常
      */
     @ExceptionHandler(DemoModeException.class)
-    public AjaxResult demoModeException(DemoModeException e) {
-        return AjaxResult.error("演示模式，不允许操作");
+    public ResponseResult demoModeException(DemoModeException e) {
+        return ResponseResult.error("演示模式，不允许操作");
     }
 }

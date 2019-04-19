@@ -3,7 +3,7 @@ package com.github.joine.web.controller.system;
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.config.Global;
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.common.utils.file.FileUploadUtils;
@@ -69,7 +69,7 @@ public class SysProfileController extends BaseController {
     @Log(title = "重置密码", businessType = BusinessType.UPDATE)
     @PostMapping("/resetPwd")
     @ResponseBody
-    public AjaxResult resetPwd(String oldPassword, String newPassword) {
+    public ResponseResult resetPwd(String oldPassword, String newPassword) {
         SysUser user = ShiroUtils.getSysUser();
         if (StringUtils.isNotEmpty(newPassword) && passwordService.matches(user, oldPassword)) {
             user.setSalt(ShiroUtils.randomSalt());
@@ -110,7 +110,7 @@ public class SysProfileController extends BaseController {
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
     @PostMapping("/update")
     @ResponseBody
-    public AjaxResult update(SysUser user) {
+    public ResponseResult update(SysUser user) {
         SysUser currentUser = ShiroUtils.getSysUser();
         currentUser.setUserName(user.getUserName());
         currentUser.setEmail(user.getEmail());
@@ -129,7 +129,7 @@ public class SysProfileController extends BaseController {
     @Log(title = "个人信息", businessType = BusinessType.UPDATE)
     @PostMapping("/updateAvatar")
     @ResponseBody
-    public AjaxResult updateAvatar(@RequestParam("avatarfile") MultipartFile file) {
+    public ResponseResult updateAvatar(@RequestParam("avatarfile") MultipartFile file) {
         SysUser currentUser = ShiroUtils.getSysUser();
         try {
             if (!file.isEmpty()) {

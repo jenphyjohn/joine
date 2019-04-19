@@ -2,7 +2,7 @@ package com.github.joine.web.controller.monitor;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.poi.ExcelUtil;
@@ -48,7 +48,7 @@ public class SysOperlogController extends BaseController {
     @RequiresPermissions("monitor:operlog:export")
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(SysOperLog operLog) {
+    public ResponseResult export(SysOperLog operLog) {
         List<SysOperLog> list = operLogService.selectOperLogList(operLog);
         ExcelUtil<SysOperLog> util = new ExcelUtil<SysOperLog>(SysOperLog.class);
         return util.exportExcel(list, "操作日志");
@@ -57,7 +57,7 @@ public class SysOperlogController extends BaseController {
     @RequiresPermissions("monitor:operlog:remove")
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids) {
+    public ResponseResult remove(String ids) {
         return toAjax(operLogService.deleteOperLogByIds(ids));
     }
 
@@ -72,7 +72,7 @@ public class SysOperlogController extends BaseController {
     @RequiresPermissions("monitor:operlog:remove")
     @PostMapping("/clean")
     @ResponseBody
-    public AjaxResult clean() {
+    public ResponseResult clean() {
         operLogService.cleanOperLog();
         return success();
     }

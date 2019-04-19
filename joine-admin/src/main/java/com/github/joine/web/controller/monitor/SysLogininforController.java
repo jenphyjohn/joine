@@ -2,7 +2,7 @@ package com.github.joine.web.controller.monitor;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.poi.ExcelUtil;
@@ -50,7 +50,7 @@ public class SysLogininforController extends BaseController {
     @RequiresPermissions("monitor:logininfor:export")
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(SysLogininfor logininfor) {
+    public ResponseResult export(SysLogininfor logininfor) {
         List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
         ExcelUtil<SysLogininfor> util = new ExcelUtil(SysLogininfor.class);
         return util.exportExcel(list, "登陆日志");
@@ -60,7 +60,7 @@ public class SysLogininforController extends BaseController {
     @Log(title = "登陆日志", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids) {
+    public ResponseResult remove(String ids) {
         return toAjax(logininforService.deleteLogininforByIds(ids));
     }
 
@@ -68,7 +68,7 @@ public class SysLogininforController extends BaseController {
     @Log(title = "登陆日志", businessType = BusinessType.CLEAN)
     @PostMapping("/clean")
     @ResponseBody
-    public AjaxResult clean() {
+    public ResponseResult clean() {
         logininforService.cleanLogininfor();
         return success();
     }

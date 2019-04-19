@@ -1,100 +1,117 @@
 package com.github.joine.web.controller.tool;
 
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import com.github.joine.common.core.domain.ResponseResult;
+import com.github.joine.common.utils.StringUtils;
+import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * swagger 测试方法
+ * swagger 用户测试方法
  *
  * @author JenphyJohn
  */
 @Api("用户信息管理")
 @RestController
-@RequestMapping("/test/*")
+@RequestMapping("/test/user")
 public class TestController extends BaseController {
-    private final static List<Test> testList = new ArrayList<>();
+    private final static Map<Integer, UserEntity> users = new LinkedHashMap<Integer, UserEntity>();
 
     {
-        testList.add(new Test("1", "admin", "admin123"));
-        testList.add(new Test("2", "je", "admin123"));
+        users.put(1, new UserEntity(1, "admin", "admin123", "15888888888"));
+        users.put(2, new UserEntity(2, "ry", "admin123", "15666666666"));
     }
 
-    @ApiOperation("获取列表")
-    @GetMapping("list")
-    public List<Test> testList() {
-        return testList;
+    @ApiOperation("获取用户列表")
+    @GetMapping("/list")
+    public ResponseResult userList() {
+        List<UserEntity> userList = new ArrayList<UserEntity>(users.values());
+        return ResponseResult.success(userList);
+    }
+
+    @ApiOperation("获取用户详细")
+    @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Integer", paramType = "path")
+    @GetMapping("/{userId}")
+    public ResponseResult getUser(@PathVariable Integer userId) {
+        if (!users.isEmpty() && users.containsKey(userId)) {
+            return ResponseResult.success(users.get(userId));
+        } else {
+            return error("用户不存在");
+        }
     }
 
     @ApiOperation("新增用户")
-    @PostMapping("save")
-    public AjaxResult save(Test test) {
-        return testList.add(test) ? success() : error();
+    @ApiImplicitParam(name = "userEntity", value = "新增用户信息", dataType = "UserEntity")
+    @PostMapping("/save")
+    public ResponseResult save(UserEntity user) {
+        if (StringUtils.isNull(user) || StringUtils.isNull(user.getUserId())) {
+            return error("用户ID不能为空");
+        }
+        return ResponseResult.success(users.put(user.getUserId(), user));
     }
 
     @ApiOperation("更新用户")
-    @ApiImplicitParam(name = "Test", value = "单个用户信息", dataType = "Test")
-    @PutMapping("update")
-    public AjaxResult update(Test test) {
-        return testList.remove(test) && testList.add(test) ? success() : error();
+    @ApiImplicitParam(name = "userEntity", value = "新增用户信息", dataType = "UserEntity")
+    @PutMapping("/update")
+    public ResponseResult update(UserEntity user) {
+        if (StringUtils.isNull(user) || StringUtils.isNull(user.getUserId())) {
+            return error("用户ID不能为空");
+        }
+        if (users.isEmpty() || !users.containsKey(user.getUserId())) {
+            return error("用户不存在");
+        }
+        users.remove(user.getUserId());
+        return ResponseResult.success(users.put(user.getUserId(), user));
     }
 
-    @ApiOperation("删除用户")
-    @ApiImplicitParam(name = "Tests", value = "单个用户信息", dataType = "Test")
-    @DeleteMapping("delete")
-    public AjaxResult delete(Test test) {
-        return testList.remove(test) ? success() : error();
+    @ApiOperation("删除用户信息")
+    @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "Integer", paramType = "path")
+    @DeleteMapping("/{userId}")
+    public ResponseResult delete(@PathVariable Integer userId) {
+        if (!users.isEmpty() && users.containsKey(userId)) {
+            users.remove(userId);
+            return success();
+        } else {
+            return error("用户不存在");
+        }
     }
 }
 
-class Test {
-    private String userId;
+@ApiModel("用户实体")
+class UserEntity {
+    @ApiModelProperty("用户ID")
+    private Integer userId;
+
+    @ApiModelProperty("用户名称")
     private String username;
+
+    @ApiModelProperty("用户密码")
     private String password;
 
-    public Test() {
+    @ApiModelProperty("用户手机")
+    private String mobile;
+
+    public UserEntity() {
 
     }
 
-    public Test(String userId, String username, String password) {
+    public UserEntity(Integer userId, String username, String password, String mobile) {
         this.userId = userId;
         this.username = username;
         this.password = password;
+        this.mobile = mobile;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Test test = (Test) o;
-
-        return userId != null ? userId.equals(test.userId) : test.userId == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = userId != null ? userId.hashCode() : 0;
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        return result;
-    }
-
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -112,5 +129,13 @@ class Test {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }

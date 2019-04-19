@@ -1,4 +1,4 @@
-package com.github.joine.framework.config;
+package com.github.joine.common.config;
 
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.common.xss.XssFilter;

@@ -2,7 +2,7 @@ package com.github.joine.web.controller.common;
 
 import com.github.joine.common.config.Global;
 import com.github.joine.common.config.ServerConfig;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.common.utils.file.FileUploadUtils;
 import com.github.joine.common.utils.file.FileUtils;
@@ -67,19 +67,19 @@ public class CommonController {
      */
     @PostMapping("/common/upload")
     @ResponseBody
-    public AjaxResult uploadFile(MultipartFile file) {
+    public ResponseResult uploadFile(MultipartFile file) {
         try {
             // 上传文件路径
             String filePath = Global.getUploadPath();
             // 上传并返回新文件名称
             String fileName = FileUploadUtils.upload(filePath, file);
             String url = serverConfig.getUrl() + UPLOAD_PATH + fileName;
-            AjaxResult ajax = AjaxResult.success();
+            ResponseResult ajax = ResponseResult.success();
             ajax.put("fileName", fileName);
             ajax.put("url", url);
             return ajax;
         } catch (Exception e) {
-            return AjaxResult.error(e.getMessage());
+            return ResponseResult.error(e.getMessage());
         }
     }
 }

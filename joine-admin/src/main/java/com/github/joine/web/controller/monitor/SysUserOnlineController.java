@@ -2,7 +2,7 @@ package com.github.joine.web.controller.monitor;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.enums.OnlineStatus;
@@ -53,7 +53,7 @@ public class SysUserOnlineController extends BaseController {
     @Log(title = "在线用户", businessType = BusinessType.FORCE)
     @PostMapping("/batchForceLogout")
     @ResponseBody
-    public AjaxResult batchForceLogout(@RequestParam("ids[]") String[] ids) {
+    public ResponseResult batchForceLogout(@RequestParam("ids[]") String[] ids) {
         for (String sessionId : ids) {
             SysUserOnline online = userOnlineService.selectOnlineById(sessionId);
             if (online == null) {
@@ -78,7 +78,7 @@ public class SysUserOnlineController extends BaseController {
     @Log(title = "在线用户", businessType = BusinessType.FORCE)
     @PostMapping("/forceLogout")
     @ResponseBody
-    public AjaxResult forceLogout(String sessionId) {
+    public ResponseResult forceLogout(String sessionId) {
         SysUserOnline online = userOnlineService.selectOnlineById(sessionId);
         if (sessionId.equals(ShiroUtils.getSessionId())) {
             return error("当前登陆用户无法强退");

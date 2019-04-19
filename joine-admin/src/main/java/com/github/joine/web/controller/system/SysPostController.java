@@ -2,7 +2,7 @@ package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.poi.ExcelUtil;
@@ -49,7 +49,7 @@ public class SysPostController extends BaseController {
     @RequiresPermissions("system:post:export")
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(SysPost post) {
+    public ResponseResult export(SysPost post) {
         List<SysPost> list = postService.selectPostList(post);
         ExcelUtil<SysPost> util = new ExcelUtil(SysPost.class);
         return util.exportExcel(list, "岗位数据");
@@ -59,7 +59,7 @@ public class SysPostController extends BaseController {
     @Log(title = "岗位管理", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids) {
+    public ResponseResult remove(String ids) {
         try {
             return toAjax(postService.deletePostByIds(ids));
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class SysPostController extends BaseController {
     @Log(title = "岗位管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysPost post) {
+    public ResponseResult addSave(SysPost post) {
         post.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(postService.insertPost(post));
     }
@@ -103,7 +103,7 @@ public class SysPostController extends BaseController {
     @Log(title = "岗位管理", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysPost post) {
+    public ResponseResult editSave(SysPost post) {
         post.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(postService.updatePost(post));
     }

@@ -1,7 +1,7 @@
 package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.utils.poi.ExcelUtil;
@@ -49,7 +49,7 @@ public class SysDictTypeController extends BaseController {
     @RequiresPermissions("system:dict:export")
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(SysDictType dictType) {
+    public ResponseResult export(SysDictType dictType) {
 
         List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
         ExcelUtil<SysDictType> util = new ExcelUtil<SysDictType>(SysDictType.class);
@@ -71,7 +71,7 @@ public class SysDictTypeController extends BaseController {
     @RequiresPermissions("system:dict:add")
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysDictType dict) {
+    public ResponseResult addSave(SysDictType dict) {
         dict.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(dictTypeService.insertDictType(dict));
     }
@@ -92,7 +92,7 @@ public class SysDictTypeController extends BaseController {
     @RequiresPermissions("system:dict:edit")
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysDictType dict) {
+    public ResponseResult editSave(SysDictType dict) {
         dict.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(dictTypeService.updateDictType(dict));
     }
@@ -101,7 +101,7 @@ public class SysDictTypeController extends BaseController {
     @RequiresPermissions("system:dict:remove")
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids) {
+    public ResponseResult remove(String ids) {
         try {
             return toAjax(dictTypeService.deleteDictTypeByIds(ids));
         } catch (Exception e) {

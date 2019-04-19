@@ -2,7 +2,7 @@ package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.framework.util.ShiroUtils;
@@ -62,7 +62,7 @@ public class SysNoticeController extends BaseController {
     @Log(title = "通知公告", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysNotice notice) {
+    public ResponseResult addSave(SysNotice notice) {
         notice.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(noticeService.insertNotice(notice));
     }
@@ -83,7 +83,7 @@ public class SysNoticeController extends BaseController {
     @Log(title = "通知公告", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysNotice notice) {
+    public ResponseResult editSave(SysNotice notice) {
         notice.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(noticeService.updateNotice(notice));
     }
@@ -95,7 +95,7 @@ public class SysNoticeController extends BaseController {
     @Log(title = "通知公告", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids) {
+    public ResponseResult remove(String ids) {
         return toAjax(noticeService.deleteNoticeByIds(ids));
     }
 }

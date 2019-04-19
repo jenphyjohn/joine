@@ -29,6 +29,7 @@ public class SwaggerConfig {
                 .genericModelSubstitutes(DeferredResult.class)
                 // 详细定制
                 .apiInfo(apiInfo())
+                // 设置哪些接口暴露给Swagger展示
                 .select()
                 // 扫描包
                 .apis(RequestHandlerSelectors.basePackage("com.github.joine.restapi.controller"))

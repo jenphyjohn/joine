@@ -1,8 +1,7 @@
 package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
-import com.github.joine.common.core.domain.AjaxResult;
-import com.github.joine.common.core.domain.AjaxResult.Type;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.core.domain.Ztree;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.framework.util.ShiroUtils;
@@ -52,12 +51,12 @@ public class SysMenuController extends BaseController {
     @RequiresPermissions("system:menu:remove")
     @GetMapping("/remove/{menuId}")
     @ResponseBody
-    public AjaxResult remove(@PathVariable("menuId") Long menuId) {
+    public ResponseResult remove(@PathVariable("menuId") Long menuId) {
         if (menuService.selectCountMenuByParentId(menuId) > 0) {
-            return AjaxResult.warn("菜单已分配,不允许删除");
+            return ResponseResult.warn("菜单已分配,不允许删除");
         }
         if (menuService.selectCountRoleMenuByMenuId(menuId) > 0) {
-            return AjaxResult.warn("菜单已分配,不允许删除");
+            return ResponseResult.warn("菜单已分配,不允许删除");
         }
         ShiroUtils.clearCachedAuthorizationInfo();
         return toAjax(menuService.deleteMenuById(menuId));
@@ -87,7 +86,7 @@ public class SysMenuController extends BaseController {
     @RequiresPermissions("system:menu:add")
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysMenu menu) {
+    public ResponseResult addSave(SysMenu menu) {
         menu.setCreateBy(ShiroUtils.getLoginName());
         ShiroUtils.clearCachedAuthorizationInfo();
         return toAjax(menuService.insertMenu(menu));
@@ -109,7 +108,7 @@ public class SysMenuController extends BaseController {
     @RequiresPermissions("system:menu:edit")
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysMenu menu) {
+    public ResponseResult editSave(SysMenu menu) {
         menu.setUpdateBy(ShiroUtils.getLoginName());
         ShiroUtils.clearCachedAuthorizationInfo();
         return toAjax(menuService.updateMenu(menu));

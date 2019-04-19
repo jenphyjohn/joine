@@ -2,7 +2,7 @@ package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.core.domain.Ztree;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.StringUtils;
@@ -61,7 +61,7 @@ public class SysDeptController extends BaseController {
     @RequiresPermissions("system:dept:add")
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysDept dept) {
+    public ResponseResult addSave(SysDept dept) {
         dept.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(deptService.insertDept(dept));
     }
@@ -86,7 +86,7 @@ public class SysDeptController extends BaseController {
     @RequiresPermissions("system:dept:edit")
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysDept dept) {
+    public ResponseResult editSave(SysDept dept) {
         dept.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(deptService.updateDept(dept));
     }
@@ -98,12 +98,12 @@ public class SysDeptController extends BaseController {
     @RequiresPermissions("system:dept:remove")
     @GetMapping("/remove/{deptId}")
     @ResponseBody
-    public AjaxResult remove(@PathVariable("deptId") Long deptId) {
+    public ResponseResult remove(@PathVariable("deptId") Long deptId) {
         if (deptService.selectDeptCount(deptId) > 0) {
-            return AjaxResult.warn("存在下级部门,不允许删除");
+            return ResponseResult.warn("存在下级部门,不允许删除");
         }
         if (deptService.checkDeptExistUser(deptId)) {
-            return AjaxResult.warn("部门存在用户,不允许删除");
+            return ResponseResult.warn("部门存在用户,不允许删除");
         }
         return toAjax(deptService.deleteDeptById(deptId));
     }

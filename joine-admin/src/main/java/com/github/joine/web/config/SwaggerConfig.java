@@ -28,8 +28,9 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 // 详细定制
                 .apiInfo(apiInfo())
+                // 设置哪些接口暴露给Swagger展示
                 .select()
-                // 指定当前包路径
+                // 扫描包
                 .apis(RequestHandlerSelectors.basePackage("com.github.joine.web.controller.tool"))
                 // 扫描所有 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())

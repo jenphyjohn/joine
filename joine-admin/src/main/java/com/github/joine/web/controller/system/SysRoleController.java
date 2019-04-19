@@ -2,7 +2,7 @@ package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.poi.ExcelUtil;
@@ -55,7 +55,7 @@ public class SysRoleController extends BaseController {
     @RequiresPermissions("system:role:export")
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(SysRole role) {
+    public ResponseResult export(SysRole role) {
         List<SysRole> list = roleService.selectRoleList(role);
         ExcelUtil<SysRole> util = new ExcelUtil<SysRole>(SysRole.class);
         return util.exportExcel(list, "角色数据");
@@ -76,7 +76,7 @@ public class SysRoleController extends BaseController {
     @Log(title = "角色管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysRole role) {
+    public ResponseResult addSave(SysRole role) {
         role.setCreateBy(ShiroUtils.getLoginName());
         ShiroUtils.clearCachedAuthorizationInfo();
         return toAjax(roleService.insertRole(role));
@@ -99,7 +99,7 @@ public class SysRoleController extends BaseController {
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysRole role) {
+    public ResponseResult editSave(SysRole role) {
         role.setUpdateBy(ShiroUtils.getLoginName());
         ShiroUtils.clearCachedAuthorizationInfo();
         return toAjax(roleService.updateRole(role));
@@ -121,7 +121,7 @@ public class SysRoleController extends BaseController {
     @Log(title = "角色管理", businessType = BusinessType.UPDATE)
     @PostMapping("/authDataScope")
     @ResponseBody
-    public AjaxResult authDataScopeSave(SysRole role) {
+    public ResponseResult authDataScopeSave(SysRole role) {
         return toAjax(roleService.authDataScope(role));
     }
 
@@ -129,7 +129,7 @@ public class SysRoleController extends BaseController {
     @Log(title = "角色管理", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids) {
+    public ResponseResult remove(String ids) {
         try {
             return toAjax(roleService.deleteRoleByIds(ids));
         } catch (Exception e) {
@@ -170,7 +170,7 @@ public class SysRoleController extends BaseController {
     @RequiresPermissions("system:role:edit")
     @PostMapping("/changeStatus")
     @ResponseBody
-    public AjaxResult changeStatus(SysRole role) {
+    public ResponseResult changeStatus(SysRole role) {
         return toAjax(roleService.changeStatus(role));
     }
 
@@ -202,7 +202,7 @@ public class SysRoleController extends BaseController {
     @Log(title = "角色管理", businessType = BusinessType.GRANT)
     @PostMapping("/authUser/cancel")
     @ResponseBody
-    public AjaxResult cancelAuthUser(SysUserRole userRole) {
+    public ResponseResult cancelAuthUser(SysUserRole userRole) {
         return toAjax(roleService.deleteAuthUser(userRole));
     }
 
@@ -212,7 +212,7 @@ public class SysRoleController extends BaseController {
     @Log(title = "角色管理", businessType = BusinessType.GRANT)
     @PostMapping("/authUser/cancelAll")
     @ResponseBody
-    public AjaxResult cancelAuthUserAll(Long roleId, String userIds) {
+    public ResponseResult cancelAuthUserAll(Long roleId, String userIds) {
         return toAjax(roleService.deleteAuthUsers(roleId, userIds));
     }
 
@@ -243,7 +243,7 @@ public class SysRoleController extends BaseController {
     @Log(title = "角色管理", businessType = BusinessType.GRANT)
     @PostMapping("/authUser/selectAll")
     @ResponseBody
-    public AjaxResult selectAuthUserAll(Long roleId, String userIds) {
+    public ResponseResult selectAuthUserAll(Long roleId, String userIds) {
         return toAjax(roleService.insertAuthUsers(roleId, userIds));
     }
 }

@@ -1,7 +1,7 @@
 package com.github.joine.web.controller.system;
 
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.utils.ServletUtils;
 import com.github.joine.common.utils.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -35,7 +35,7 @@ public class SysLoginController extends BaseController {
 
     @PostMapping("/login")
     @ResponseBody
-    public AjaxResult ajaxLogin(String username, String password, Boolean rememberMe) {
+    public ResponseResult ajaxLogin(String username, String password, Boolean rememberMe) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
         Subject subject = SecurityUtils.getSubject();
         try {

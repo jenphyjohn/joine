@@ -2,7 +2,7 @@ package com.github.joine.quartz.controller;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.exception.job.TaskException;
@@ -50,7 +50,7 @@ public class SysJobController extends BaseController {
     @RequiresPermissions("monitor:job:export")
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(SysJob job) {
+    public ResponseResult export(SysJob job) {
         List<SysJob> list = jobService.selectJobList(job);
         ExcelUtil<SysJob> util = new ExcelUtil<SysJob>(SysJob.class);
         return util.exportExcel(list, "定时任务");
@@ -60,7 +60,7 @@ public class SysJobController extends BaseController {
     @RequiresPermissions("monitor:job:remove")
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids) throws SchedulerException {
+    public ResponseResult remove(String ids) throws SchedulerException {
         jobService.deleteJobByIds(ids);
         return success();
     }
@@ -80,7 +80,7 @@ public class SysJobController extends BaseController {
     @RequiresPermissions("monitor:job:changeStatus")
     @PostMapping("/changeStatus")
     @ResponseBody
-    public AjaxResult changeStatus(SysJob job) throws SchedulerException {
+    public ResponseResult changeStatus(SysJob job) throws SchedulerException {
         SysJob sysJob = jobService.selectJobById(job.getJobId());
         sysJob.setStatus(job.getStatus());
         return toAjax(jobService.changeStatus(sysJob));
@@ -93,7 +93,7 @@ public class SysJobController extends BaseController {
     @RequiresPermissions("monitor:job:changeStatus")
     @PostMapping("/run")
     @ResponseBody
-    public AjaxResult run(SysJob job) throws SchedulerException {
+    public ResponseResult run(SysJob job) throws SchedulerException {
         jobService.run(job);
         return success();
     }
@@ -113,7 +113,7 @@ public class SysJobController extends BaseController {
     @RequiresPermissions("monitor:job:add")
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysJob job) throws SchedulerException, TaskException {
+    public ResponseResult addSave(SysJob job) throws SchedulerException, TaskException {
         return toAjax(jobService.insertJobCron(job));
     }
 
@@ -135,7 +135,7 @@ public class SysJobController extends BaseController {
     @RequiresPermissions("monitor:job:edit")
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysJob job) throws Exception {
+    public ResponseResult editSave(SysJob job) throws Exception {
         return toAjax(jobService.updateJobCron(job));
     }
 

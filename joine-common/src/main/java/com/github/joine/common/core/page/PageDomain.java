@@ -22,10 +22,10 @@ public class PageDomain {
      * 排序列
      */
     private String orderByColumn;
+
     /**
      * 排序的方向 "desc" 或者 "asc".
      */
-
     private String isAsc;
 
     public String getOrderBy() {

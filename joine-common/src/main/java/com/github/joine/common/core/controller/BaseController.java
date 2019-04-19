@@ -1,7 +1,7 @@
 package com.github.joine.common.core.controller;
 
-import com.github.joine.common.core.domain.AjaxResult;
-import com.github.joine.common.core.domain.AjaxResult.Type;
+import com.github.joine.common.core.domain.ResponseResult;
+import com.github.joine.common.core.domain.ResponseResult.Type;
 import com.github.joine.common.core.page.PageDomain;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.core.page.TableSupport;
@@ -68,7 +68,7 @@ public class BaseController {
      * @param rows 影响行数
      * @return 操作结果
      */
-    protected AjaxResult toAjax(int rows) {
+    protected ResponseResult toAjax(int rows) {
         return rows > 0 ? success() : error();
     }
 
@@ -78,43 +78,43 @@ public class BaseController {
      * @param result 结果
      * @return 操作结果
      */
-    protected AjaxResult toAjax(boolean result) {
+    protected ResponseResult toAjax(boolean result) {
         return result ? success() : error();
     }
 
     /**
      * 返回成功
      */
-    public AjaxResult success() {
-        return AjaxResult.success();
+    public ResponseResult success() {
+        return ResponseResult.success();
     }
 
     /**
      * 返回失败消息
      */
-    public AjaxResult error() {
-        return AjaxResult.error();
+    public ResponseResult error() {
+        return ResponseResult.error();
     }
 
     /**
      * 返回成功消息
      */
-    public AjaxResult success(String message) {
-        return AjaxResult.success(message);
+    public ResponseResult success(String message) {
+        return ResponseResult.success(message);
     }
 
     /**
      * 返回失败消息
      */
-    public AjaxResult error(String message) {
-        return AjaxResult.error(message);
+    public ResponseResult error(String message) {
+        return ResponseResult.error(message);
     }
 
     /**
      * 返回错误码消息
      */
-    public AjaxResult error(Type type, String message) {
-        return new AjaxResult(type, message);
+    public ResponseResult error(Type type, String message) {
+        return new ResponseResult(type, message);
     }
 
     /**

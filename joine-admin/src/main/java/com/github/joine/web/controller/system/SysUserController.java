@@ -2,7 +2,7 @@ package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.utils.StringUtils;
@@ -16,7 +16,6 @@ import com.github.joine.system.service.ISysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -64,7 +63,7 @@ public class SysUserController extends BaseController {
     @RequiresPermissions("system:user:export")
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(SysUser user) {
+    public ResponseResult export(SysUser user) {
         List<SysUser> list = userService.selectUserList(user);
         ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
         return util.exportExcel(list, "用户数据");
@@ -74,18 +73,18 @@ public class SysUserController extends BaseController {
     @RequiresPermissions("system:user:import")
     @PostMapping("/importData")
     @ResponseBody
-    public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception {
+    public ResponseResult importData(MultipartFile file, boolean updateSupport) throws Exception {
         ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
         List<SysUser> userList = util.importExcel(file.getInputStream());
         String operName = ShiroUtils.getSysUser().getLoginName();
         String message = userService.importUser(userList, updateSupport, operName);
-        return AjaxResult.success(message);
+        return ResponseResult.success(message);
     }
 
     @RequiresPermissions("system:user:view")
     @GetMapping("/importTemplate")
     @ResponseBody
-    public AjaxResult importTemplate() {
+    public ResponseResult importTemplate() {
         ExcelUtil<SysUser> util = new ExcelUtil(SysUser.class);
         return util.importTemplateExcel("用户数据");
     }
@@ -107,7 +106,7 @@ public class SysUserController extends BaseController {
     @Log(title = "用户管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysUser user) {
+    public ResponseResult addSave(SysUser user) {
         if (StringUtils.isNotNull(user.getUserId()) && SysUser.isAdmin(user.getUserId())) {
             return error("不允许修改超级管理员用户");
         }
@@ -135,7 +134,7 @@ public class SysUserController extends BaseController {
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysUser user) {
+    public ResponseResult editSave(SysUser user) {
         if (StringUtils.isNotNull(user.getUserId()) && SysUser.isAdmin(user.getUserId())) {
             return error("不允许修改超级管理员用户");
         }
@@ -155,7 +154,7 @@ public class SysUserController extends BaseController {
     @Log(title = "重置密码", businessType = BusinessType.UPDATE)
     @PostMapping("/resetPwd")
     @ResponseBody
-    public AjaxResult resetPwdSave(SysUser user) {
+    public ResponseResult resetPwdSave(SysUser user) {
         user.setSalt(ShiroUtils.randomSalt());
         user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
         return toAjax(userService.resetUserPwd(user));
@@ -165,7 +164,7 @@ public class SysUserController extends BaseController {
     @Log(title = "用户管理", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids) {
+    public ResponseResult remove(String ids) {
         try {
             return toAjax(userService.deleteUserByIds(ids));
         } catch (Exception e) {
@@ -207,7 +206,7 @@ public class SysUserController extends BaseController {
     @RequiresPermissions("system:user:edit")
     @PostMapping("/changeStatus")
     @ResponseBody
-    public AjaxResult changeStatus(SysUser user) {
+    public ResponseResult changeStatus(SysUser user) {
         return toAjax(userService.changeStatus(user));
     }
 }

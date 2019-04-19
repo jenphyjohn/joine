@@ -3,7 +3,7 @@ package com.github.joine.common.utils.poi;
 import com.github.joine.common.annotation.Excel;
 import com.github.joine.common.annotation.Excel.Type;
 import com.github.joine.common.config.Global;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.core.text.Convert;
 import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.utils.DateUtils;
@@ -203,7 +203,7 @@ public class ExcelUtil<T> {
      * @param sheetName 工作表的名称
      * @return 结果
      */
-    public AjaxResult exportExcel(List<T> list, String sheetName) {
+    public ResponseResult exportExcel(List<T> list, String sheetName) {
         this.init(list, sheetName, Type.EXPORT);
         return exportExcel();
     }
@@ -214,7 +214,7 @@ public class ExcelUtil<T> {
      * @param sheetName 工作表的名称
      * @return 结果
      */
-    public AjaxResult importTemplateExcel(String sheetName) {
+    public ResponseResult importTemplateExcel(String sheetName) {
         this.init(null, sheetName, Type.IMPORT);
         return exportExcel();
     }
@@ -224,7 +224,7 @@ public class ExcelUtil<T> {
      *
      * @return 结果
      */
-    public AjaxResult exportExcel() {
+    public ResponseResult exportExcel() {
         OutputStream out = null;
         try {
             // 取出一共有多少个sheet.
@@ -288,7 +288,7 @@ public class ExcelUtil<T> {
             String filename = encodingFilename(sheetName);
             out = new FileOutputStream(getAbsoluteFile(filename));
             wb.write(out);
-            return AjaxResult.success(filename);
+            return ResponseResult.success(filename);
         } catch (Exception e) {
             log.error("导出Excel异常{}", e.getMessage());
             throw new BusinessException("导出Excel失败，请联系网站管理员！");

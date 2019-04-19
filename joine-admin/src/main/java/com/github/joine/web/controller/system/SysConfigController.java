@@ -2,7 +2,7 @@ package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.core.domain.AjaxResult;
+import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.utils.poi.ExcelUtil;
@@ -52,7 +52,7 @@ public class SysConfigController extends BaseController {
     @RequiresPermissions("system:config:export")
     @PostMapping("/export")
     @ResponseBody
-    public AjaxResult export(SysConfig config) {
+    public ResponseResult export(SysConfig config) {
         List<SysConfig> list = configService.selectConfigList(config);
         ExcelUtil<SysConfig> util = new ExcelUtil<>(SysConfig.class);
         return util.exportExcel(list, "参数数据");
@@ -73,7 +73,7 @@ public class SysConfigController extends BaseController {
     @Log(title = "参数管理", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysConfig config) {
+    public ResponseResult addSave(SysConfig config) {
         config.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(configService.insertConfig(config));
     }
@@ -94,7 +94,7 @@ public class SysConfigController extends BaseController {
     @Log(title = "参数管理", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysConfig config) {
+    public ResponseResult editSave(SysConfig config) {
         config.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(configService.updateConfig(config));
     }
@@ -106,7 +106,7 @@ public class SysConfigController extends BaseController {
     @Log(title = "参数管理", businessType = BusinessType.DELETE)
     @PostMapping("/remove")
     @ResponseBody
-    public AjaxResult remove(String ids) {
+    public ResponseResult remove(String ids) {
         return toAjax(configService.deleteConfigByIds(ids));
     }
 
