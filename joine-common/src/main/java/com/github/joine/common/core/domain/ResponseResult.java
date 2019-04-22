@@ -146,7 +146,7 @@ public class ResponseResult extends HashMap<String, Object> {
      * @return 成功响应消息
      */
     public static ResponseResult successResponse() {
-        return response(ResponseEnum.SUCCESS);
+        return response(ResponseEnum.REQUEST_SUCCESS);
     }
 
     /**
@@ -156,7 +156,7 @@ public class ResponseResult extends HashMap<String, Object> {
      * @return 成功响应消息
      */
     public static ResponseResult successResponse(Object data) {
-        return response(ResponseEnum.SUCCESS, data);
+        return response(ResponseEnum.REQUEST_SUCCESS, data);
     }
 
     /**
@@ -165,7 +165,7 @@ public class ResponseResult extends HashMap<String, Object> {
      * @return 失败响应消息
      */
     public static ResponseResult errorResponse() {
-        return response(ResponseEnum.ERROR);
+        return response(ResponseEnum.SERVER_ERROR);
     }
 
     /**

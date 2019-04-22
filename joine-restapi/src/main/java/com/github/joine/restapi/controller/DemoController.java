@@ -1,5 +1,6 @@
-package com.github.joine.restapi.controller.business;
+package com.github.joine.restapi.controller;
 
+import com.github.joine.restapi.annotation.PassAuth;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
 
     @GetMapping("/test")
+    @PassAuth
     public String test() {
         return "HelloWorld";
     }

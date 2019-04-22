@@ -1,11 +1,13 @@
 package com.github.joine.common.core.controller;
 
+import com.github.joine.common.constant.UserConstants;
 import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.core.domain.ResponseResult.Type;
 import com.github.joine.common.core.page.PageDomain;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.core.page.TableSupport;
 import com.github.joine.common.utils.DateUtils;
+import com.github.joine.common.utils.ServletUtils;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.common.utils.sql.SqlUtil;
 import com.github.pagehelper.PageHelper;
@@ -53,7 +55,7 @@ public class BaseController {
     /**
      * 响应请求分页数据
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({"rawtypes" , "unchecked"})
     protected TableDataInfo getDataTable(List<?> list) {
         TableDataInfo rspData = new TableDataInfo();
         rspData.setCode(0);
@@ -121,7 +123,14 @@ public class BaseController {
      * 页面跳转
      */
     public String redirect(String url) {
-        return StringUtils.format("redirect:{}", url);
+        return StringUtils.format("redirect:{}" , url);
     }
 
+    /**
+     * 获取用户ID
+     */
+    public static long getCurrentUserId() {
+        Long userId = (Long) ServletUtils.getRequest().getAttribute(UserConstants.USER_KEY);
+        return userId;
+    }
 }

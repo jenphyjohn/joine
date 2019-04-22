@@ -1,4 +1,4 @@
-package com.github.joine.restapi;
+package com.github.joine;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

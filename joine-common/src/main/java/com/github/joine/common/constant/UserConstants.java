@@ -7,6 +7,11 @@ package com.github.joine.common.constant;
  */
 public class UserConstants {
     /**
+     * 用户key
+     */
+    public static final String USER_KEY = "userId";
+
+    /**
      * 平台系统用户唯一标志
      */
     public static final String SYS_USER = "SYS_USER";
