@@ -266,16 +266,16 @@ public class ResponseResult extends HashMap<String, Object> {
         this.type = type;
     }
 
-    public int getCode() {
-        return code;
+    public Object getCode() {
+        return super.get(CODE_TAG);
     }
 
     public void setCode(int code) {
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public Object getMsg() {
+        return super.get(MSG_TAG);
     }
 
     public void setMsg(String msg) {
@@ -283,7 +283,7 @@ public class ResponseResult extends HashMap<String, Object> {
     }
 
     public Object getData() {
-        return data;
+        return super.get(DATA_TAG);
     }
 
     public void setData(Object data) {
