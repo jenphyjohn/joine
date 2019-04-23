@@ -5,12 +5,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.async.DeferredResult;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Swagger2的接口配置
@@ -29,6 +35,8 @@ public class SwaggerConfig {
                 .genericModelSubstitutes(DeferredResult.class)
                 // 详细定制
                 .apiInfo(apiInfo())
+                // 增加header中token参数
+                .globalOperationParameters(buildParameters())
                 // 设置哪些接口暴露给Swagger展示
                 .select()
                 // 扫描包
@@ -44,8 +52,20 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("Joine-RestfulAPI")
                 .description("Joine's REST API, all the applications could access the Object model data via JSON.")
-                .contact(new Contact("JenphyJohn", null, "zhuangzf1989@126.com"))
+                .contact(new Contact("JenphyJohn" , null, "zhuangzf1989@126.com"))
                 .version(Global.getVersion())
                 .build();
+    }
+
+    private List<Parameter> buildParameters() {
+        ParameterBuilder parameterBuilder = new ParameterBuilder();
+        List<Parameter> pars = new ArrayList<>();
+        parameterBuilder.name("token")
+                .description("auth token")
+                .modelRef(new ModelRef("string"))
+                .parameterType("header")
+                .required(false);
+        pars.add(parameterBuilder.build());
+        return pars;
     }
 }

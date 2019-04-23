@@ -5,6 +5,7 @@ import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.exception.user.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -60,6 +61,15 @@ public class GlobalExceptionHandler {
     public ResponseResult handleException(HttpRequestMethodNotSupportedException e) {
         log.error(e.getMessage());
         return ResponseResult.response(ResponseEnum.REQUEST_METHOD_NOT_SUPPORT);
+    }
+
+    /**
+     * 请求格式不正确
+     */
+    @ExceptionHandler({HttpMessageNotReadableException.class})
+    public ResponseResult handleException(HttpMessageNotReadableException e) {
+        log.error(e.getMessage());
+        return ResponseResult.response(ResponseEnum.REQUEST_FORMAT_NOT_SUPPORT);
     }
 
     /**

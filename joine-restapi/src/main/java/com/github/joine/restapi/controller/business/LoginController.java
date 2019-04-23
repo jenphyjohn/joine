@@ -24,7 +24,6 @@ public class LoginController extends BaseController {
     @Autowired
     private IUserService iUserService;
 
-    @PassAuth
     @PostMapping("/login")
     public ResponseResult login(@RequestBody User loginUser) {
         List<User> users = iUserService.selectUserList(loginUser);

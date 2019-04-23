@@ -37,6 +37,10 @@ public enum ResponseEnum implements BaseEnum {
      */
     REQUEST_METHOD_NOT_SUPPORT(10405, "request.method.not.support"),
     /**
+     * 请求格式不正确
+     */
+    REQUEST_FORMAT_NOT_SUPPORT(10406, "request.format.not.support"),
+    /**
      * 用户不存在
      */
     USER_NOT_EXISTS(20001, "user.not.exists"),
