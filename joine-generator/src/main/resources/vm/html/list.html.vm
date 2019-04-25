@@ -48,18 +48,18 @@
 			</div>
 			
 	        <div class="btn-group-sm" id="toolbar" role="group">
-				<a class="btn btn-info" onclick="$.operate.add()" shiro:hasPermission="${moduleName}:${classname}:add">
-					<i class="fa fa-plus"></i> 添加
+                <a class="btn btn-info" onclick="$.table.exportExcel()" shiro:hasPermission="${moduleName}:${classname}:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+                <a class="btn btn-info" onclick="$.operate.add()" shiro:hasPermission="${moduleName}:${classname}:add">
+                    <i class="fa fa-plus"></i> 新增
 				</a>
-				<a class="btn btn-info btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="${moduleName}:${classname}:edit">
-					<i class="fa fa-edit"></i> 修改
+                <a class="btn btn-info btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="${moduleName}:${classname}:edit">
+                    <i class="fa fa-edit"></i> 修改
 				</a>
-				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="${moduleName}:${classname}:remove">
-					<i class="fa fa-remove"></i> 删除
+                <a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="${moduleName}:${classname}:remove">
+                    <i class="fa fa-remove"></i> 删除
 				</a>
-				<a class="btn btn-info" onclick="$.table.exportExcel()" shiro:hasPermission="${moduleName}:${classname}:export">
-						<i class="fa fa-download"></i> 导出
-				 </a>
 			</div>
 			<div class="col-sm-12 select-table table-striped">
 				<table id="bootstrap-table" data-mobile-responsive="true"></table>
