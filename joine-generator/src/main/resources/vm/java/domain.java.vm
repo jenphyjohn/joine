@@ -4,16 +4,16 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.github.joine.common.core.domain.BaseEntity;
 #foreach ($column in $columns)
-    #if($column.attrType == 'Date' && ($column.attrname != 'createBy' && $column.attrname != 'createTime' && $column.attrname != 'updateBy' && $column.attrname != 'updateTime' && $column.attrname != 'remark'))
+#if($column.attrType == 'Date' && ($column.attrname != 'createBy' && $column.attrname != 'createTime' && $column.attrname != 'updateBy' && $column.attrname != 'updateTime' && $column.attrname != 'remark'))
 import java.util.Date;
-    #break
-    #end
+#break
+#end
 #end
 #foreach ($column in $columns)
-    #if($column.attrType == 'BigDecimal')
+#if($column.attrType == 'BigDecimal')
 import java.math.BigDecimal;
-    #break
-    #end
+#break
+#end
 #end
 
 /**
@@ -27,22 +27,23 @@ public class ${className} extends BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 #foreach ($column in $columns)
-    #if($column.attrname != 'createBy' && $column.attrname != 'createTime' && $column.attrname != 'updateBy' && $column.attrname != 'updateTime' && $column.attrname != 'remark')
+#if($column.attrname != 'createBy' && $column.attrname != 'createTime' && $column.attrname != 'updateBy' && $column.attrname != 'updateTime' && $column.attrname != 'remark')
     /** $column.columnComment */
 	private $column.attrType $column.attrname;
-    #end
+#end
 #end
 
 #foreach ($column in $columns)
-    #if($column.attrname != 'createBy' && $column.attrname != 'createTime' && $column.attrname != 'updateBy' && $column.attrname != 'updateTime' && $column.attrname != 'remark')
-    public void set${column.attrName}($column.attrType $column.attrname) {
+#if($column.attrname != 'createBy' && $column.attrname != 'createTime' && $column.attrname != 'updateBy' && $column.attrname != 'updateTime' && $column.attrname != 'remark')
+    public ${className} set${column.attrName}($column.attrType $column.attrname) {
 		this.$column.attrname = $column.attrname;
+		return this;
 	}
 
 	public $column.attrType get${column.attrName}() {
 		return $column.attrname;
 	}
-    #end
+#end
 #end
 
     public String toString() {
