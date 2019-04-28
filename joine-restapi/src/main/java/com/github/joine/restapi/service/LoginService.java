@@ -4,6 +4,7 @@ import com.github.joine.business.domain.User;
 import com.github.joine.business.service.IUserService;
 import com.github.joine.common.exception.user.UserNotExistsException;
 import com.github.joine.common.exception.user.UserPasswordNotMatchException;
+import com.github.joine.common.utils.security.Md5Utils;
 import com.github.joine.restapi.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class LoginService {
         if (user == null) {
             throw new UserNotExistsException();
         }
-        if (user.getPassword().equals(loginUser.getPassword())) {
+        if (user.getPassword().equals(Md5Utils.hash(loginUser.getPassword()))) {
             return JWTUtil.sign(loginUser.getLoginName(), loginUser.getPassword());
         } else {
             throw new UserPasswordNotMatchException();

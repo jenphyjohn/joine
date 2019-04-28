@@ -80,7 +80,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User selectUserByLoginName(User user) {
-        List<User> users = userMapper.selectUserList(user);
+        List<User> users = userMapper.selectUserList(new User().setLoginName(user.getLoginName()));
         if (CollectionUtils.isEmpty(users)) {
             return null;
         }
