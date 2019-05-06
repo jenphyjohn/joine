@@ -2,6 +2,7 @@ package com.github.joine.framework.config;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.github.joine.common.utils.StringUtils;
+import com.github.joine.common.utils.spring.SpringUtils;
 import com.github.joine.framework.shiro.realm.UserRealm;
 import com.github.joine.framework.shiro.session.OnlineSessionDAO;
 import com.github.joine.framework.shiro.session.OnlineSessionFactory;
@@ -41,15 +42,11 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfig {
-    public static final String PREMISSION_STRING = "perms[\"{0}\"]" ;
+    public static final String PREMISSION_STRING = "perms[\"{0}\"]";
 
     // Session超时时间，单位为毫秒（默认30分钟）
     @Value("${shiro.session.expireTime}")
     private int expireTime;
-
-    // 相隔多久检查一次session的有效性，单位毫秒，默认就是10分钟
-    @Value("${shiro.session.validationInterval}")
-    private int validationInterval;
 
     // 验证码开关
     @Value("${shiro.user.captchaEnabled}")
@@ -103,7 +100,7 @@ public class ShiroConfig {
      * 返回配置文件流 避免ehcache配置文件一直被占用，无法完全销毁项目重新部署
      */
     protected InputStream getCacheManagerConfigFileInputStream() {
-        String configFile = "classpath:ehcache/ehcache-shiro.xml" ;
+        String configFile = "classpath:ehcache/ehcache-shiro.xml";
         InputStream inputStream = null;
         try {
             inputStream = ResourceUtils.getInputStreamForPath(configFile);
@@ -147,42 +144,6 @@ public class ShiroConfig {
     }
 
     /**
-     * 自定义sessionFactory调度器
-     */
-    @Bean
-    public SpringSessionValidationScheduler sessionValidationScheduler() {
-        SpringSessionValidationScheduler sessionValidationScheduler = new SpringSessionValidationScheduler();
-        // 相隔多久检查一次session的有效性，单位毫秒，默认就是10分钟
-        sessionValidationScheduler.setSessionValidationInterval(validationInterval * 60 * 1000);
-        // 设置会话验证调度器进行会话验证时的会话管理器
-        sessionValidationScheduler.setSessionManager(sessionValidationManager());
-        return sessionValidationScheduler;
-    }
-
-    /**
-     * 会话管理器
-     */
-    @Bean
-    public OnlineWebSessionManager sessionValidationManager() {
-        OnlineWebSessionManager manager = new OnlineWebSessionManager();
-        // 加入缓存管理器
-        manager.setCacheManager(getEhCacheManager());
-        // 删除过期的session
-        manager.setDeleteInvalidSessions(true);
-        // 设置全局session超时时间
-        manager.setGlobalSessionTimeout(expireTime * 60 * 1000);
-        // 去掉 JSESSIONID
-        manager.setSessionIdUrlRewritingEnabled(false);
-        // 是否定时检查session
-        manager.setSessionValidationSchedulerEnabled(true);
-        // 自定义SessionDao
-        manager.setSessionDAO(sessionDAO());
-        // 自定义sessionFactory
-        manager.setSessionFactory(sessionFactory());
-        return manager;
-    }
-
-    /**
      * 会话管理器
      */
     @Bean
@@ -197,7 +158,7 @@ public class ShiroConfig {
         // 去掉 JSESSIONID
         manager.setSessionIdUrlRewritingEnabled(false);
         // 定义要使用的无效的Session定时调度器
-        manager.setSessionValidationScheduler(sessionValidationScheduler());
+        manager.setSessionValidationScheduler(SpringUtils.getBean(SpringSessionValidationScheduler.class));
         // 是否定时检查session
         manager.setSessionValidationSchedulerEnabled(true);
         // 自定义SessionDao
@@ -211,7 +172,7 @@ public class ShiroConfig {
      * 安全管理器
      */
     @Bean
-    public SecurityManager securityManager(UserRealm userRealm) {
+    public SecurityManager securityManager(UserRealm userRealm, SpringSessionValidationScheduler springSessionValidationScheduler) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         // 设置realm.
         securityManager.setRealm(userRealm);

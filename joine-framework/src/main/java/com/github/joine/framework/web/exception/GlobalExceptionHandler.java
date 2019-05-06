@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
             return ResponseResult.error(PermissionUtils.getMsg(e.getMessage()));
         } else {
             ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("/error/unauth");
+            modelAndView.setViewName("error/unauth");
             return modelAndView;
         }
     }

@@ -6,6 +6,7 @@
 $(function () {
     // select2复选框事件绑定
     if ($.fn.select2 !== undefined) {
+        $.fn.select2.defaults.set( "theme", "bootstrap" );
         $("select.form-control:not(.noselect2)").each(function () {
             $(this).select2().on("change", function () {
                 $(this).valid();
@@ -135,6 +136,12 @@ $(function () {
         }
         expandFlag = expandFlag ? false : true;
     })
+    // 按下ESC按钮关闭弹层
+    $('body', document).on('keyup', function(e) {
+        if (e.which === 27) {
+            $.modal.closeAll();
+        }
+    });
 });
 
 /** 刷新选项卡 */
