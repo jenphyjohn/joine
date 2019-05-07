@@ -89,10 +89,6 @@
     border-left: 3px solid #3c8dbc;
 }
 
-.skin-blue .nav > li.active:last-child {
-    border-left: none;
-}
-
 .skin-blue .nav > li > .treeview-menu {
     margin: 0 1px;
     background: #2c3b41
@@ -274,10 +270,6 @@
     border-left: 3px solid #00a65a;
 }
 
-.skin-green .nav > li.active:last-child {
-    border-left: none;
-}
-
 .skin-green .nav > li > .treeview-menu {
     margin: 0 1px;
     background: #2c3b41
@@ -429,14 +421,10 @@
     background: #1a2226;
 }
 
-.skin-wanyan .nav > li.active {
+.skin-wanyan #side-menu > li.active {
     color: #fff;
     background: #293846;
     border-left: 3px solid #23c6c8;
-}
-
-.skin-wanyan .nav > li.active:last-child {
-    border-left: none;
 }
 
 .skin-wanyan .nav > li > .treeview-menu {
@@ -590,10 +578,6 @@
     color: #fff;
     border-left: 3px solid #dd4b39;
     background: #293846;
-}
-
-.skin-red .nav > li.active:last-child {
-    border-left: none;
 }
 
 .skin-red .content-tabs {
@@ -753,10 +737,6 @@
     border-left: 3px solid #f39c12;
 }
 
-.skin-yellow .nav > li.active:last-child {
-    border-left: none;
-}
-
 .skin-yellow .content-tabs {
 
     border-bottom: solid 2px #e7eaec;
@@ -913,10 +893,6 @@
     color: #fff;
     background: #293846;
     border-left: 3px solid #605ca8;
-}
-
-.skin-purple .nav > li.active:last-child {
-    border-left: none;
 }
 
 .skin-purple .content-tabs {
