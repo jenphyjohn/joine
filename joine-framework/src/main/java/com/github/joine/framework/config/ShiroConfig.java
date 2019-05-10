@@ -44,39 +44,57 @@ import java.util.Map;
 public class ShiroConfig {
     public static final String PREMISSION_STRING = "perms[\"{0}\"]";
 
-    // Session超时时间，单位为毫秒（默认30分钟）
+    /**
+     * Session超时时间，单位为毫秒（默认30分钟）
+     */
     @Value("${shiro.session.expireTime}")
     private int expireTime;
 
-    // 验证码开关
+    /**
+     * 验证码开关
+     */
     @Value("${shiro.user.captchaEnabled}")
     private boolean captchaEnabled;
 
-    // 验证码类型
+    /**
+     * 验证码类型
+     */
     @Value("${shiro.user.captchaType}")
     private String captchaType;
 
-    // 设置Cookie的域名
+    /**
+     * 设置Cookie的域名
+     */
     @Value("${shiro.cookie.domain}")
     private String domain;
 
-    // 设置cookie的有效访问路径
+    /**
+     * 设置cookie的有效访问路径
+     */
     @Value("${shiro.cookie.path}")
     private String path;
 
-    // 设置HttpOnly属性
+    /**
+     * 设置HttpOnly属性
+     */
     @Value("${shiro.cookie.httpOnly}")
     private boolean httpOnly;
 
-    // 设置Cookie的过期时间，秒为单位
+    /**
+     * 设置Cookie的过期时间，秒为单位
+     */
     @Value("${shiro.cookie.maxAge}")
     private int maxAge;
 
-    // 登录地址
+    /**
+     * 登录地址
+     */
     @Value("${shiro.user.loginUrl}")
     private String loginUrl;
 
-    // 权限认证失败地址
+    /**
+     * 权限认证失败地址
+     */
     @Value("${shiro.user.unauthorizedUrl}")
     private String unauthorizedUrl;
 

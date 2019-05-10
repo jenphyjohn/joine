@@ -57,9 +57,7 @@ public class OnlineSessionFilter extends AccessControlFilter {
                 }
             }
 
-            if (onlineSession.getStatus() == OnlineStatus.off_line) {
-                return false;
-            }
+            return onlineSession.getStatus() != OnlineStatus.off_line;
         }
         return true;
     }
@@ -77,7 +75,12 @@ public class OnlineSessionFilter extends AccessControlFilter {
         return false;
     }
 
-    // 跳转到登录页
+    /**
+     * 跳转到登录页
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     @Override
     protected void redirectToLogin(ServletRequest request, ServletResponse response) throws IOException {
         WebUtils.issueRedirect(request, response, loginUrl);

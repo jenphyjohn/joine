@@ -37,7 +37,7 @@ public class ExcelUtil<T> {
     /**
      * Excel sheet最大行数，默认65536
      */
-    public static final int sheetSize = 65536;
+    private static final int SHEET_SIZE = 65536;
 
     /**
      * 工作表名称
@@ -106,7 +106,7 @@ public class ExcelUtil<T> {
      * @param is        输入流
      * @return 转换后集合
      */
-    public List<T> importExcel(String sheetName, InputStream is) throws Exception {
+    private List<T> importExcel(String sheetName, InputStream is) throws Exception {
         this.type = Type.IMPORT;
         this.wb = WorkbookFactory.create(is);
         List<T> list = new ArrayList<T>();
@@ -228,10 +228,11 @@ public class ExcelUtil<T> {
         OutputStream out = null;
         try {
             // 取出一共有多少个sheet.
-            double sheetNo = Math.ceil(list.size() / sheetSize);
+            double sheetNo = Math.ceil(list.size() / SHEET_SIZE);
             for (int index = 0; index <= sheetNo; index++) {
                 createSheet(sheetNo, index);
-                Cell cell = null; // 产生单元格
+                // 产生单元格
+                Cell cell = null;
 
                 // 产生一行
                 Row row = sheet.createRow(0);
@@ -318,8 +319,8 @@ public class ExcelUtil<T> {
      * @param cell  类型单元格
      */
     public void fillExcelData(int index, Row row, Cell cell) {
-        int startNo = index * sheetSize;
-        int endNo = Math.min(startNo + sheetSize, list.size());
+        int startNo = index * SHEET_SIZE;
+        int endNo = Math.min(startNo + SHEET_SIZE, list.size());
         // 写入各条记录,每条记录对应excel表中的一行
         CellStyle cs = wb.createCellStyle();
         cs.setAlignment(HorizontalAlignment.CENTER);
@@ -603,7 +604,8 @@ public class ExcelUtil<T> {
                 if (cell.getCellTypeEnum() == CellType.NUMERIC) {
                     val = cell.getNumericCellValue();
                     if (HSSFDateUtil.isCellDateFormatted(cell)) {
-                        val = DateUtil.getJavaDate((Double) val); // POI Excel 日期格式转换
+                        // POI Excel 日期格式转换
+                        val = DateUtil.getJavaDate((Double) val);
                     } else {
                         if ((Double) val % 1 > 0) {
                             val = new DecimalFormat("0.00").format(val);

@@ -129,8 +129,7 @@ public class BaseController {
     /**
      * 获取用户ID
      */
-    public static long getCurrentUserId() {
-        Long userId = (Long) ServletUtils.getRequest().getAttribute(UserConstants.USER_KEY);
-        return userId;
+    public static Long getCurrentUserId() {
+        return (Long) ServletUtils.getRequest().getAttribute(UserConstants.USER_KEY);
     }
 }

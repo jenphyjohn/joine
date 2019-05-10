@@ -27,7 +27,7 @@ public class Md5Utils {
         return null;
     }
 
-    private static final String toHex(byte hash[]) {
+    private static final String toHex(byte[] hash) {
         if (hash == null) {
             return null;
         }

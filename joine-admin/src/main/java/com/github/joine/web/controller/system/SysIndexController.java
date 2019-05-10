@@ -23,7 +23,11 @@ public class SysIndexController extends BaseController {
     @Autowired
     private ISysMenuService menuService;
 
-    // 系统首页
+    /**
+     * 系统首页
+     * @param modelMap
+     * @return
+     */
     @GetMapping("/index")
     public String index(ModelMap modelMap) {
         // 取身份信息
@@ -36,7 +40,11 @@ public class SysIndexController extends BaseController {
         return "index";
     }
 
-    // 系统介绍
+    /**
+     * 系统介绍
+     * @param modelMap
+     * @return
+     */
     @GetMapping("/system/main")
     public String main(ModelMap modelMap) {
         modelMap.put("version", Global.getVersion());
