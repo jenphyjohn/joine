@@ -83,7 +83,7 @@
     background: #1a2226
 }
 
-.skin-blue .nav > li.active {
+.skin-blue #side-menu > li.active {
     color: #fff;
     background: #293846;
     border-left: 3px solid #3c8dbc;
@@ -264,7 +264,7 @@
     background: #1a2226;
 }
 
-.skin-green .nav > li.active {
+.skin-green #side-menu > li.active {
     color: #fff;
     background: #293846;
     border-left: 3px solid #00a65a;
@@ -574,7 +574,7 @@
     background: #1a2226
 }
 
-.skin-red .nav > li.active {
+.skin-red #side-menu > li.active {
     color: #fff;
     border-left: 3px solid #dd4b39;
     background: #293846;
@@ -731,7 +731,7 @@
     background: #1a2226
 }
 
-.skin-yellow .nav > li.active {
+.skin-yellow #side-menu > li.active {
     color: #fff;
     background: #293846;
     border-left: 3px solid #f39c12;
@@ -889,7 +889,7 @@
     background: #1a2226
 }
 
-.skin-purple .nav > li.active {
+.skin-purple #side-menu > li.active {
     color: #fff;
     background: #293846;
     border-left: 3px solid #605ca8;
