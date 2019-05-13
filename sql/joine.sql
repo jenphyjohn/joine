@@ -65,8 +65,8 @@ create table sys_user (
 -- ----------------------------
 -- 初始化-用户信息表数据
 -- ----------------------------
-insert into sys_user values(1,  103, 'admin', '琬琰', '00', 'zhuangzf1989@join-e.tech', '18641888890', '1', '', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2018-12-17 14-14-00', 'admin', '2018-12-17 14-14-00', 'joine', '2018-12-17 14-14-00', '管理员');
-insert into sys_user values(2,  105, 'joine', '琬琰', '00', 'zhuangzf1989@join-e.tech',  '18641888890', '1', '', '8e6d98b90472783cc73c17047ddccf36', '222222', '0', '0', '127.0.0.1', '2018-12-17 14-14-00', 'admin', '2018-12-17 14-14-00', 'joine', '2018-12-17 14-14-00', '测试员');
+insert into sys_user values(1,  103, 'admin', '琬琰', '00', 'zhuangzf1989@join-e.tech', '18641888890', '1', '', 'e10adc3949ba59abbe56e057f20f883e', '111111', '0', '0', '127.0.0.1', '2018-12-17 14-14-00', 'admin', '2018-12-17 14-14-00', 'joine', '2018-12-17 14-14-00', '管理员');
+insert into sys_user values(2,  105, 'joine', '琬琰', '00', 'zhuangzf1989@join-e.tech',  '18641888890', '1', '', 'e10adc3949ba59abbe56e057f20f883e', '222222', '0', '0', '127.0.0.1', '2018-12-17 14-14-00', 'admin', '2018-12-17 14-14-00', 'joine', '2018-12-17 14-14-00', '测试员');
 
 
 -- ----------------------------
@@ -514,7 +514,7 @@ create table sys_config (
 	primary key (config_id)
 ) engine=innodb auto_increment=100 comment = '参数配置表';
 
-insert into sys_config values(1, '主框架页-默认皮肤样式名称', 'sys.index.skinName',     'skin-default',  'Y', 'admin', '2018-12-17 14-14-00', 'joine', '2018-12-17 14-14-00', '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow' );
+insert into sys_config values(1, '主框架页-默认皮肤样式名称', 'sys.index.skinName',     'skin-wanyan',  'Y', 'admin', '2018-12-17 14-14-00', 'joine', '2018-12-17 14-14-00', '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow、琬琰色 skin-wanyan' );
 insert into sys_config values(2, '用户管理-账号初始密码',     'sys.user.initPassword',  '123456',        'Y', 'admin', '2018-12-17 14-14-00', 'joine', '2018-12-17 14-14-00', '初始化密码 123456' );
 
 
