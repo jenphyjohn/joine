@@ -56,13 +56,6 @@
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
 
-        <!--Shiro核心框架 -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-
         <!-- 业务模块-->
         <dependency>
             <groupId>com.github.joine</groupId>

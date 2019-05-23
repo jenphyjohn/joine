@@ -16,12 +16,6 @@
 	</description>
 	
     <dependencies>
-        <!--Shiro核心框架 -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-        </dependency>
-
         <!--velocity代码生成使用模板 -->
         <dependency>
             <groupId>org.apache.velocity</groupId>

@@ -96,8 +96,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
      * @return 角色列表
      */
     @Override
+    @DataScope(tableAlias = "u")
     public List<SysRole> selectRoleAll() {
-        return selectRoleList(new SysRole());
+        return roleMapper.selectRoleList(new SysRole());
     }
 
     /**

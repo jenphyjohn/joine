@@ -34,6 +34,11 @@ public class SysOperLog extends BaseEntity {
     private Integer businessType;
 
     /**
+     * 业务类型数组
+     */
+    private Integer[] businessTypes;
+
+    /**
      * 请求方法
      */
     @Excel(name = "请求方法")
@@ -98,6 +103,14 @@ public class SysOperLog extends BaseEntity {
      */
     @Excel(name = "操作时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date operTime;
+
+    public Integer[] getBusinessTypes() {
+        return businessTypes;
+    }
+
+    public void setBusinessTypes(Integer[] businessTypes) {
+        this.businessTypes = businessTypes;
+    }
 
     public Long getOperId() {
         return operId;
@@ -217,6 +230,7 @@ public class SysOperLog extends BaseEntity {
                 .append("operId", getOperId())
                 .append("title", getTitle())
                 .append("businessType", getBusinessType())
+                .append("businessTypes", getBusinessTypes())
                 .append("method", getMethod())
                 .append("operatorType", getOperatorType())
                 .append("operName", getOperName())

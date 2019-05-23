@@ -1,5 +1,6 @@
 package com.github.joine.framework.web.service;
 
+import com.github.joine.common.utils.security.PermissionUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +35,15 @@ public class PermissionService {
      */
     private boolean hasRoleOperator(String role) {
         return SecurityUtils.getSubject().hasRole(role);
+    }
+
+    /**
+     * 返回用户属性值
+     *
+     * @param property 属性名称
+     * @return 用户属性值
+     */
+    public Object getPrincipalProperty(String property) {
+        return PermissionUtils.getPrincipalProperty(property);
     }
 }
