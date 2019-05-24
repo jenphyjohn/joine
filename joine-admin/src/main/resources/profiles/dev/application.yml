@@ -40,6 +40,10 @@ user:
 
 # Spring配置
 spring:
+  # 控制台输出颜色
+  output:
+    ansi:
+      enabled: ALWAYS
   # 模板引擎
   thymeleaf:
     mode: HTML
