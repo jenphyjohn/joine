@@ -318,7 +318,7 @@ $(function () {
         }
         // 当前元素不处于活动状态
         else {
-            //  移除当前选项卡
+            // 移除当前选项卡
             $(this).parents('.menuTab').remove();
 
             // 移除相应tab对应的内容区
@@ -335,18 +335,7 @@ $(function () {
 
     $('.menuTabs').on('click', '.menuTab i', closeTab);
 
-    //关闭其他选项卡
-    function closeOtherTabs() {
-        $('.page-tabs-content').children("[data-id]").not(":first").not(".active").each(function () {
-            $('.Joine_iframe[data-id="' + $(this).data('id') + '"]').remove();
-            $(this).remove();
-        });
-        $('.page-tabs-content').css("margin-left", "0");
-    }
-
-    $('.tabCloseOther').on('click', closeOtherTabs);
-
-    //滚动到已激活的选项卡
+    // 滚动到已激活的选项卡
     function showActiveTab() {
         scrollToTab($('.menuTab.active'));
     }
@@ -380,6 +369,33 @@ $(function () {
         target.attr('src', url).ready();
     }
 
+    // 关闭当前选项卡
+    function tabCloseCurrent() {
+        $('.page-tabs-content').find('.active i').trigger("click");
+    }
+
+    //关闭其他选项卡
+    function tabCloseOther() {
+        $('.page-tabs-content').children("[data-id]").not(":first").not(".active").each(function() {
+            $('.Joine_iframe[data-id="' + $(this).data('id') + '"]').remove();
+            $(this).remove();
+        });
+        $('.page-tabs-content').css("margin-left", "0");
+    }
+
+    // 关闭全部选项卡
+    function tabCloseAll() {
+        $('.page-tabs-content').children("[data-id]").not(":first").each(function() {
+            $('.Joine_iframe[data-id="' + $(this).data('id') + '"]').remove();
+            $(this).remove();
+        });
+        $('.page-tabs-content').children("[data-id]:first").each(function() {
+            $('.Joine_iframe[data-id="' + $(this).data('id') + '"]').show();
+            $(this).addClass("active");
+        });
+        $('.page-tabs-content').css("margin-left", "0");
+    }
+
     // 全屏显示
     $('#fullScreen').on('click', function () {
         $('#wrapper').fullScreen();
@@ -398,22 +414,13 @@ $(function () {
     $('.tabRight').on('click', scrollTabRight);
 
     // 关闭当前
-    $('.tabCloseCurrent').on('click', function () {
-        $('.page-tabs-content').find('.active i').trigger("click");
-    });
+    $('.tabCloseCurrent').on('click', tabCloseCurrent);
+
+    // 关闭其他
+    $('.tabCloseOther').on('click', tabCloseOther);
 
     // 关闭全部
-    $('.tabCloseAll').on('click', function () {
-        $('.page-tabs-content').children("[data-id]").not(":first").each(function () {
-            $('.Joine_iframe[data-id="' + $(this).data('id') + '"]').remove();
-            $(this).remove();
-        });
-        $('.page-tabs-content').children("[data-id]:first").each(function () {
-            $('.Joine_iframe[data-id="' + $(this).data('id') + '"]').show();
-            $(this).addClass("active");
-        });
-        $('.page-tabs-content').css("margin-left", "0");
-    });
+    $('.tabCloseAll').on('click', tabCloseAll);
 
     // tab全屏显示
     $('.tabMaxCurrent').on('click', function () {
@@ -438,4 +445,48 @@ $(function () {
             $('#ax_close_max').hide();
         }
     });
+
+    // 右键菜单实现
+    $.contextMenu({
+        selector: ".page-tabs-content",
+        trigger: 'right',
+        autoHide: true,
+        items: {
+            "close_current": {
+                name: "关闭当前",
+                icon: "fa-close",
+                callback: function(key, opt) {
+                    tabCloseCurrent();
+                }
+            },
+            "close_other": {
+                name: "关闭其他",
+                icon: "fa-close",
+                callback: function(key, opt) {
+                    tabCloseOther();
+                }
+            },
+            "close_all": {
+                name: "全部关闭",
+                icon: "fa-close",
+                callback: function(key, opt) {
+                    tabCloseAll();
+                }
+            },
+            "full": {
+                name: "全屏显示",
+                icon: "fa-arrows-alt",
+                callback: function(key, opt) {
+                    activeTabMax();
+                }
+            },
+            "refresh": {
+                name: "刷新页面",
+                icon: "fa-refresh",
+                callback: function(key, opt) {
+                    refreshTab();
+                }
+            },
+        }
+    })
 });

@@ -12,24 +12,12 @@
     <![endif]-->
     <link rel="shortcut icon" th:href="@{favicon.ico}"/>
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/jquery.contextMenu.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
     <link th:href="@{/css/animate.css}" rel="stylesheet"/>
     <link th:href="@{/css/style.css}" rel="stylesheet"/>
     <link th:href="@{/css/skins.css}" rel="stylesheet"/>
     <link th:href="@{/joine/css/je-ui.css?v=1.1.0}" rel="stylesheet"/>
-    <style type="text/css">
-        #content-main.max {
-            height: calc(100% - 110px);
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            left: 0px;
-            position: absolute;
-            top: 0px;
-            z-index: 9998;
-            margin: 0;
-        }
-    </style>
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow: hidden"
       th:classappend="${@config.getKey('sys.index.skinName')}">
@@ -111,7 +99,7 @@
                     <!--<li><a th:href="@{logout}"><i class="fa fa-sign-out"></i>退出</a></li>-->
                     <li><a title="全屏显示" id="fullScreen"><i class="fa fa-arrows-alt"></i> 全屏显示</a></li>
                     <li class="dropdown user-menu">
-                        <a href="javascript:" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-hover="dropdown">
                             <img th:src="(${user.avatar} == '') ? @{/img/profile.png} : @{/profile/avatar/} + ${user.avatar}"
                                  class="user-image">
                             <span class="hidden-xs">[[${user.userName}]]</span>
@@ -178,6 +166,7 @@
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
 <script th:src="@{/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{/js/jquery.contextMenu.min.js}"></script>
 <script th:src="@{/ajax/libs/blockUI/jquery.blockUI.js}"></script>
 <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
 <script th:src="@{/joine/js/je-ui.js?v=1.1.0}"></script>
