@@ -2,9 +2,9 @@ package com.github.joine.generator.controller;
 
 import com.github.joine.common.annotation.Log;
 import com.github.joine.common.core.controller.BaseController;
-import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.core.text.Convert;
+import com.github.joine.common.enums.BusinessType;
 import com.github.joine.generator.domain.TableInfo;
 import com.github.joine.generator.service.IGenService;
 import org.apache.commons.io.IOUtils;
@@ -53,12 +53,7 @@ public class GenController extends BaseController {
     @GetMapping("/genCode/{tableName}")
     public void genCode(HttpServletResponse response, @PathVariable("tableName") String tableName) throws IOException {
         byte[] data = genService.generatorCode(tableName);
-        response.reset();
-        response.setHeader("Content-Disposition", "attachment; filename=\"joine.zip\"");
-        response.addHeader("Content-Length", "" + data.length);
-        response.setContentType("application/octet-stream; charset=UTF-8");
-
-        IOUtils.write(data, response.getOutputStream());
+        genCode(response, data);
     }
 
     /**
@@ -71,11 +66,21 @@ public class GenController extends BaseController {
     public void batchGenCode(HttpServletResponse response, String tables) throws IOException {
         String[] tableNames = Convert.toStrArray(tables);
         byte[] data = genService.generatorCode(tableNames);
+        genCode(response, data);
+    }
+
+    /**
+     * 生成zip文件
+     *
+     * @param response
+     * @param data
+     * @throws IOException
+     */
+    private void genCode(HttpServletResponse response, byte[] data) throws IOException {
         response.reset();
         response.setHeader("Content-Disposition", "attachment; filename=\"joine.zip\"");
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
-
         IOUtils.write(data, response.getOutputStream());
     }
 }
