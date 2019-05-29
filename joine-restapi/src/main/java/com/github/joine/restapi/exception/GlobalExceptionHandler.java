@@ -2,6 +2,7 @@ package com.github.joine.restapi.exception;
 
 import com.github.joine.common.constant.ResponseEnum;
 import com.github.joine.common.core.domain.ResponseResult;
+import com.github.joine.common.exception.CustomizeException;
 import com.github.joine.common.exception.user.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,5 +89,14 @@ public class GlobalExceptionHandler {
     public ResponseResult handleException(UserPasswordNotMatchException e) {
         log.error(e.getMessage());
         return ResponseResult.response(ResponseEnum.USER_PASSWORD_NOT_MATCH);
+    }
+
+    /**
+     * 自定义异常
+     */
+    @ExceptionHandler({CustomizeException.class})
+    public ResponseResult handleException(CustomizeException e) {
+        log.error(e.getMessage());
+        return ResponseResult.response(Integer.valueOf(e.getCode()), e.getMessage());
     }
 }

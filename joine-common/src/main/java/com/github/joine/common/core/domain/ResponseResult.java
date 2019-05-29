@@ -77,6 +77,18 @@ public class ResponseResult extends HashMap<String, Object> {
     /**
      * 初始化一个新创建的 AjaxResult 对象
      *
+     * @param code 状态类型
+     * @param msg  返回内容
+     */
+    public ResponseResult(Integer code, String msg) {
+        super.put(CODE_TAG, code);
+        super.put(MSG_TAG, msg);
+    }
+
+
+    /**
+     * 初始化一个新创建的 AjaxResult 对象
+     *
      * @param type 状态类型
      * @param msg  返回内容
      */
@@ -120,6 +132,15 @@ public class ResponseResult extends HashMap<String, Object> {
         super.put(CODE_TAG, responseEnum.code());
         super.put(MSG_TAG, responseEnum.msg());
         super.put(DATA_TAG, data);
+    }
+
+    /**
+     * 返回响应消息
+     *
+     * @return 响应消息
+     */
+    public static ResponseResult response(Integer code, String msg) {
+        return new ResponseResult(code, msg);
     }
 
     /**

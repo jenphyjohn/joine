@@ -44,13 +44,13 @@
             <optional>true</optional> <!-- 表示依赖不会传递 -->
         </dependency>
 
-        <!-- swagger2-->
+        <!-- swagger2 -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
         </dependency>
 
-        <!--防止进入swagger页面报类型转换错误，排除2.9.2中的引用，手动增加1.5.21版本-->
+        <!-- 防止进入swagger页面报类型转换错误，排除2.9.2中的引用，手动增加1.5.21版本 -->
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
@@ -60,22 +60,29 @@
             <artifactId>swagger-models</artifactId>
         </dependency>
 
-        <!-- swagger2-UI-->
+        <!-- swagger2-UI -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
 
-        <!-- 业务模块-->
+        <!-- 业务模块 -->
         <dependency>
             <groupId>com.github.joine</groupId>
             <artifactId>joine-business</artifactId>
         </dependency>
 
-        <!-- 通用工具-->
+        <!-- 通用工具 -->
         <dependency>
             <groupId>com.github.joine</groupId>
             <artifactId>joine-common</artifactId>
+        </dependency>
+
+        <!-- 微信小程序SDK -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-miniapp</artifactId>
+            <version>3.4.0</version>
         </dependency>
 
     </dependencies>

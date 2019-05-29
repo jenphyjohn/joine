@@ -55,7 +55,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         if (loginName == null) {
             throw new UserTokenInvalidException();
         }
-        List<User> users = iUserService.selectUserList(new User());
+        // 暂时先这么查, 以后增加selectByToken方法
+        List<User> users = iUserService.selectUserList(new User().setLoginName(loginName));
         if (CollectionUtils.isEmpty(users)) {
             throw new UserNotExistsException();
         }

@@ -124,3 +124,13 @@ xss:
   excludes: /system/notice/*
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+
+# 微信小程序相关
+wx:
+  miniapp:
+    configs:
+        - appid: wx5b3b58508f97b75b
+          secret: eebc126b12417b796d305f49be0ae571
+          token: #微信小程序消息服务器配置的token
+          aesKey: #微信小程序消息服务器配置的EncodingAESKey
+          msgDataFormat: JSON
