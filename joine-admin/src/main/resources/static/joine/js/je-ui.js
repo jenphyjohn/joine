@@ -20,6 +20,7 @@
                     sortOrder: "asc",
                     pagination: true,
                     pageSize: 10,
+                    pageList: [10, 25, 50],
                     toolbar: "toolbar",
                     striped: false,
                     escape: false,
@@ -57,7 +58,7 @@
                     pagination: options.pagination,                     // 是否显示分页（*）
                     pageNumber: 1,                                      // 初始化加载第一页，默认第一页
                     pageSize: options.pageSize,                         // 每页的记录行数（*）
-                    pageList: [10, 25, 50],                             // 可供选择的每页的行数（*）
+                    pageList: options.pageList,                         // 可供选择的每页的行数（*）
                     escape: options.escape,                             // 转义HTML字符串
                     showFooter: options.showFooter,                     // 是否显示表尾
                     iconSize: 'outline',                                // 图标大小：undefined默认的按钮尺寸 xs超小按钮sm小按钮lg大按钮
@@ -71,7 +72,11 @@
                     showToggle: options.showToggle,                     // 是否显示详细视图和列表视图的切换按钮
                     showExport: options.showExport,                     // 是否支持导出文件
                     clickToSelect: options.clickToSelect,				// 是否启用点击选中行
+                    detailView: options.detailView,                     // 是否启用显示细节视图
                     onClickRow: options.onClickRow,                     // 点击某行触发的事件
+                    onDblClickRow: options.onDblClickRow,               // 双击某行触发的事件
+                    onClickCell: options.onClickCell,                   // 单击某格触发的事件
+                    onDblClickCell: options.onDblClickCell,             // 双击某格触发的事件
                     rememberSelected: options.rememberSelected,         // 启用翻页记住前面的选择
                     fixedColumns: options.fixedColumns,                 // 是否启用冻结列（左侧）
                     fixedNumber: options.fixedNumber,                   // 列冻结的个数（左侧）
@@ -82,21 +87,28 @@
                     columns: options.columns,                           // 显示列信息（*）
                     responseHandler: $.table.responseHandler,           // 在加载服务器发送来的数据之前处理函数
                     onLoadSuccess: $.table.onLoadSuccess,               // 当所有数据被加载时触发处理函数
+                    exportOptions: options.exportOptions,               // 前端导出忽略列索引
+                    detailFormatter: options.detailFormatter,           // 在行下面展示其他数据列表
                 });
             },
             // 查询条件
-            queryParams: function (params) {
-                return {
+            queryParams: function(params) {
+                var curParams = {
                     // 传递参数查询参数
-                    pageSize: params.limit,
-                    pageNum: params.offset / params.limit + 1,
-                    searchValue: params.search,
-                    orderByColumn: params.sort,
-                    isAsc: params.order
+                    pageSize:       params.limit,
+                    pageNum:        params.offset / params.limit + 1,
+                    searchValue:    params.search,
+                    orderByColumn:  params.sort,
+                    isAsc:          params.order
                 };
+                var currentId = $.common.isEmpty($.table._option.formId) ? $('form').attr('id') : $.table._option.formId;
+                return $.extend(curParams, $.common.formToJSON(currentId));
             },
             // 请求获取数据后处理回调函数
             responseHandler: function (res) {
+                if (typeof $.table._option.responseHandler == "function") {
+                    $.table._option.responseHandler(res);
+                }
                 if (res.code == 0) {
                     if ($.common.isNotEmpty($.table._option.side) && $.table._option.sidePagination == 'client') {
                         return res.rows;
@@ -152,6 +164,9 @@
             },
             // 当所有数据被加载时触发
             onLoadSuccess: function(data) {
+                if (typeof $.table._option.onLoadSuccess == "function") {
+                    $.table._option.onLoadSuccess(data);
+                }
                 // 浮动提示框特效
                 $("[data-toggle='tooltip']").tooltip();
             },
@@ -207,10 +222,7 @@
                 var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
                 var params = $("#bootstrap-table").bootstrapTable('getOptions');
                 params.queryParams = function (params) {
-                    var search = {};
-                    $.each($("#" + currentId).serializeArray(), function (i, field) {
-                        search[field.name] = field.value;
-                    });
+                    var search = $.common.formToJSON(currentId);
                     if($.common.isNotEmpty(data)){
                         $.each(data, function(key) {
                             search[key] = data[key];
@@ -411,10 +423,7 @@
             // 条件查询
             search: function (formId) {
                 var currentId = $.common.isEmpty(formId) ? $('form').attr('id') : formId;
-                var params = {};
-                $.each($("#" + currentId).serializeArray(), function (i, field) {
-                    params[field.name] = field.value;
-                });
+                var params = $.common.formToJSON(currentId);
                 $._treeTable.bootstrapTreeTable('refresh', params);
             },
             // 刷新
@@ -664,6 +673,10 @@
             // 选卡页方式打开
             openTab: function (title, url) {
                 createMenuItem(url, title);
+            },
+            // 关闭选项卡
+            closeTab: function () {
+                $.modal.closeTab();
             },
             // 禁用按钮
             disable: function () {
@@ -987,7 +1000,7 @@
                     } else if ($contentWindow.$.table._option.type == table_type.bootstrapTreeTable) {
                         $contentWindow.$.treeTable.refresh();
                     }
-                    closeItem();
+                    $.modal.closeTab();
                 } else if (result.code == web_status.WARNING) {
                     $.modal.alertWarning(result.msg)
                 } else {
@@ -1281,6 +1294,14 @@
                     return null;
                 }
                 return array.join(separator);
+            },
+            // 获取form下所有的字段并转换为json对象
+            formToJSON: function(formId) {
+                var json = {};
+                $.each($("#" + formId).serializeArray(), function(i, field) {
+                    json[field.name] = field.value;
+                });
+                return json;
             }
         }
     });
