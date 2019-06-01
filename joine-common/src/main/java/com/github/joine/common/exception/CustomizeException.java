@@ -15,4 +15,8 @@ public class CustomizeException extends BaseException {
         super(code, args);
     }
 
+    public CustomizeException(String code) {
+        this(code, null);
+    }
+
 }

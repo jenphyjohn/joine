@@ -46,6 +46,11 @@ public class SysMenu extends BaseEntity {
     private String url;
 
     /**
+     * 打开方式：menuItem页签 menuBlank新窗口
+     */
+    private String target;
+
+    /**
      * 类型:0目录,1菜单,2按钮
      */
     private String menuType;
@@ -118,6 +123,14 @@ public class SysMenu extends BaseEntity {
         this.url = url;
     }
 
+    public String getTarget() {
+        return target;
+    }
+
+    public void setTarget(String target) {
+        this.target = target;
+    }
+
     public String getMenuType() {
         return menuType;
     }
@@ -166,6 +179,7 @@ public class SysMenu extends BaseEntity {
                 .append("parentId", getParentId())
                 .append("orderNum", getOrderNum())
                 .append("url", getUrl())
+                .append("target", getTarget())
                 .append("menuType", getMenuType())
                 .append("visible", getVisible())
                 .append("perms", getPerms())

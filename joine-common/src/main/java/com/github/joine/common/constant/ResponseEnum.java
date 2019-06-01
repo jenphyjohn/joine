@@ -49,6 +49,10 @@ public enum ResponseEnum implements BaseEnum {
      */
     USER_PASSWORD_NOT_MATCH(20002, "user.password.not.match"),
     /**
+     * 微信用户信息校验失败
+     */
+    WX_USERINFO_ERROR(30000, "wechat.userinfo.error"),
+    /**
      * 服务器错误
      */
     SERVER_ERROR(99999, "server.error");

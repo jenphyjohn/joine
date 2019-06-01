@@ -47,7 +47,7 @@ public interface ShiroConstants {
     String CURRENT_ENABLED = "captchaEnabled";
 
     /**
-     * 验证码开关
+     * 验证码类型
      */
     String CURRENT_TYPE = "captchaType";
 
