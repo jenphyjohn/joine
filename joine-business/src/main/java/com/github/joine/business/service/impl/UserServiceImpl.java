@@ -4,11 +4,10 @@ import com.github.joine.business.domain.User;
 import com.github.joine.business.mapper.UserMapper;
 import com.github.joine.business.service.IUserService;
 import com.github.joine.common.core.text.Convert;
-import com.github.joine.common.exception.user.UserNotExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,6 +52,8 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public int insertUser(User user) {
+        user.setCreateTime(new Date());
+        user.setUpdateTime(new Date());
         return userMapper.insertUser(user);
     }
 
@@ -64,6 +65,7 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public int updateUser(User user) {
+        user.setUpdateTime(new Date());
         return userMapper.updateUser(user);
     }
 
@@ -78,13 +80,26 @@ public class UserServiceImpl implements IUserService {
         return userMapper.deleteUserByIds(Convert.toStrArray(ids));
     }
 
+    /**
+     * 根据用户名查询用户
+     *
+     * @param loginName
+     * @return
+     */
     @Override
-    public User selectUserByLoginName(User user) {
-        List<User> users = userMapper.selectUserList(new User().setLoginName(user.getLoginName()));
-        if (CollectionUtils.isEmpty(users)) {
-            return null;
-        }
-        return users.get(0);
+    public User selectUserByLoginName(String loginName) {
+        return userMapper.selectUserByLoginName(loginName);
+    }
+
+    /**
+     * 根据openid查询用户
+     *
+     * @param openid
+     * @return
+     */
+    @Override
+    public User selectUserByOpenid(String openid) {
+        return userMapper.selectUserByOpenid(openid);
     }
 
 }

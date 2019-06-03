@@ -57,5 +57,20 @@ public interface UserMapper {
      * @return 结果
      */
 	int deleteUserByIds(String[] userIds);
-	
+
+	/**
+	 * 查询终端用户信息
+	 *
+	 * @param wxOpenid 用户openid
+	 * @return 终端用户信息
+	 */
+	User selectUserByOpenid(String wxOpenid);
+
+	/**
+	 * 查询终端用户信息
+	 *
+	 * @param loginName 用户loginName
+	 * @return 终端用户信息
+	 */
+	User selectUserByLoginName(String loginName);
 }

@@ -25,6 +25,10 @@ public class User extends BaseEntity {
      */
     private String wxOpenid;
     /**
+     * 微信unionid
+     */
+    private String wxUnionid;
+    /**
      * 登录账号
      */
     private String loginName;
@@ -97,8 +101,9 @@ public class User extends BaseEntity {
         return userId;
     }
 
-    public void setWxOpenid(String wxOpenid) {
+    public User setWxOpenid(String wxOpenid) {
         this.wxOpenid = wxOpenid;
+        return this;
     }
 
     public String getWxOpenid() {
@@ -234,11 +239,21 @@ public class User extends BaseEntity {
         return loginTime;
     }
 
+    public String getWxUnionid() {
+        return wxUnionid;
+    }
+
+    public User setWxUnionid(String wxUnionid) {
+        this.wxUnionid = wxUnionid;
+        return this;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("userId", getUserId())
                 .append("wxOpenid", getWxOpenid())
+                .append("wxUnionid", getWxUnionid())
                 .append("loginName", getLoginName())
                 .append("password", getPassword())
                 .append("salt", getSalt())

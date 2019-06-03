@@ -5,19 +5,29 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.alibaba.druid.support.json.JSONUtils;
+import com.github.joine.business.domain.User;
+import com.github.joine.business.service.IUserService;
 import com.github.joine.common.constant.ResponseEnum;
 import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.common.core.domain.ResponseResult;
+import com.github.joine.common.exception.user.UserTokenExpiredException;
+import com.github.joine.common.utils.IpUtils;
 import com.github.joine.restapi.annotation.PassAuth;
 import com.github.joine.restapi.config.WxMaConfiguration;
+import com.github.joine.restapi.domain.RawUserBean;
+import com.github.joine.restapi.domain.TokenBean;
+import com.github.joine.restapi.service.LoginService;
+import com.github.joine.restapi.util.JWTUtil;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.Date;
 
 /**
  * @Author: JenphyJohn
@@ -29,12 +39,20 @@ public class WeChatController extends BaseController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
+    private LoginService loginService;
+
+    @Autowired
+    private IUserService iUserService;
+
     @PassAuth
     @GetMapping("/token")
-    public ResponseResult login(@PathVariable String version, @PathVariable String appid, String code) {
+    public ResponseResult login(@PathVariable String version, @PathVariable String appid, String code, HttpServletRequest request) {
         if (StringUtils.isBlank(code)) {
             return ResponseResult.response(ResponseEnum.REQUEST_FORMAT_NOT_SUPPORT);
         }
+
+        String ipAddr = IpUtils.getIpAddr(request);
 
         final WxMaService wxService = WxMaConfiguration.getMaService(appid);
 
@@ -42,8 +60,9 @@ public class WeChatController extends BaseController {
             WxMaJscode2SessionResult session = wxService.getUserService().getSessionInfo(code);
             logger.info(session.getSessionKey());
             logger.info(session.getOpenid());
-            //TODO 增加业务逻辑，关联业务相关数据
-            return ResponseResult.success();
+            String token = loginService.wechatLogin(session, ipAddr);
+            ResponseResult result = ResponseResult.success(new TokenBean(token));
+            return result;
         } catch (WxErrorException e) {
             logger.error(e.getMessage(), e);
             return ResponseResult.error(e.toString());
@@ -102,6 +121,64 @@ public class WeChatController extends BaseController {
         WxMaPhoneNumberInfo phoneNoInfo = wxService.getUserService().getPhoneNoInfo(sessionKey, encryptedData, iv);
 
         return JSONUtils.toJSONString(phoneNoInfo);
+    }
+
+    @PassAuth
+    @PostMapping("/verify")
+    public ResponseResult verify(@Valid @RequestBody TokenBean tokenBean) {
+        String token = tokenBean.getToken();
+        logger.info("token:{}", token);
+        // 验证 token
+        if (!JWTUtil.verify(token)) {
+            throw new UserTokenExpiredException();
+        }
+        return ResponseResult.successResponse();
+    }
+
+    @GetMapping("/me")
+    public ResponseResult me(@RequestAttribute String openid) {
+        logger.info("openid:{}", openid);
+        User user = iUserService.selectUserByOpenid(openid);
+        return ResponseResult.successResponse(user);
+    }
+
+
+    /**
+     * 校验用户信息接口
+     *
+     * @param appid
+     * @param sessionKey
+     * @param rawUserBean
+     * @return
+     */
+    @PostMapping("/decode")
+    public ResponseResult decode(@PathVariable String appid, @RequestAttribute String sessionKey,
+                                 @RequestAttribute String openid , @RequestBody RawUserBean rawUserBean,
+                                 HttpServletRequest request) {
+        String signature = rawUserBean.getSignature();
+        String rawData = rawUserBean.getRawData();
+        String encryptedData = rawUserBean.getEncryptedData();
+        String iv = rawUserBean.getIv();
+        final WxMaService wxService = WxMaConfiguration.getMaService(appid);
+
+        // 用户信息校验
+        if (!wxService.getUserService().checkUserInfo(sessionKey, rawData, signature)) {
+            return ResponseResult.response(ResponseEnum.WX_USERINFO_ERROR);
+        }
+
+        // 解密用户信息
+        WxMaUserInfo userInfo = wxService.getUserService().getUserInfo(sessionKey, encryptedData, iv);
+
+        // 更新用户信息
+        User user = iUserService.selectUserByOpenid(openid);
+        user.setAvatar(userInfo.getAvatarUrl());
+        user.setGender(userInfo.getGender());
+        user.setNickName(userInfo.getNickName());
+        user.setLoginTime(new Date());
+        user.setLoginIp(IpUtils.getIpAddr(request));
+        iUserService.updateUser(user);
+
+        return ResponseResult.successResponse(userInfo);
     }
 
 }

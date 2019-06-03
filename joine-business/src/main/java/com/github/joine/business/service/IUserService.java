@@ -52,6 +52,20 @@ public interface IUserService {
      */
     int deleteUserByIds(String ids);
 
-    User selectUserByLoginName(User user);
+    /**
+     * 根据用户名查询用户
+     *
+     * @param loginName
+     * @return
+     */
+    User selectUserByLoginName(String loginName);
+
+    /**
+     * 根据openid查询用户
+     *
+     * @param openid
+     * @return
+     */
+    User selectUserByOpenid(String openid);
 
 }

@@ -159,5 +159,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{userId}
         </foreach>
     </delete>
-    
+
+    <select id="selectUserByOpenid" parameterType="String" resultMap="UserResult">
+        <include refid="selectUserVo"/>
+        where wx_openid = #{wxOpenid}
+    </select>
+
+    <select id="selectUserByLoginName" parameterType="String" resultMap="UserResult">
+        <include refid="selectUserVo"/>
+        where login_name = #{loginName}
+    </select>
 </mapper>
