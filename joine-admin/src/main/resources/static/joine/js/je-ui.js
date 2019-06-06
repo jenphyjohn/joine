@@ -676,7 +676,7 @@
             },
             // 关闭选项卡
             closeTab: function () {
-                $.modal.closeTab();
+                $.modal.closeItem();
             },
             // 禁用按钮
             disable: function () {
