@@ -327,7 +327,7 @@
                     silent: true
                 });
             },
-            // 查询表格指定列值
+            // 查询表格指定主键列值
             selectColumns: function (column) {
                 var rows = $.map($('#' + $.table._option.id).bootstrapTable('getSelections'), function (row) {
                     return row[column];
