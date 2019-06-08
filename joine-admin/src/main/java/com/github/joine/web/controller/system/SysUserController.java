@@ -78,7 +78,7 @@ public class SysUserController extends BaseController {
         List<SysUser> userList = util.importExcel(file.getInputStream());
         String operName = ShiroUtils.getSysUser().getLoginName();
         String message = userService.importUser(userList, updateSupport, operName);
-        return ResponseResult.success(message);
+        return successMsg(message);
     }
 
     @RequiresPermissions("system:user:view")

@@ -101,8 +101,15 @@ public class BaseController {
     /**
      * 返回成功消息
      */
-    public ResponseResult success(String message) {
-        return ResponseResult.success(message);
+    public ResponseResult successMsg(String message) {
+        return ResponseResult.successMsg(message);
+    }
+
+    /**
+     * 返回成功消息
+     */
+    public ResponseResult success(Object data) {
+        return ResponseResult.success(data);
     }
 
     /**

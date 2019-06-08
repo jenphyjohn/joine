@@ -213,7 +213,7 @@ public class ResponseResult extends HashMap<String, Object> {
      * @param msg 返回内容
      * @return 成功消息
      */
-    public static ResponseResult success(String msg) {
+    public static ResponseResult successMsg(String msg) {
         return ResponseResult.success(msg, null);
     }
 
