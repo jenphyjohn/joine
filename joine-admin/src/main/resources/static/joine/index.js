@@ -457,7 +457,7 @@ $(function () {
 
     // 右键菜单实现
     $.contextMenu({
-        selector: ".page-tabs-content",
+        selector: "menuTab",
         trigger: 'right',
         autoHide: true,
         items: {
@@ -465,7 +465,7 @@ $(function () {
                 name: "关闭当前",
                 icon: "fa-close",
                 callback: function(key, opt) {
-                    tabCloseCurrent();
+                    opt.$trigger.find('i').trigger("click");
                 }
             },
             "close_other": {
