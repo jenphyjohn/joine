@@ -304,8 +304,8 @@
 
 /** select2 样式修改 */
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-    background-color: #1AB394;
-    border-color: #1AB394;
+    background-color: #23c6c8;
+    border-color: #23c6c8;
     padding: 1px 10px;
     color: #fff
 }
@@ -683,8 +683,8 @@ label {
 }
 
 .search-btn {
-    background-color: #1ab394;
-    border-color: #1ab394;
+    background-color: #23c6c8;
+    border-color: #23c6c8;
     color: #FFF;
     margin-bottom: 5px;
     display: inline-block;

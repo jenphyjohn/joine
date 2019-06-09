@@ -15,6 +15,7 @@
                     id: "bootstrap-table",
                     type: 0, // 0 代表bootstrapTable 1代表bootstrapTreeTable
                     height: undefined,
+                    uniqueId: undefined,
                     sidePagination: "server",
                     sortName: "",
                     sortOrder: "asc",
@@ -49,6 +50,7 @@
                     contentType: "application/x-www-form-urlencoded",   // 编码类型
                     method: 'post',                                     // 请求方式（*）
                     cache: false,                                       // 是否使用缓存
+                    uniqueId: options.uniqueId,                         // 主键
                     height: options.height,                             // 表格的高度
                     striped: options.striped,                           // 是否显示行间隔色
                     sortable: true,                                     // 是否启用排序
@@ -79,6 +81,7 @@
                     onClickCell: options.onClickCell,                   // 单击某格触发的事件
                     onDblClickCell: options.onDblClickCell,             // 双击某格触发的事件
                     rememberSelected: options.rememberSelected,         // 启用翻页记住前面的选择
+                    selectedChange: options.selectedChange,             // 选项变更发生的事件
                     fixedColumns: options.fixedColumns,                 // 是否启用冻结列（左侧）
                     fixedNumber: options.fixedNumber,                   // 列冻结的个数（左侧）
                     rightFixedColumns: options.rightFixedColumns,       // 是否启用冻结列（右侧）
@@ -144,6 +147,10 @@
                     if ($.common.isNotEmpty($.table._option.rememberSelected) && $.table._option.rememberSelected) {
                         func = $.inArray(e.type, ['check', 'check-all']) > -1 ? 'union' : 'difference';
                         selectionIds = _[func](selectionIds, rowIds);
+                    }
+                    // 自定义触发事件
+                    if (typeof $.table._option.selectedChange == "function") {
+                        $.table._option.selectedChange();
                     }
                 });
                 // 图片预览事件

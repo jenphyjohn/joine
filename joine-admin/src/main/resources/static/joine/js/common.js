@@ -29,7 +29,7 @@ $(function () {
             var startDate = laydate.render({
                 elem: '#startTime',
                 max: $('#endTime').val(),
-                theme: 'molv',
+                theme: '#23c6c8',
                 trigger: 'click',
                 done: function (value, date) {
                     // 结束时间大于开始时间
@@ -47,7 +47,7 @@ $(function () {
             var endDate = laydate.render({
                 elem: '#endTime',
                 min: $('#startTime').val(),
-                theme: 'molv',
+                theme: '#23c6c8',
                 trigger: 'click',
                 done: function (value, date) {
                     // 开始时间小于结束时间
@@ -70,8 +70,7 @@ $(function () {
             var laydate = layui.laydate;
             var startDate = laydate.render({
                 elem: '#startTime',
-                max: $('#endTime').val(),
-                theme: 'molv',
+                theme: '#23c6c8',
                 trigger: 'click',
                 done: function(value, date) {
                     // 结束时间大于开始时间
@@ -88,8 +87,7 @@ $(function () {
             });
             var endDate = laydate.render({
                 elem: '#endTime',
-                min: $('#startTime').val(),
-                theme: 'molv',
+                theme: '#23c6c8',
                 trigger: 'click',
                 done: function(value, date) {
                     // 开始时间小于结束时间
