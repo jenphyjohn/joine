@@ -132,7 +132,7 @@ public class ExcelUtil<T> {
             Row heard = sheet.getRow(0);
             for (int i = 0; i < heard.getPhysicalNumberOfCells(); i++) {
                 Cell cell = heard.getCell(i);
-                if (StringUtils.isNotNull(cell != null)) {
+                if (StringUtils.isNotNull(cell)) {
                     String value = this.getCellValue(heard, i).toString();
                     cellMap.put(value, i);
                 } else {

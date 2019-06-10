@@ -234,7 +234,8 @@
         }
         // 缓存并格式化数据
         var formatData = function(data) {
-            var _root = options.rootIdValue ? options.rootIdValue : null
+            var _root = options.rootIdValue ? options.rootIdValue : null;
+            var firstCode = data[0][options.parentCode];
             $.each(data, function(index, item) {
                 // 添加一个默认属性，用来判断当前节点有没有被显示
                 item.isShow = false;
@@ -243,6 +244,7 @@
                 var _defaultRootFlag = item[options.parentCode] == '0' ||
                     item[options.parentCode] == 0 ||
                     item[options.parentCode] == null ||
+                    item[options.parentCode] == firstCode ||
                     item[options.parentCode] == '';
                 if (!item[options.parentCode] || (_root ? (item[options.parentCode] == options.rootIdValue) : _defaultRootFlag)) {
                     if (!target.data_list["_root_"]) {

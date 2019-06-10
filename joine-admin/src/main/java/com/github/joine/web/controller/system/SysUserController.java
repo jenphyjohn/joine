@@ -1,10 +1,11 @@
 package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
+import com.github.joine.common.constant.UserConstants;
 import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.common.core.domain.ResponseResult;
-import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.core.page.TableDataInfo;
+import com.github.joine.common.enums.BusinessType;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.common.utils.poi.ExcelUtil;
 import com.github.joine.framework.shiro.service.SysPasswordService;
@@ -109,6 +110,9 @@ public class SysUserController extends BaseController {
     public ResponseResult addSave(SysUser user) {
         if (StringUtils.isNotNull(user.getUserId()) && SysUser.isAdmin(user.getUserId())) {
             return error("不允许修改超级管理员用户");
+        }
+        if (UserConstants.USER_NAME_NOT_UNIQUE.equals(userService.checkLoginNameUnique(user.getLoginName()))) {
+            return error("保存用户'" + user.getLoginName() + "'失败，登录账号已存在");
         }
         user.setSalt(ShiroUtils.randomSalt());
         user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));

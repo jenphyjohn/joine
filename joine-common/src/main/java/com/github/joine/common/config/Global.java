@@ -78,7 +78,7 @@ public class Global {
      * 获取版权年份
      */
     public static String getCopyrightYear() {
-        return StringUtils.nvl(getConfig("joine.copyrightYear"), "2018");
+        return StringUtils.nvl(getConfig("joine.copyrightYear"), "2019");
     }
 
     /**

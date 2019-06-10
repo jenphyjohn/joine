@@ -3349,7 +3349,7 @@ nav.page-tabs .page-tabs-content {
 }
 
 .roll-right.tabRight {
-    right: 140px;
+    right: 60px;
 }
 
 .roll-right.btn-group {
@@ -5889,7 +5889,7 @@ del {
     margin: 0 auto;
     width: 20%;
     height: 20%;
-    background-color: #1ab394;
+    background-color: #23c6c8;
     border-radius: 100%;
     -webkit-animation: sk-circleBounceDelay 1.2s infinite ease-in-out;
     animation: sk-circleBounceDelay 1.2s infinite ease-in-out;
@@ -6077,7 +6077,7 @@ del {
 .sk-spinner-cube-grid .sk-cube {
     width: 33%;
     height: 33%;
-    background-color: #1ab394;
+    background-color: #23c6c8;
     float: left;
     -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
     animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
@@ -6161,7 +6161,7 @@ del {
  *
  */
 .sk-spinner-wordpress.sk-spinner {
-    background-color: #1ab394;
+    background-color: #23c6c8;
     width: 30px;
     height: 30px;
     border-radius: 30px;
@@ -6246,7 +6246,7 @@ del {
     margin: 0 auto;
     width: 18%;
     height: 18%;
-    background-color: #1ab394;
+    background-color: #23c6c8;
     border-radius: 100%;
     -webkit-animation: sk-circleFadeDelay 1.2s infinite ease-in-out;
     animation: sk-circleFadeDelay 1.2s infinite ease-in-out;
@@ -7022,7 +7022,7 @@ body.rtls .top-navigation .footer.fixed, body.rtls.top-navigation .footer.fixed 
 
 .bs-glyphicons li:hover {
     color: #fff;
-    background-color: #1ab394;
+    background-color: #23c6c8;
 }
 
 @media ( min-width: 768px) {
