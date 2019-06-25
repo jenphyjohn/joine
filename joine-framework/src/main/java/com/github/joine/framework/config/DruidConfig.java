@@ -56,6 +56,7 @@ public class DruidConfig {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Bean
+    @ConditionalOnProperty(name = "spring.datasource.druid.statViewServlet.enabled", havingValue = "true")
     public FilterRegistrationBean removeDruidFilterRegistrationBean(DruidStatProperties properties) {
         // 获取web监控页面的参数
         DruidStatProperties.StatViewServlet config = properties.getStatViewServlet();
@@ -65,6 +66,10 @@ public class DruidConfig {
         final String filePath = "support/http/resources/js/common.js";
         // 创建filter进行过滤
         Filter filter = new Filter() {
+            @Override
+            public void init(javax.servlet.FilterConfig filterConfig) throws ServletException {
+            }
+
             @Override
             public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
                     throws IOException, ServletException {
@@ -77,6 +82,10 @@ public class DruidConfig {
                 text = text.replaceAll("<a.*?banner\"></a><br/>", "");
                 text = text.replaceAll("powered.*?shrek.wang</a>", "");
                 response.getWriter().write(text);
+            }
+
+            @Override
+            public void destroy() {
             }
         };
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
