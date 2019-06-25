@@ -162,7 +162,7 @@
 }
 
 .skin-blue .content-tabs {
-    border-bottom: solid 2px #e7eaec;
+    border-bottom: solid 1px #e7eaec;
 }
 
 .skin-blue.layout-top-nav > .logo {
@@ -181,7 +181,7 @@
 }
 
 .skin-green .content-tabs {
-    border-bottom: solid 2px #e7eaec;
+    border-bottom: solid 1px #e7eaec;
 }
 
 .skin-green .navbar .nav > li > a {
@@ -338,7 +338,7 @@
 }
 
 .skin-wanyan .content-tabs {
-    border-bottom: solid 2px #e7eaec;
+    border-bottom: solid 1px #e7eaec;
 }
 
 .skin-wanyan .navbar .nav > li > a {
@@ -581,7 +581,7 @@
 }
 
 .skin-red .content-tabs {
-    border-bottom: solid 2px #e7eaec;
+    border-bottom: solid 1px #e7eaec;
 }
 
 .skin-red .nav > li > .treeview-menu {
@@ -739,7 +739,7 @@
 
 .skin-yellow .content-tabs {
 
-    border-bottom: solid 2px #e7eaec;
+    border-bottom: solid 1px #e7eaec;
 }
 
 .skin-yellow .nav > li > .treeview-menu {
@@ -897,7 +897,7 @@
 
 .skin-purple .content-tabs {
 
-    border-bottom: solid 2px #e7eaec;
+    border-bottom: solid 1px #e7eaec;
 }
 
 .skin-purple .nav > li > .treeview-menu {

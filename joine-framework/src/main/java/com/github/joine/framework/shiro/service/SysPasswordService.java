@@ -1,6 +1,7 @@
 package com.github.joine.framework.shiro.service;
 
 import com.github.joine.common.constant.Constants;
+import com.github.joine.common.constant.ShiroConstants;
 import com.github.joine.framework.manager.AsyncManager;
 import com.github.joine.framework.manager.factory.AsyncFactory;
 import com.github.joine.common.utils.MessageUtils;
@@ -34,7 +35,7 @@ public class SysPasswordService {
 
     @PostConstruct
     public void init() {
-        loginRecordCache = cacheManager.getCache("loginRecordCache");
+        loginRecordCache = cacheManager.getCache(ShiroConstants.LOGINRECORDCACHE);
     }
 
     public void validate(SysUser user, String password) {

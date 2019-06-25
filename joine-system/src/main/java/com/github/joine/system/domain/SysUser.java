@@ -2,6 +2,7 @@ package com.github.joine.system.domain;
 
 import com.github.joine.common.annotation.Excel;
 import com.github.joine.common.annotation.Excel.Type;
+import com.github.joine.common.annotation.Excels;
 import com.github.joine.common.core.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -34,7 +35,9 @@ public class SysUser extends BaseEntity {
      */
     private Long parentId;
 
-    /** 角色ID */
+    /**
+     * 角色ID
+     */
     private Long roleId;
 
     /**
@@ -108,7 +111,10 @@ public class SysUser extends BaseEntity {
     /**
      * 部门对象
      */
-    @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT)
+    @Excels({
+            @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
+            @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
+    })
     private SysDept dept;
 
     private List<SysRole> roles;

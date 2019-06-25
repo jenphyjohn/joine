@@ -1,6 +1,7 @@
 package com.github.joine.framework.shiro.web.filter.kickout;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.joine.common.constant.ShiroConstants;
 import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.utils.ServletUtils;
 import com.github.joine.framework.util.ShiroUtils;
@@ -13,6 +14,8 @@ import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -30,6 +33,8 @@ import java.util.Deque;
  * @Date: 2019/6/11 2:44 PM
  */
 public class KickoutSessionFilter extends AccessControlFilter {
+
+    Logger logger = LoggerFactory.getLogger(KickoutSessionFilter.class);
 
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
@@ -100,6 +105,17 @@ public class KickoutSessionFilter extends AccessControlFilter {
                 // 踢出后再更新下缓存队列
                 cache.put(loginName, deque);
 
+                try {
+                    // 获取被踢出的sessionId的session对象
+                    Session kickoutSession = sessionManager.getSession(new DefaultSessionKey(kickoutSessionId));
+                    if (null != kickoutSession) {
+                        // 设置会话的kickout属性表示踢出了
+                        kickoutSession.setAttribute("kickout", true);
+                    }
+                } catch (Exception e) {
+                    logger.error("踢出用户异常: ", e);
+                }
+
                 // 获取被踢出的sessionId的session对象
                 Session kickoutSession = sessionManager.getSession(new DefaultSessionKey(kickoutSessionId));
                 if (kickoutSession != null) {
@@ -149,9 +165,11 @@ public class KickoutSessionFilter extends AccessControlFilter {
         this.sessionManager = sessionManager;
     }
 
-    // 设置Cache的key的前缀
+    /**
+     * 设置Cache的key的前缀
+     */
     public void setCacheManager(CacheManager cacheManager) {
         // 必须和ehcache缓存配置中的缓存name一致
-        this.cache = cacheManager.getCache("sys-userCache");
+        this.cache = cacheManager.getCache(ShiroConstants.SYS_USERCACHE);
     }
 }
