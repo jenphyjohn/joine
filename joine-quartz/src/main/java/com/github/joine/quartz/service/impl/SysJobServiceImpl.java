@@ -8,7 +8,6 @@ import com.github.joine.quartz.mapper.SysJobMapper;
 import com.github.joine.quartz.service.ISysJobService;
 import com.github.joine.quartz.util.CronUtils;
 import com.github.joine.quartz.util.ScheduleUtils;
-import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,13 +37,7 @@ public class SysJobServiceImpl implements ISysJobService {
     public void init() throws SchedulerException, TaskException {
         List<SysJob> jobList = jobMapper.selectJobAll();
         for (SysJob job : jobList) {
-            CronTrigger cronTrigger = ScheduleUtils.getCronTrigger(scheduler, job.getJobId());
-            // 如果不存在，则创建
-            if (cronTrigger == null) {
-                ScheduleUtils.createScheduleJob(scheduler, job);
-            } else {
-                ScheduleUtils.updateScheduleJob(scheduler, job);
-            }
+            ScheduleUtils.createScheduleJob(scheduler, job);
         }
     }
 
@@ -188,7 +181,7 @@ public class SysJobServiceImpl implements ISysJobService {
     public int updateJobCron(SysJob job) throws SchedulerException, TaskException {
         int rows = jobMapper.updateJob(job);
         if (rows > 0) {
-            ScheduleUtils.updateScheduleJob(scheduler, job);
+            ScheduleUtils.createScheduleJob(scheduler, job);
         }
         return rows;
     }

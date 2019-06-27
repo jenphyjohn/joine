@@ -1,11 +1,11 @@
 package com.github.joine.web.controller.system;
 
 import com.github.joine.common.annotation.Log;
+import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.core.domain.Ztree;
 import com.github.joine.common.enums.BusinessType;
 import com.github.joine.framework.util.ShiroUtils;
-import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.system.domain.SysMenu;
 import com.github.joine.system.domain.SysRole;
 import com.github.joine.system.service.ISysMenuService;
@@ -40,7 +40,8 @@ public class SysMenuController extends BaseController {
     @GetMapping("/list")
     @ResponseBody
     public List<SysMenu> list(SysMenu menu) {
-        List<SysMenu> menuList = menuService.selectMenuList(menu);
+        Long userId = ShiroUtils.getUserId();
+        List<SysMenu> menuList = menuService.selectMenuList(menu, userId);
         return menuList;
     }
 
@@ -137,7 +138,8 @@ public class SysMenuController extends BaseController {
     @GetMapping("/roleMenuTreeData")
     @ResponseBody
     public List<Ztree> roleMenuTreeData(SysRole role) {
-        List<Ztree> ztrees = menuService.roleMenuTreeData(role);
+        Long userId = ShiroUtils.getUserId();
+        List<Ztree> ztrees = menuService.roleMenuTreeData(role, userId);
         return ztrees;
     }
 
@@ -146,8 +148,9 @@ public class SysMenuController extends BaseController {
      */
     @GetMapping("/menuTreeData")
     @ResponseBody
-    public List<Ztree> menuTreeData(SysRole role) {
-        List<Ztree> ztrees = menuService.menuTreeData();
+    public List<Ztree> menuTreeData() {
+        Long userId = ShiroUtils.getUserId();
+        List<Ztree> ztrees = menuService.menuTreeData(userId);
         return ztrees;
     }
 
