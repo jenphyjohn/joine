@@ -86,9 +86,10 @@ public class AsyncFactory {
         return new TimerTask() {
             @Override
             public void run() {
+                String address = AddressUtils.getRealAddressByIP(ip);
                 StringBuilder sb = new StringBuilder();
                 sb.append(LogUtils.getBlock(ip));
-                sb.append(AddressUtils.getRealAddressByIP(ip));
+                sb.append(address);
                 sb.append(LogUtils.getBlock(username));
                 sb.append(LogUtils.getBlock(status));
                 sb.append(LogUtils.getBlock(message));
@@ -102,7 +103,7 @@ public class AsyncFactory {
                 SysLogininfor logininfor = new SysLogininfor();
                 logininfor.setLoginName(username);
                 logininfor.setIpaddr(ip);
-                logininfor.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
+                logininfor.setLoginLocation(address);
                 logininfor.setBrowser(browser);
                 logininfor.setOs(os);
                 logininfor.setMsg(message);

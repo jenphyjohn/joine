@@ -57,7 +57,7 @@
                 <a class="btn btn-info btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="${moduleName}:${classname}:edit">
                     <i class="fa fa-edit"></i> 修改
 				</a>
-                <a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="${moduleName}:${classname}:remove">
+                <a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="${moduleName}:${classname}:remove">
                     <i class="fa fa-remove"></i> 删除
 				</a>
 			</div>
