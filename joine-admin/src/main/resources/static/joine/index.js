@@ -473,7 +473,7 @@ $(function () {
 
     // 右键菜单实现
     $.contextMenu({
-        selector: "menuTab",
+        selector: ".menuTab",
         trigger: 'right',
         autoHide: true,
         items: {
@@ -557,7 +557,7 @@ $(function () {
                     var target = $('.Joine_iframe[data-id="' + this.data('id') + '"]');
                     window.open(target.attr('src'));
                 }
-            },
+            }
         }
     })
 });
