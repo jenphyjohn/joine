@@ -16,6 +16,12 @@
 	</description>
 
     <dependencies>
+		<!-- email -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 		<!--Shiro核心框架 -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
