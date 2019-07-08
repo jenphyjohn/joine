@@ -1,5 +1,6 @@
 package com.github.joine.restapi.aspect;
 
+import com.alibaba.fastjson.JSON;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -57,7 +58,7 @@ public class WebLogAspect {
         logger.info("HTTP_METHOD: " + req.getMethod());
         logger.info("IP: " + req.getRemoteAddr());
         logger.info("CLASS_METHOD: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-        logger.info("ARGS: " + Arrays.toString(joinPoint.getArgs()));
+        logger.info("ARGS: " + JSON.toJSONString(joinPoint.getArgs()));
         logger.info("============Request End==============");
     }
 
@@ -65,7 +66,7 @@ public class WebLogAspect {
     public void doAfterReturning(Object ret) throws Throwable {
         logger.info("============Response Start==============");
         if (null != ret) {
-            logger.info("RESPONSE: " + ret.toString());
+            logger.info("RESPONSE: " + JSON.toJSONString(ret));
         }
         logger.info("============Response End==============");
     }

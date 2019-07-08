@@ -33,20 +33,27 @@
 		<poi.version>3.17</poi.version>
 		<velocity.version>1.7</velocity.version>
 		<jwt.version>3.4.0</jwt.version>
+		<fastjson.version>1.2.58</fastjson.version>
 	</properties>
 
 	<!-- 依赖声明 -->
     <dependencyManagement>
-        <dependencies>
-
+		<dependencies>
 			<!-- SpringBoot的依赖配置-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.1.1.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>2.1.1.RELEASE</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- Fastjson -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
+			</dependency>
 
 			<!--阿里数据库连接池 -->
 			<dependency>

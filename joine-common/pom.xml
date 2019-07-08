@@ -16,6 +16,12 @@
 	</description>
 
     <dependencies>
+		<!-- Fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+		</dependency>
+
 		<!-- email -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
