@@ -51,7 +51,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
 
         // 执行认证
-        String token = request.getHeader("Authorization");
+        String token = request.getHeader("Authentication");
         if (StringUtils.isBlank(token)) {
             throw new UserTokenNotExistsException();
         }
