@@ -2,6 +2,7 @@ package com.github.joine.web.controller.tool;
 
 import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.common.core.domain.ResponseResult;
+import com.github.joine.common.utils.MailUtil;
 import com.github.joine.common.utils.StringUtils;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
@@ -79,6 +80,11 @@ public class TestController extends BaseController {
         } else {
             return error("用户不存在");
         }
+    }
+
+    @GetMapping("/mail")
+    public void mail() {
+        MailUtil.sendSimpleMail(new MailUtil.MailBean().setRecipient("zhuangzhengfei@sunfield.mobi").setContent("adsadasdad").setSubject("123").setSender("feihu"));
     }
 }
 
