@@ -32,7 +32,7 @@ public class MailUtil {
     }
 
     @Autowired
-    public static void setJavaMailSender(JavaMailSender javaMailSender) {
+    public void setJavaMailSender(JavaMailSender javaMailSender) {
         MailUtil.javaMailSender = javaMailSender;
     }
 
@@ -56,7 +56,7 @@ public class MailUtil {
             simpleMailMessage.setText(mailBean.getContent());
             javaMailSender.send(simpleMailMessage);
         } catch (Exception e) {
-            logger.error("邮件发送失败", e.getMessage());
+            logger.error("邮件发送失败", e);
         }
     }
 

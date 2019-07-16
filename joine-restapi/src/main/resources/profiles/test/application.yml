@@ -65,6 +65,20 @@ spring:
     restart:
       # 热部署开关
       enabled: true
+  # 邮箱配置
+  mail:
+    host: smtp.qq.com
+    username: xxxxx
+    # QQ邮箱的授权码
+    password: xxxxx
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
 
 # MyBatis
 mybatis:
@@ -120,3 +134,7 @@ xss:
   excludes: /system/notice/*
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+
+# swagger开关
+swagger:
+  enable: true

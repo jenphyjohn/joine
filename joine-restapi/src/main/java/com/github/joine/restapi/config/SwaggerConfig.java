@@ -1,6 +1,7 @@
 package com.github.joine.restapi.config;
 
 import com.github.joine.common.config.Global;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -26,12 +27,17 @@ import java.util.List;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+
+    @Value("${swagger.enable}")
+    private boolean enableSwagger;
+
     /**
      * 创建API
      */
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .enable(enableSwagger)
                 .genericModelSubstitutes(DeferredResult.class)
                 // 详细定制
                 .apiInfo(apiInfo())
@@ -74,7 +80,7 @@ public class SwaggerConfig {
 
     private List<ApiKey> securitySchemes() {
         List<ApiKey> list = new ArrayList<>();
-        list.add(new ApiKey("Authorization", "token", "header"));
+        list.add(new ApiKey("Authentication", "token", "header"));
         return list;
     }
 
@@ -93,7 +99,7 @@ public class SwaggerConfig {
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
         List<SecurityReference> securityReferences=new ArrayList<>();
-        securityReferences.add(new SecurityReference("Authorization", authorizationScopes));
+        securityReferences.add(new SecurityReference("Authentication", authorizationScopes));
         return securityReferences;
     }
 }

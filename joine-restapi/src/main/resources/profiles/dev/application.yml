@@ -69,6 +69,20 @@ spring:
     restart:
       # 热部署开关
       enabled: true
+  # 邮箱配置
+  mail:
+    host: smtp.qq.com
+    username: xxxxx
+    # QQ邮箱的授权码
+    password: xxxxx
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
 
 # MyBatis
 mybatis:
@@ -130,7 +144,11 @@ wx:
   miniapp:
     configs:
         - appid: wx5b3b58508f97b75b
-          secret: eebc126b12417b796d305f49be0ae571
+          secret: xxxxxx
           token: #微信小程序消息服务器配置的token
           aesKey: #微信小程序消息服务器配置的EncodingAESKey
           msgDataFormat: JSON
+
+# swagger开关
+swagger:
+  enable: true

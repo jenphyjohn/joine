@@ -81,11 +81,6 @@ public class TestController extends BaseController {
             return error("用户不存在");
         }
     }
-
-    @GetMapping("/mail")
-    public void mail() {
-        MailUtil.sendSimpleMail(new MailUtil.MailBean().setRecipient("zhuangzhengfei@sunfield.mobi").setContent("adsadasdad").setSubject("123").setSender("feihu"));
-    }
 }
 
 @ApiModel("用户实体")
