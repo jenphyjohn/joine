@@ -97,6 +97,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({CustomizeException.class})
     public ResponseResult handleException(CustomizeException e) {
         log.error(e.getMessage());
-        return ResponseResult.response(Integer.valueOf(e.getCode()), e.getMessage());
+        return ResponseResult.response(e.getCode(), e.getMessage());
     }
 }

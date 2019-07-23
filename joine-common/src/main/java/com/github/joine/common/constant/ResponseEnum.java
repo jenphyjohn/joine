@@ -33,6 +33,10 @@ public enum ResponseEnum implements BaseEnum {
      */
     USER_TOKEN_INVALID(10402, "user.token.invalid.error"),
     /**
+     * 缺少必要参数
+     */
+    REQUIRED_PARAMS_MISSING(10403, "required.params.missing.error"),
+    /**
      * 请求方式不支持
      */
     REQUEST_METHOD_NOT_SUPPORT(10405, "request.method.not.support"),
@@ -52,6 +56,10 @@ public enum ResponseEnum implements BaseEnum {
      * 微信用户信息校验失败
      */
     WX_USERINFO_ERROR(30000, "wechat.userinfo.error"),
+    /**
+     * 自定义异常
+     */
+    CUSTOMIZE_ERROR(99998, "system.error"),
     /**
      * 服务器错误
      */

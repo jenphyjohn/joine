@@ -1,6 +1,6 @@
 package com.github.joine.common.exception;
 
-import com.github.joine.common.exception.base.BaseException;
+import com.github.joine.common.constant.ResponseEnum;
 
 /**
  * 自定义消息异常
@@ -8,15 +8,40 @@ import com.github.joine.common.exception.base.BaseException;
  * @Author: JenphyJohn
  * @Date: 2019/5/28 4:08 PM
  */
-public class CustomizeException extends BaseException {
+public class CustomizeException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
-    public CustomizeException(String code, Object[] args) {
-        super(code, args);
+    /**
+     * 错误码枚举
+     */
+    private ResponseEnum responseEnum;
+
+    /**
+     * 错误消息
+     */
+    private String defaultMessage = ResponseEnum.CUSTOMIZE_ERROR.msg();
+
+    public CustomizeException(ResponseEnum responseEnum) {
+        this.responseEnum = responseEnum;
     }
 
-    public CustomizeException(String code) {
-        this(code, null);
+    public CustomizeException(String defaultMessage) {
+        this.defaultMessage = defaultMessage;
+    }
+
+    @Override
+    public String getMessage() {
+        if (responseEnum == null) {
+            return defaultMessage;
+        }
+        return responseEnum.msg();
+    }
+
+    public Integer getCode() {
+        if (responseEnum == null) {
+            return ResponseEnum.CUSTOMIZE_ERROR.code();
+        }
+        return responseEnum.code();
     }
 
 }

@@ -2,7 +2,6 @@ package com.github.joine.restapi.interceptor;
 
 import com.github.joine.business.domain.User;
 import com.github.joine.business.service.IUserService;
-import com.github.joine.common.exception.CustomizeException;
 import com.github.joine.common.exception.user.UserNotExistsException;
 import com.github.joine.common.exception.user.UserTokenExpiredException;
 import com.github.joine.common.exception.user.UserTokenInvalidException;
