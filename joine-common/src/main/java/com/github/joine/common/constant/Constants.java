@@ -60,4 +60,19 @@ public class Constants {
      * 排序的方向 "desc" 或者 "asc".
      */
     public static final String IS_ASC = "isAsc";
+
+    /**
+     * 删除标志（0代表存在）.
+     */
+    public static final String DEL_FLAG_FALSE = "0";
+
+    /**
+     * 删除标志（2代表删除）.
+     */
+    public static final String DEL_FLAG_TRUE = "2";
+
+    /**
+     * app类型 ios
+     */
+    public static final int APP_TYPE_IOS = 1;
 }
