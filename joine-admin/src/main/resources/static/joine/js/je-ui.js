@@ -253,7 +253,7 @@
                     $.modal.loading("正在导出数据，请稍后...");
                     $.post($.table._option.exportUrl, $("#" + currentId).serializeArray(), function (result) {
                         if (result.code == web_status.SUCCESS) {
-                            window.location.href = ctx + "common/download?fileName=" + encodeURI(result.msg) + "&delete=" + true;
+                            window.location.href = ctx + "common/download?fileName=" + encodeURI(result.data) + "&delete=" + true;
                         } else if (result.code == web_status.WARNING) {
                             $.modal.alertWarning(result.msg)
                         } else {
@@ -267,7 +267,7 @@
             importTemplate: function () {
                 $.get($.table._option.importTemplateUrl, function (result) {
                     if (result.code == web_status.SUCCESS) {
-                        window.location.href = ctx + "common/download?fileName=" + encodeURI(result.msg) + "&delete=" + true;
+                        window.location.href = ctx + "common/download?fileName=" + encodeURI(result.data) + "&delete=" + true;
                     } else if (result.code == web_status.WARNING) {
                         $.modal.alertWarning(result.msg)
                     } else {

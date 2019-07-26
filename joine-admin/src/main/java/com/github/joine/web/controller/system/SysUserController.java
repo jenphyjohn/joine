@@ -87,7 +87,7 @@ public class SysUserController extends BaseController {
     @ResponseBody
     public ResponseResult importTemplate() {
         ExcelUtil<SysUser> util = new ExcelUtil(SysUser.class);
-        return util.importTemplateExcel("用户数据");
+        return util.importTemplateExcel("用户导入模板");
     }
 
     /**
