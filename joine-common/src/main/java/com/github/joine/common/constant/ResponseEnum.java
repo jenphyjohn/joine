@@ -57,6 +57,10 @@ public enum ResponseEnum implements BaseEnum {
      */
     WX_USERINFO_ERROR(30000, "wechat.userinfo.error"),
     /**
+     * 系统警告
+     */
+    SYSTEM_WARNING(99997, "system.warning"),
+    /**
      * 自定义异常
      */
     CUSTOMIZE_ERROR(99998, "system.error"),

@@ -1314,8 +1314,8 @@ table_type = {
 /** 消息状态码 */
 web_status = {
     SUCCESS: 0,
-    FAIL: 500,
-    WARNING: 301
+    FAIL: 99998,
+    WARNING: 99997
 };
 
 /** 弹窗状态码 */

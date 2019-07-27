@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 通用请求处理
@@ -74,10 +76,10 @@ public class CommonController {
             // 上传并返回新文件名称
             String fileName = FileUploadUtils.upload(filePath, file);
             String url = serverConfig.getUrl() + UPLOAD_PATH + fileName;
-            ResponseResult ajax = ResponseResult.success();
-            ajax.put("fileName", fileName);
-            ajax.put("url", url);
-            return ajax;
+            Map ajax = new HashMap();
+            ajax.put("fileName" , fileName);
+            ajax.put("url" , url);
+            return ResponseResult.success(ajax);
         } catch (Exception e) {
             return ResponseResult.error(e.getMessage());
         }

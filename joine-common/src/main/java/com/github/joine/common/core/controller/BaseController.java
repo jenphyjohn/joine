@@ -1,8 +1,8 @@
 package com.github.joine.common.core.controller;
 
+import com.github.joine.common.constant.ResponseEnum;
 import com.github.joine.common.constant.UserConstants;
 import com.github.joine.common.core.domain.ResponseResult;
-import com.github.joine.common.core.domain.ResponseResult.Type;
 import com.github.joine.common.core.page.PageDomain;
 import com.github.joine.common.core.page.TableDataInfo;
 import com.github.joine.common.core.page.TableSupport;
@@ -122,8 +122,8 @@ public class BaseController {
     /**
      * 返回错误码消息
      */
-    public ResponseResult error(Type type, String message) {
-        return new ResponseResult(type, message);
+    public ResponseResult response(ResponseEnum responseEnum) {
+        return ResponseResult.response(responseEnum);
     }
 
     /**
