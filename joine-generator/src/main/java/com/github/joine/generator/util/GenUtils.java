@@ -91,7 +91,7 @@ public class GenUtils {
      */
     public static List<String> getTemplates() {
         List<String> templates = new ArrayList<String>();
-        templates.add("vm/java/domain.java.vm");
+        templates.add("vm/java/Domain.java.vm");
         templates.add("vm/java/Mapper.java.vm");
         templates.add("vm/java/Service.java.vm");
         templates.add("vm/java/ServiceImpl.java.vm");
@@ -128,7 +128,7 @@ public class GenUtils {
         String mybatisPath = MYBATIS_PATH + "/" + moduleName + "/" + className;
         String htmlPath = TEMPLATES_PATH + "/" + moduleName + "/" + classname;
 
-        if (template.contains("domain.java.vm")) {
+        if (template.contains("Domain.java.vm")) {
             return javaPath + "domain" + "/" + className + ".java";
         }
 
