@@ -32,15 +32,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into ${tableName}
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
-#if($column.columnName != $primaryKey.columnName || $primaryKey.extra != 'auto_increment')
+#if(($column.columnName != $primaryKey.columnName || $primaryKey.extra != 'auto_increment') && $column.attrname != 'createTime' && $column.attrname != 'updateTime')
 			<if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname != '' #end ">$column.columnName,</if>
+#elseif($column.attrname == 'createTime')
+            create_time,
+#elseif($column.attrname == 'updateTime')
+            update_time,
 #end
 #end
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
-#if($column.columnName != $primaryKey.columnName || $primaryKey.extra != 'auto_increment')
+#if(($column.columnName != $primaryKey.columnName || $primaryKey.extra != 'auto_increment') && $column.attrname != 'createTime' && $column.attrname != 'updateTime')
 			<if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname != '' #end ">#{$column.attrname},</if>
+#elseif($column.attrname == 'createTime')
+            sysdate(),
+#elseif($column.attrname == 'updateTime')
+            sysdate(),
 #end			
 #end
          </trim>
@@ -50,8 +58,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update ${tableName}
         <trim prefix="SET" suffixOverrides=",">
 #foreach($column in $columns)
-#if($column.columnName != $primaryKey.columnName)
+#if($column.columnName != $primaryKey.columnName && $column.attrname != 'updateTime')
             <if test="$column.attrname != null #if($column.attrType == 'String' ) and $column.attrname != '' #end ">$column.columnName = #{$column.attrname},</if>
+#elseif($column.attrname == 'updateTime')
+            update_time = sysdate(),
 #end
 #end
         </trim>
