@@ -48,9 +48,6 @@
 			</div>
 			
 	        <div class="btn-group-sm" id="toolbar" role="group">
-                <a class="btn btn-info" onclick="$.table.exportExcel()" shiro:hasPermission="${moduleName}:${classname}:export">
-                    <i class="fa fa-download"></i> 导出
-                </a>
                 <a class="btn btn-info" onclick="$.operate.add()" shiro:hasPermission="${moduleName}:${classname}:add">
                     <i class="fa fa-plus"></i> 新增
 				</a>

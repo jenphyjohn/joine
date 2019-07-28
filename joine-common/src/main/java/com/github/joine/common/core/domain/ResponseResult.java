@@ -11,7 +11,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author JenphyJohn
  */
 public class ResponseResult<T> {
-    private static final long serialVersionUID = 1L;
 
     /**
      * 状态码
