@@ -66,20 +66,25 @@
 }
 
 .img-xs {
-  width: 32px;
-  height: 32px;
+    width: 32px;
+    height: 32px;
 }
 .img-sm {
-  width: 64px;
-  height: 64px;
+    width: 64px;
+    height: 64px;
 }
 .img-md {
-  width: 96px;
-  height: 96px;
+    width: 96px;
+    height: 96px;
 }
 .img-lg {
-  width: 120px;
-  height: 120px;
+    width: 120px;
+    height: 120px;
+}
+.img-prev {
+    width: auto;
+    height: 50px;
+    margin: 0 2px;
 }
 
 .section-content {
