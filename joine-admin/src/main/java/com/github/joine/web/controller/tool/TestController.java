@@ -2,7 +2,6 @@ package com.github.joine.web.controller.tool;
 
 import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.common.core.domain.ResponseResult;
-import com.github.joine.common.utils.MailUtil;
 import com.github.joine.common.utils.StringUtils;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;

@@ -3,7 +3,6 @@ package com.github.joine.common.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,8 +12,6 @@ import org.springframework.stereotype.Component;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 邮件发送工具类
@@ -23,7 +20,7 @@ import java.util.Map;
  * @Date: 2019/6/7 12:43 PM
  */
 @Component
-public class MailUtil {
+public class MailSupport {
 
     private static JavaMailSender javaMailSender;
 
@@ -33,10 +30,10 @@ public class MailUtil {
 
     @Autowired
     public void setJavaMailSender(JavaMailSender javaMailSender) {
-        MailUtil.javaMailSender = javaMailSender;
+        MailSupport.javaMailSender = javaMailSender;
     }
 
-    private static final Logger logger = LoggerFactory.getLogger(MailUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(MailSupport.class);
 
     /**
      * 发送一个简单格式的邮件

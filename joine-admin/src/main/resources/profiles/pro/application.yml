@@ -68,9 +68,9 @@ spring:
   # 邮箱配置
   mail:
     host: smtp.qq.com
-    username: xxxxx
+    username: xxxxxxxx
     # QQ邮箱的授权码
-    password: xxxxx
+    password: xxxxxxxx
     default-encoding: UTF-8
     properties:
       mail:
@@ -142,3 +142,13 @@ xss:
 # swagger开关
 swagger:
   enable: false
+
+# 七牛
+qiniu:
+  key:
+    access: xxxxxxxx
+    secret: xxxxxxxx
+  video:
+    bucket:
+      name: joine
+      host: https://qiniu.join-e.tech/

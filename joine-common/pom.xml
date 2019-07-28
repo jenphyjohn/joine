@@ -107,6 +107,12 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- 七牛 -->
+		<dependency>
+			<groupId>com.qiniu</groupId>
+			<artifactId>qiniu-java-sdk</artifactId>
+		</dependency>
+
     </dependencies>
 
 </project>

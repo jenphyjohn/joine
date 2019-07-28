@@ -34,6 +34,7 @@
 		<velocity.version>1.7</velocity.version>
 		<jwt.version>3.4.0</jwt.version>
 		<fastjson.version>1.2.58</fastjson.version>
+		<qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
 	</properties>
 
 	<!-- 依赖声明 -->
@@ -194,6 +195,13 @@
 				<groupId>com.auth0</groupId>
 				<artifactId>java-jwt</artifactId>
 				<version>${jwt.version}</version>
+			</dependency>
+
+			<!-- 七牛 -->
+			<dependency>
+				<groupId>com.qiniu</groupId>
+				<artifactId>qiniu-java-sdk</artifactId>
+				<version>${qiniu.version}</version>
 			</dependency>
 
 			<!-- 定时任务-->
