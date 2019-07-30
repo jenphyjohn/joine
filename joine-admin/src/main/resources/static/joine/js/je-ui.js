@@ -897,6 +897,26 @@
                 };
                 $.ajax(config)
             },
+            // form提交 刷新表格
+            saveForm: function (url, formId) {
+                var form = document.querySelector(formId);
+                var formData = new FormData(form);
+                $.modal.loading("正在提交数据，请等待...");
+                $.ajax({
+                    url: url,
+                    data: formData,
+                    type: "post",
+                    processData: false,
+                    contentType: false,
+                    success: function (result) {
+                        $.operate.saveSuccess(result);
+                    },
+                    error: function (error) {
+                        $.modal.alertWarning("提交失败。");
+                        $.modal.closeLoading();
+                    }
+                });
+            },
             // 保存信息 弹出提示框
             saveModal: function(url, data, callback) {
                 var config = {
