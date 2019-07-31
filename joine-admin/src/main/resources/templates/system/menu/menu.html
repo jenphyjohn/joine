@@ -46,7 +46,7 @@
 	    </div>
 	</div>
 	
-	<div th:include="include :: footer"></div>
+	<th:block th:include="include :: footer" />
 	<script th:inline="javascript">
 		var addFlag = [[${@permission.hasPermi('system:menu:add')}]];
 		var editFlag = [[${@permission.hasPermi('system:menu:edit')}]];

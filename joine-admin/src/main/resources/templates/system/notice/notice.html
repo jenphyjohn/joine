@@ -48,7 +48,7 @@
 	        </div>
     	</div>
     </div>
-    <div th:include="include :: footer"></div>
+    <th:block th:include="include :: footer" />
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('system:notice:edit')}]];
         var removeFlag = [[${@permission.hasPermi('system:notice:remove')}]];

@@ -54,7 +54,7 @@
         </div>
     </div>
 </div>
-<div th:include="include :: footer"></div>
+<th:block th:include="include :: footer" />
 <script th:inline="javascript">
     var detailFlag = [[${@permission.hasPermi('monitor:job:detail')}]];
     var editFlag = [[${@permission.hasPermi('monitor:job:edit')}]];

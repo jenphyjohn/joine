@@ -21,7 +21,7 @@
 			</div>
 		</form>
 	</div>
-	<div th:include="include :: footer"></div>
+	<th:block th:include="include :: footer" />
 	<script type="text/javascript">
 		$("#form-user-resetPwd").validate({
 			rules:{
