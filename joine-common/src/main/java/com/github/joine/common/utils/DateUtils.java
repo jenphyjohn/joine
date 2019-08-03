@@ -5,7 +5,10 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import java.lang.management.ManagementFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 时间工具类
@@ -131,5 +134,99 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         // 计算差多少秒//输出结果
         // long sec = diff % nd % nh % nm / ns;
         return day + "天" + hour + "小时" + min + "分钟";
+    }
+
+    /**
+     * 获取过去7天日期数组
+     *
+     * @param date
+     * @return
+     */
+    public static List<String> getPastWeekDays(Date date) {
+        List<String> pastDaysList = new ArrayList<>();
+        for (int i = 6; i >= 0; i--) {
+            pastDaysList.add(getPastDate(i, date));
+        }
+        return pastDaysList;
+    }
+
+    /**
+     * 获取过去第几天的日期
+     *
+     * @param past
+     * @return
+     */
+    public static String getPastDate(int past, Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) - past);
+        Date today = calendar.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String result = sdf.format(today);
+        return result;
+    }
+
+    /**
+     * 获取未来第几天的日期
+     *
+     * @param future
+     * @return
+     */
+    public static String getFutureDate(int future, Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + future);
+        Date today = calendar.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String result = sdf.format(today);
+        return result;
+    }
+
+    /**
+     * 构造开始日期到结束日期前一天的日期列表
+     *
+     * @param startDate
+     * @param endDate
+     * @return
+     * @throws ParseException
+     */
+    public static List<String> makeDayList(Date startDate, Date endDate) throws ParseException {
+        if (daysBetween(startDate, endDate) < 1) {
+            return null;
+        }
+        List<String> list = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date tempDate;
+        int future = 0;
+        do {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(startDate);
+            calendar.set(Calendar.DATE, calendar.get(Calendar.DATE) + future++);
+            tempDate = calendar.getTime();
+            String result = sdf.format(tempDate);
+            list.add(result);
+        } while (daysBetween(tempDate, endDate) > 1);
+        return list;
+    }
+
+    /**
+     * 计算两个日期之间相差的天数
+     *
+     * @param startDate 较小的时间
+     * @param endDate  较大的时间
+     * @return 相差天数
+     * @throws ParseException
+     */
+    public static int daysBetween(Date startDate, Date endDate) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        startDate = sdf.parse(sdf.format(startDate));
+        endDate = sdf.parse(sdf.format(endDate));
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(startDate);
+        long startTime = cal.getTimeInMillis();
+        cal.setTime(endDate);
+        long endTime = cal.getTimeInMillis();
+        long between_days = (endTime - startTime) / (1000 * 3600 * 24);
+        return Integer.parseInt(String.valueOf(between_days));
     }
 }
