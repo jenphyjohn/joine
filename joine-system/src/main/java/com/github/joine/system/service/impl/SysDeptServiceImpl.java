@@ -33,7 +33,7 @@ public class SysDeptServiceImpl implements ISysDeptService {
      * @return 部门信息集合
      */
     @Override
-    @DataScope(tableAlias = "d")
+    @DataScope(deptAlias = "d")
     public List<SysDept> selectDeptList(SysDept dept) {
         return deptMapper.selectDeptList(dept);
     }
@@ -45,7 +45,7 @@ public class SysDeptServiceImpl implements ISysDeptService {
      * @return 所有部门信息
      */
     @Override
-    @DataScope(tableAlias = "d")
+    @DataScope(deptAlias = "d")
     public List<Ztree> selectDeptTree(SysDept dept) {
         List<SysDept> deptList = deptMapper.selectDeptList(dept);
         List<Ztree> ztrees = initZtree(deptList);

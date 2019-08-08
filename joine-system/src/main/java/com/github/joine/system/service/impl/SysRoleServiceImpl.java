@@ -5,6 +5,7 @@ import com.github.joine.common.constant.UserConstants;
 import com.github.joine.common.core.text.Convert;
 import com.github.joine.common.exception.BusinessException;
 import com.github.joine.common.utils.StringUtils;
+import com.github.joine.common.utils.spring.SpringUtils;
 import com.github.joine.system.domain.SysRole;
 import com.github.joine.system.domain.SysRoleDept;
 import com.github.joine.system.domain.SysRoleMenu;
@@ -46,7 +47,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      * @return 角色数据集合信息
      */
     @Override
-    @DataScope(tableAlias = "u")
+    @DataScope(deptAlias = "d")
     public List<SysRole> selectRoleList(SysRole role) {
         return roleMapper.selectRoleList(role);
     }
@@ -96,9 +97,8 @@ public class SysRoleServiceImpl implements ISysRoleService {
      * @return 角色列表
      */
     @Override
-    @DataScope(tableAlias = "u")
     public List<SysRole> selectRoleAll() {
-        return roleMapper.selectRoleList(new SysRole());
+        return SpringUtils.getAopProxy(this).selectRoleList(new SysRole());
     }
 
     /**
