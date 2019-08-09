@@ -80,7 +80,7 @@ public class SwaggerConfig {
 
     private List<ApiKey> securitySchemes() {
         List<ApiKey> list = new ArrayList<>();
-        list.add(new ApiKey("Authentication", "token", "header"));
+        list.add(new ApiKey("Authentication", "Authentication", "header"));
         return list;
     }
 
