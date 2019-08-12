@@ -6,8 +6,6 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.github.joine.business.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 import java.util.UUID;
@@ -17,9 +15,6 @@ import java.util.UUID;
  * @Date: 2019/4/16 4:11 PM
  */
 public class JWTUtil {
-
-    @Autowired
-    private IUserService iUserService;
 
     /**
      * 密钥,暂时写死

@@ -72,6 +72,16 @@ public class Constants {
     public static final String DEL_FLAG_TRUE = "2";
 
     /**
+     * 终端类型 APP
+     */
+    public static final String APP_TYPE_MOBILE = "0";
+
+    /**
+     * 终端类型 微信小程序
+     */
+    public static final String APP_TYPE_MP = "1";
+
+    /**
      * app类型 ios
      */
     public static final int APP_TYPE_IOS = 1;

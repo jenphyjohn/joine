@@ -25,6 +25,21 @@ public class SysUser extends BaseEntity {
     private Long userId;
 
     /**
+     * 微信openid
+     */
+    private String wxOpenid;
+
+    /**
+     * 微信unionid
+     */
+    private String wxUnionid;
+
+    /**
+     * 微信昵称
+     */
+    private String wxNickName;
+
+    /**
      * 部门ID
      */
     @Excel(name = "部门编号", type = Type.IMPORT)
@@ -95,6 +110,16 @@ public class SysUser extends BaseEntity {
      * 删除标志（0代表存在 2代表删除）
      */
     private String delFlag;
+
+    /**
+     * 注册IP
+     */
+    private String registerIp;
+
+    /**
+     * 注册时间
+     */
+    private Date registerDate;
 
     /**
      * 最后登陆IP
@@ -300,10 +325,53 @@ public class SysUser extends BaseEntity {
         this.postIds = postIds;
     }
 
+    public String getWxOpenid() {
+        return wxOpenid;
+    }
+
+    public void setWxOpenid(String wxOpenid) {
+        this.wxOpenid = wxOpenid;
+    }
+
+    public String getWxUnionid() {
+        return wxUnionid;
+    }
+
+    public void setWxUnionid(String wxUnionid) {
+        this.wxUnionid = wxUnionid;
+    }
+
+    public String getRegisterIp() {
+        return registerIp;
+    }
+
+    public void setRegisterIp(String registerIp) {
+        this.registerIp = registerIp;
+    }
+
+    public Date getRegisterDate() {
+        return registerDate;
+    }
+
+    public void setRegisterDate(Date registerDate) {
+        this.registerDate = registerDate;
+    }
+
+    public String getWxNickName() {
+        return wxNickName;
+    }
+
+    public void setWxNickName(String wxNickName) {
+        this.wxNickName = wxNickName;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append("userId", getUserId())
+                .append("wxOpenid", getWxOpenid())
+                .append("wxUnionid", getWxUnionid())
+                .append("wxNickName", getWxNickName())
                 .append("deptId", getDeptId())
                 .append("loginName", getLoginName())
                 .append("userName", getUserName())
@@ -315,6 +383,8 @@ public class SysUser extends BaseEntity {
                 .append("salt", getSalt())
                 .append("status", getStatus())
                 .append("delFlag", getDelFlag())
+                .append("registerIp", getRegisterIp())
+                .append("registerDate", getRegisterDate())
                 .append("loginIp", getLoginIp())
                 .append("loginDate", getLoginDate())
                 .append("createBy", getCreateBy())

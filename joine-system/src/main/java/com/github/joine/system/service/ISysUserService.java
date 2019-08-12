@@ -43,6 +43,14 @@ public interface ISysUserService {
     SysUser selectUserByLoginName(String userName);
 
     /**
+     * 根据openid查询用户
+     *
+     * @param openid 用户微信openid
+     * @return 用户对象信息
+     */
+    SysUser selectUserByOpenid(String openid);
+
+    /**
      * 通过手机号码查询用户
      *
      * @param phoneNumber 手机号码

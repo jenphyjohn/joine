@@ -5,8 +5,6 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import cn.binarywang.wx.miniapp.bean.WxMaUserInfo;
 import com.alibaba.druid.support.json.JSONUtils;
-import com.github.joine.business.domain.User;
-import com.github.joine.business.service.IUserService;
 import com.github.joine.common.constant.ResponseEnum;
 import com.github.joine.common.core.controller.BaseController;
 import com.github.joine.common.core.domain.ResponseResult;
@@ -18,6 +16,8 @@ import com.github.joine.restapi.domain.RawUserBean;
 import com.github.joine.restapi.domain.TokenBean;
 import com.github.joine.restapi.service.LoginService;
 import com.github.joine.restapi.util.JWTUtil;
+import com.github.joine.system.domain.SysUser;
+import com.github.joine.system.service.ISysUserService;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public class WeChatController extends BaseController {
     private LoginService loginService;
 
     @Autowired
-    private IUserService iUserService;
+    private ISysUserService iUserService;
 
     @PassAuth
     @GetMapping("/token")
@@ -138,7 +138,7 @@ public class WeChatController extends BaseController {
     @GetMapping("/me")
     public ResponseResult me(@RequestAttribute String openid) {
         logger.info("openid:{}", openid);
-        User user = iUserService.selectUserByOpenid(openid);
+        SysUser user = iUserService.selectUserByOpenid(openid);
         return ResponseResult.successResponse(user);
     }
 
@@ -170,11 +170,11 @@ public class WeChatController extends BaseController {
         WxMaUserInfo userInfo = wxService.getUserService().getUserInfo(sessionKey, encryptedData, iv);
 
         // 更新用户信息
-        User user = iUserService.selectUserByOpenid(openid);
+        SysUser user = iUserService.selectUserByOpenid(openid);
         user.setAvatar(userInfo.getAvatarUrl());
-        user.setGender(userInfo.getGender());
-        user.setNickName(userInfo.getNickName());
-        user.setLoginTime(new Date());
+        user.setSex(userInfo.getGender());
+        user.setWxNickName(userInfo.getNickName());
+        user.setLoginDate(new Date());
         user.setLoginIp(IpUtils.getIpAddr(request));
         iUserService.updateUser(user);
 

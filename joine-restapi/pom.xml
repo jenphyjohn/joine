@@ -66,6 +66,12 @@
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
 
+        <!-- 系统模块 -->
+        <dependency>
+            <groupId>com.github.joine</groupId>
+            <artifactId>joine-system</artifactId>
+        </dependency>
+
         <!-- 业务模块 -->
         <dependency>
             <groupId>com.github.joine</groupId>

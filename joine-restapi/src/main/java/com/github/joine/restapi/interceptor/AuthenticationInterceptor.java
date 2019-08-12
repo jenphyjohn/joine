@@ -1,7 +1,6 @@
 package com.github.joine.restapi.interceptor;
 
-import com.github.joine.business.domain.User;
-import com.github.joine.business.service.IUserService;
+import com.github.joine.common.constant.Constants;
 import com.github.joine.common.exception.user.UserNotExistsException;
 import com.github.joine.common.exception.user.UserTokenExpiredException;
 import com.github.joine.common.exception.user.UserTokenInvalidException;
@@ -9,28 +8,32 @@ import com.github.joine.common.exception.user.UserTokenNotExistsException;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.restapi.annotation.PassAuth;
 import com.github.joine.restapi.util.JWTUtil;
+import com.github.joine.system.domain.SysUser;
+import com.github.joine.system.service.ISysUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
-import java.util.List;
 
 /**
  * @Author: JenphyJohn
  * @Date: 2019/4/22 10:42 AM
  */
 public class AuthenticationInterceptor implements HandlerInterceptor {
+    private Logger logger = LoggerFactory.getLogger(AuthenticationInterceptor.class);
+
     public static final String USER_KEY = "userId";
     public static final String OPENID = "openid";
     public static final String SESSIONKEY = "sessionKey";
     public static final String BEARER_HEAD = "Bearer ";
 
     @Autowired
-    private IUserService iUserService;
+    private ISysUserService iUserService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -51,6 +54,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
         // 执行认证
         String token = request.getHeader("Authentication");
+        logger.info("认证信息=============Authentication: {}", token);
         if (StringUtils.isBlank(token)) {
             throw new UserTokenNotExistsException();
         }
@@ -59,17 +63,15 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         // 判断分支
         String appType = request.getHeader("appType");
 
-        if (StringUtils.isNotBlank(appType) && appType.equals("mobile")) {
+        if (StringUtils.isNotBlank(appType) && Constants.APP_TYPE_MOBILE.equals(appType)) {
             String loginName = JWTUtil.getLoginName(token);
             if (loginName == null) {
                 throw new UserTokenInvalidException();
             }
-            // 暂时先这么查, 以后增加selectByToken方法
-            List<User> users = iUserService.selectUserList(new User().setLoginName(loginName));
-            if (CollectionUtils.isEmpty(users)) {
+            SysUser user = iUserService.selectUserByLoginName(loginName);
+            if (user == null) {
                 throw new UserNotExistsException();
             }
-            User user = users.get(0);
             // 验证 token
             if (!JWTUtil.verify(token, user.getLoginName(), user.getPassword())) {
                 throw new UserTokenExpiredException();

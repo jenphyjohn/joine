@@ -1,13 +1,14 @@
 package com.github.joine.restapi.service;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
-import com.github.joine.business.domain.User;
-import com.github.joine.business.service.IUserService;
 import com.github.joine.common.exception.user.UserNotExistsException;
 import com.github.joine.common.exception.user.UserPasswordNotMatchException;
 import com.github.joine.common.utils.StringUtils;
 import com.github.joine.common.utils.security.Md5Utils;
+import com.github.joine.restapi.result.LoginResult;
 import com.github.joine.restapi.util.JWTUtil;
+import com.github.joine.system.domain.SysUser;
+import com.github.joine.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,15 +22,16 @@ import java.util.Date;
 public class LoginService {
 
     @Autowired
-    private IUserService iUserService;
+    private ISysUserService sysUserService;
 
-    public String login(User loginUser) {
-        User user = iUserService.selectUserByLoginName(loginUser.getLoginName());
+    public LoginResult login(SysUser loginUser) {
+        SysUser user = sysUserService.selectUserByLoginName(loginUser.getLoginName());
         if (user == null) {
             throw new UserNotExistsException();
         }
-        if (user.getPassword().equals(Md5Utils.hash(loginUser.getPassword()))) {
-            return JWTUtil.sign(loginUser.getLoginName(), loginUser.getPassword());
+        if (verify(user, loginUser.getPassword())) {
+            String token = JWTUtil.sign(user.getLoginName(), user.getPassword());
+            return new LoginResult(token, user.getUserId());
         } else {
             throw new UserPasswordNotMatchException();
         }
@@ -37,19 +39,27 @@ public class LoginService {
 
     public String wechatLogin(WxMaJscode2SessionResult wxMaJscode2SessionResult, String ipAddr) {
         String openid = wxMaJscode2SessionResult.getOpenid();
-        User user = iUserService.selectUserByOpenid(openid);
+        SysUser user = sysUserService.selectUserByOpenid(openid);
         if (user == null) {
-            user = new User();
+            user = new SysUser();
             user.setLoginName("wechat_user_" + StringUtils.getRandomString(12));
             user.setPassword(Md5Utils.hash(openid));
             user.setWxOpenid(openid);
             user.setWxUnionid(wxMaJscode2SessionResult.getUnionid());
-            user.setLoginTime(new Date());
+            user.setLoginDate(new Date());
             user.setLoginIp(ipAddr);
-            user.setRegisterTime(new Date());
+            user.setRegisterDate(new Date());
             user.setRegisterIp(ipAddr);
-            iUserService.insertUser(user);
+            sysUserService.insertUser(user);
         }
         return JWTUtil.signWeChat(wxMaJscode2SessionResult);
+    }
+
+    private boolean verify(SysUser sysUser, String password) {
+        String loginName = sysUser.getLoginName();
+        String salt = sysUser.getSalt();
+        String pwd = sysUser.getPassword();
+        String concatStr = loginName.concat(password).concat(salt);
+        return Md5Utils.hash(concatStr).equals(pwd);
     }
 }

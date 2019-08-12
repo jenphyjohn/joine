@@ -43,6 +43,14 @@ public interface SysUserMapper {
     SysUser selectUserByLoginName(String userName);
 
     /**
+     * 通过openid查询用户
+     *
+     * @param wxOpenid 用户openid
+     * @return 终端用户信息
+     */
+    SysUser selectUserByOpenid(String wxOpenid);
+
+    /**
      * 通过手机号码查询用户
      *
      * @param phoneNumber 手机号码
