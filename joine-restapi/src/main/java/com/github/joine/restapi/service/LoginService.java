@@ -43,6 +43,7 @@ public class LoginService {
         if (user == null) {
             user = new SysUser();
             user.setLoginName("wechat_user_" + StringUtils.getRandomString(12));
+            user.setUserName("微信用户_" + StringUtils.getRandomString(12));
             user.setPassword(Md5Utils.hash(openid));
             user.setWxOpenid(openid);
             user.setWxUnionid(wxMaJscode2SessionResult.getUnionid());
@@ -50,6 +51,7 @@ public class LoginService {
             user.setLoginIp(ipAddr);
             user.setRegisterDate(new Date());
             user.setRegisterIp(ipAddr);
+            // 增加userType
             sysUserService.insertUser(user);
         }
         return JWTUtil.signWeChat(wxMaJscode2SessionResult);

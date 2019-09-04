@@ -1,6 +1,7 @@
 package com.github.joine.restapi.aspect;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,7 +14,11 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @Author: JenphyJohn
@@ -58,7 +63,7 @@ public class WebLogAspect {
         logger.info("HTTP_METHOD: " + req.getMethod());
         logger.info("IP: " + req.getRemoteAddr());
         logger.info("CLASS_METHOD: " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-        logger.info("ARGS: " + JSON.toJSONString(joinPoint.getArgs()));
+        logger.info("ARGS: " + JSON.toJSONString(convert(joinPoint.getArgs())));
         logger.info("============Request End==============");
     }
 
@@ -69,5 +74,13 @@ public class WebLogAspect {
             logger.info("RESPONSE: " + JSON.toJSONString(ret));
         }
         logger.info("============Response End==============");
+    }
+
+    private List<Object> convert(Object[] args) {
+        Stream<?> stream = ArrayUtils.isEmpty(args) ? Stream.empty() : Arrays.asList(args).stream();
+        List<Object> logArgs = stream
+                .filter(arg -> (!(arg instanceof HttpServletRequest) && !(arg instanceof HttpServletResponse)))
+                .collect(Collectors.toList());
+        return logArgs;
     }
 }
