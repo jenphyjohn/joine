@@ -68,6 +68,11 @@ public class SysUser extends BaseEntity {
     private String userName;
 
     /**
+     * 用户类型（00 系统用户, 01 终端用户）
+     */
+    private String userType;
+
+    /**
      * 用户邮箱
      */
     @Excel(name = "用户邮箱")
@@ -208,6 +213,14 @@ public class SysUser extends BaseEntity {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public String getEmail() {
@@ -375,6 +388,7 @@ public class SysUser extends BaseEntity {
                 .append("deptId", getDeptId())
                 .append("loginName", getLoginName())
                 .append("userName", getUserName())
+                .append("userType", getUserType())
                 .append("email", getEmail())
                 .append("phonenumber", getPhonenumber())
                 .append("sex", getSex())
