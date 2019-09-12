@@ -42,8 +42,9 @@ public class LoginService {
         SysUser user = sysUserService.selectUserByOpenid(openid);
         if (user == null) {
             user = new SysUser();
-            user.setLoginName("wechat_user_" + StringUtils.getRandomString(12));
-            user.setUserName("微信用户_" + StringUtils.getRandomString(12));
+            String randomString = StringUtils.getRandomString(12);
+            user.setLoginName("wechat_user_" + randomString);
+            user.setUserName("微信用户_" + randomString);
             user.setPassword(Md5Utils.hash(openid));
             user.setWxOpenid(openid);
             user.setWxUnionid(wxMaJscode2SessionResult.getUnionid());
