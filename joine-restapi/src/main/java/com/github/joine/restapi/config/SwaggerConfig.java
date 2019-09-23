@@ -80,7 +80,7 @@ public class SwaggerConfig {
 
     private List<ApiKey> securitySchemes() {
         List<ApiKey> list = new ArrayList<>();
-        list.add(new ApiKey("Authentication", "Authentication", "header"));
+        list.add(new ApiKey("Authorization", "Authorization", "header"));
         return list;
     }
 
@@ -99,7 +99,7 @@ public class SwaggerConfig {
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
         List<SecurityReference> securityReferences=new ArrayList<>();
-        securityReferences.add(new SecurityReference("Authentication", authorizationScopes));
+        securityReferences.add(new SecurityReference("Authorization", authorizationScopes));
         return securityReferences;
     }
 }
