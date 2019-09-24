@@ -2,6 +2,7 @@ package com.github.joine.framework.web.exception;
 
 import com.github.joine.common.core.domain.ResponseResult;
 import com.github.joine.common.exception.BusinessException;
+import com.github.joine.common.exception.CustomizeException;
 import com.github.joine.common.exception.DemoModeException;
 import com.github.joine.common.utils.ServletUtils;
 import com.github.joine.common.utils.security.PermissionUtils;
@@ -80,6 +81,15 @@ public class GlobalExceptionHandler {
             modelAndView.setViewName("error/business");
             return modelAndView;
         }
+    }
+
+    /**
+     * 自定义异常
+     */
+    @ExceptionHandler(CustomizeException.class)
+    public ResponseResult handleException(CustomizeException e) {
+        log.error(e.getMessage());
+        return ResponseResult.error("请求失败: " + e.getMessage());
     }
 
     /**
