@@ -338,7 +338,6 @@
 label.error {
     position: absolute;
     right: 18px;
-    top: 10px;
     color: #ef392b;
     font-size: 12px
 }
@@ -349,7 +348,7 @@ label.error {
 
 }
 
-.Validform_error, input.error, select.error {
+.Validform_error, input.error, select.error, textarea.error {
     background-color: #fbe2e2;
     border-color: #c66161;
     color: #c00
