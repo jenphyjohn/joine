@@ -21,6 +21,38 @@ public enum ResponseEnum implements BaseEnum {
      */
     REQUEST_FAILURE(10001, "request.failure"),
     /**
+     * 手机号不能为空
+     */
+    MOBILE_NOT_EMPTY(10002, "mobile.not.empty"),
+    /**
+     * 验证码未失效，请失效后再次申请
+     */
+    VERIFY_CODE_EFFECTIVE(10003, "verify.code.effective"),
+    /**
+     * 验证码已过期，请重新获取
+     */
+    EXPIRED_VERIFY_CODE(10004, "expired.verify.code"),
+    /**
+     * 验证码错误，请重新输入
+     */
+    ERROR_VERIFY_CODE(10005, "error.verify.code"),
+    /**
+     * 手机号格式不正确
+     */
+    MOBILE_FORMAT_INCORRECT(10006, "mobile.format.incorrect"),
+    /**
+     * 用户昵称已存在
+     */
+    USER_NAME_EXISTS(10007, "user.name.exists"),
+    /**
+     * 手机号已注册
+     */
+    LOGIN_NAME_EXISTS(10008, "login.name.exists"),
+    /**
+     * 账号已被锁定
+     */
+    USER_ACCOUNT_LOCKED(10009, "user.account.locked"),
+    /**
      * 缺少认证信息
      */
     USER_TOKEN_NOT_EXISTS(10400, "user.token.not.exists.error"),
@@ -39,11 +71,15 @@ public enum ResponseEnum implements BaseEnum {
     /**
      * 请求方式不支持
      */
-    REQUEST_METHOD_NOT_SUPPORT(10405, "request.method.not.support"),
+    REQUEST_METHOD_NOT_SUPPORT(10404, "request.method.not.support"),
     /**
      * 请求格式不正确
      */
-    REQUEST_FORMAT_NOT_SUPPORT(10406, "request.format.not.support"),
+    REQUEST_FORMAT_NOT_SUPPORT(10405, "request.format.not.support"),
+    /**
+     * 校验失败
+     */
+    VALIDATION_FAILED(10999, "validation.failed"),
     /**
      * 用户不存在
      */
