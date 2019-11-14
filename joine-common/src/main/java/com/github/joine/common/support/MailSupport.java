@@ -1,4 +1,4 @@
-package com.github.joine.common.utils;
+package com.github.joine.common.support;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -124,34 +124,6 @@ public class MailSupport {
             logger.error("邮件发送失败", e.getMessage());
         }
     }
-
-//    /**
-//     * 发送基于Freemarker模板的邮件
-//     *
-//     * @param mailBean
-//     */
-//    public static void sendTemplateMail(MailBean mailBean) {
-//        MimeMessage mimeMailMessage = null;
-//        try {
-//            mimeMailMessage = javaMailSender.createMimeMessage();
-//            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, true);
-//            mimeMessageHelper.setFrom(mailBean.getSender());
-//            mimeMessageHelper.setTo(mailBean.getRecipient());
-//            mimeMessageHelper.setSubject(mailBean.getSubject());
-//
-//            Map<String, Object> model = new HashMap<String, Object>();
-//            model.put("content", mailBean.getContent());
-//            model.put("title", "标题Mail中使用了FreeMarker");
-//            Template template = configuration.getTemplate("mail.ftl");
-//            String text = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
-//            mimeMessageHelper.setText(text, true);
-//
-//            javaMailSender.send(mimeMailMessage);
-//        } catch (Exception e) {
-//            logger.error("邮件发送失败", e.getMessage());
-//        }
-//
-//    }
 
     private static MimeMessageHelper createHelper(MimeMessage mimeMailMessage, MailBean mailBean) throws MessagingException {
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, true);

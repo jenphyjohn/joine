@@ -1,4 +1,4 @@
-package com.github.joine.common.utils;
+package com.github.joine.common.support;
 
 import com.qiniu.cdn.CdnManager;
 import com.qiniu.cdn.CdnResult;
@@ -21,9 +21,9 @@ import java.io.InputStream;
 @Component
 public class QiniuSupport {
 
-    @Value("${qiniu.key.access}")
+    @Value("${qiniu.accessKey:0}")
     private String accessKey;
-    @Value("${qiniu.key.secret}")
+    @Value("${qiniu.secretKey:0}")
     private String secretKey;
 
     public QiniuSupport() {

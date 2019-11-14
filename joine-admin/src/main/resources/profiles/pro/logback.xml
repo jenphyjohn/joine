@@ -2,7 +2,7 @@
 <configuration>
 
     <!-- 日志存放路径 -->
-	<property name="log.path" value="/home/jenphyjohn/Storage/Joine/joine_logs/admin" />
+	<property name="log.path" value="/home/joine/joine_logs/admin" />
 
     <!-- 日志输出格式 -->
 	<property name="log.pattern" value="%d{HH:mm:ss.SSS} %-5level [%thread] %logger{20} - [%method,%line] - %msg%n" />
