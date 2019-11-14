@@ -113,6 +113,6 @@ public class Global {
      * 获取上传路径
      */
     public static String getUploadPath() {
-        return getConfig("joine.profile") + "upload/";
+        return getConfig("joine.profile") + "/upload";
     }
 }
