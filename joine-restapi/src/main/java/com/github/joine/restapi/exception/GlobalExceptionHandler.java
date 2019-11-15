@@ -6,10 +6,17 @@ import com.github.joine.common.exception.CustomizeException;
 import com.github.joine.common.exception.user.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.List;
 
 /**
  * @Author: JenphyJohn
@@ -98,5 +105,24 @@ public class GlobalExceptionHandler {
     public ResponseResult handleException(CustomizeException e) {
         log.error(e.getMessage());
         return ResponseResult.response(e.getCode(), e.getMessage());
+    }
+
+    /**
+     * Validated注解校验失败捕捉的异常
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseResult bindException(MethodArgumentNotValidException e) {
+        BindingResult bindingResult = e.getBindingResult();
+        StringBuilder errorMesssage = new StringBuilder("校验失败: ");
+        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+        for (int i = 0; i < fieldErrors.size(); i++) {
+            FieldError fieldError = fieldErrors.get(i);
+            errorMesssage.append(fieldError.getField()).append(fieldError.getDefaultMessage());
+            if (i != fieldErrors.size() - 1) {
+                errorMesssage.append(", ");
+            }
+        }
+        return new ResponseResult(ResponseEnum.VALIDATION_FAILED.code(), errorMesssage.toString());
     }
 }
