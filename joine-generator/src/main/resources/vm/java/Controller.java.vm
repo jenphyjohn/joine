@@ -62,7 +62,7 @@ public class ${className}Controller extends BaseController {
     @ResponseBody
     public ResponseResult export(${className} ${classname}) {
     	List<${className}> list = ${classname}Service.select${className}List(${classname});
-        ExcelUtil<${className}> util = new ExcelUtil<${className}>(${className}.class);
+        ExcelUtil<${className}> util = new ExcelUtil<>(${className}.class);
         return util.exportExcel(list, "${classname}");
     }
 	

@@ -3,6 +3,8 @@ package com.github.joine.web.controller.system;
 import com.github.joine.common.core.controller.BaseController;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,9 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/captcha")
 public class SysCaptchaController extends BaseController {
+
+    private static final Logger logger = LoggerFactory.getLogger(SysCaptchaController.class);
+
     @Resource(name = "captchaProducer")
     private Producer captchaProducer;
 
@@ -64,14 +69,14 @@ public class SysCaptchaController extends BaseController {
             out.flush();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("验证码生成异常", e);
         } finally {
             try {
                 if (out != null) {
                     out.close();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("验证码生成输出流关闭异常", e);
             }
         }
         return null;

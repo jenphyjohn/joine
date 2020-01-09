@@ -589,8 +589,7 @@ public class JSONObject extends LinkedHashMap<String, Object> {
     }
 
     private static int[] parseIndexes(final String s) {
-        int[] indexes = null;
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
 
         final StringTokenizer st = new StringTokenizer(s, "[]");
         while (st.hasMoreTokens()) {
@@ -602,7 +601,7 @@ public class JSONObject extends LinkedHashMap<String, Object> {
             list.add(index);
         }
 
-        indexes = new int[list.size()];
+        int[] indexes = new int[list.size()];
         int i = 0;
         for (Integer tmp : list.toArray(new Integer[list.size()])) {
             indexes[i++] = tmp;

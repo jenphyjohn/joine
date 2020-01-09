@@ -90,7 +90,7 @@ public class GenUtils {
      * @return 模板列表
      */
     public static List<String> getTemplates() {
-        List<String> templates = new ArrayList<String>();
+        List<String> templates = new ArrayList<>();
         templates.add("vm/java/Domain.java.vm");
         templates.add("vm/java/Mapper.java.vm");
         templates.add("vm/java/Service.java.vm");

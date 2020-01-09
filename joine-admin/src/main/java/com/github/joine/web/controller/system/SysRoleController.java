@@ -57,7 +57,7 @@ public class SysRoleController extends BaseController {
     @ResponseBody
     public ResponseResult export(SysRole role) {
         List<SysRole> list = roleService.selectRoleList(role);
-        ExcelUtil<SysRole> util = new ExcelUtil<SysRole>(SysRole.class);
+        ExcelUtil<SysRole> util = new ExcelUtil<>(SysRole.class);
         return util.exportExcel(list, "角色数据");
     }
 

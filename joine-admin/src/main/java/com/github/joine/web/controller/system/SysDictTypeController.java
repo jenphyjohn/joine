@@ -52,7 +52,7 @@ public class SysDictTypeController extends BaseController {
     public ResponseResult export(SysDictType dictType) {
 
         List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
-        ExcelUtil<SysDictType> util = new ExcelUtil<SysDictType>(SysDictType.class);
+        ExcelUtil<SysDictType> util = new ExcelUtil<>(SysDictType.class);
         return util.exportExcel(list, "字典类型");
     }
 

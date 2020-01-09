@@ -50,7 +50,7 @@ public class SysJobLogController extends BaseController {
     @ResponseBody
     public ResponseResult export(SysJobLog jobLog) {
         List<SysJobLog> list = jobLogService.selectJobLogList(jobLog);
-        ExcelUtil<SysJobLog> util = new ExcelUtil<SysJobLog>(SysJobLog.class);
+        ExcelUtil<SysJobLog> util = new ExcelUtil<>(SysJobLog.class);
         return util.exportExcel(list, "调度日志");
     }
 

@@ -20,9 +20,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/test/user")
 public class TestController extends BaseController {
-    private final static Map<Integer, UserEntity> USERS = new LinkedHashMap<Integer, UserEntity>();
+    private static final Map<Integer, UserEntity> USERS = new LinkedHashMap<>();
 
-    {
+    static {
         USERS.put(1, new UserEntity(1, "admin", "admin123", "15888888888"));
         USERS.put(2, new UserEntity(2, "ry", "admin123", "15666666666"));
     }
@@ -30,7 +30,7 @@ public class TestController extends BaseController {
     @ApiOperation("获取用户列表")
     @GetMapping("/list")
     public ResponseResult userList() {
-        List<UserEntity> userList = new ArrayList<UserEntity>(USERS.values());
+        List<UserEntity> userList = new ArrayList<>(USERS.values());
         return ResponseResult.success(userList);
     }
 
