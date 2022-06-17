@@ -33,7 +33,7 @@
 		<poi.version>3.17</poi.version>
 		<velocity.version>1.7</velocity.version>
 		<jwt.version>3.4.0</jwt.version>
-		<fastjson.version>1.2.58</fastjson.version>
+		<fastjson.version>1.2.83</fastjson.version>
 		<qiniu.version>[7.2.0, 7.2.99]</qiniu.version>
 		<aliyun.oss.version>3.6.0</aliyun.oss.version>
 		<aliyun.sdk.version>4.4.5</aliyun.sdk.version>
